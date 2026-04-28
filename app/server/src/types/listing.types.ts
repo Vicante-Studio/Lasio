@@ -25,3 +25,14 @@ export interface Listing{
     
     createdAt: string;
 }
+
+export interface listingFilters {
+    title?: string
+    city?: string
+    state?: string
+    location?: string
+    status?: string
+    minPrice?: string
+    maxPrice?: string
+    propertyType?: string
+}

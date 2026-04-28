@@ -2,30 +2,22 @@ import { Request, Response } from 'express';
 import supabase from '../config/supabase.js';
 import type { Listing } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
-import { createListing } from '../services/listing.service.js';
+import { createListing, getAllListings } from '../services/listing.service.js';
 
 // Get all listings
-export const getAllListings = async (req: Request, res: Response) => {
+export const handleGetAllListings = async (req: Request, res: Response) => {
   try {
-        const { title, city, state, location, status, minPrice, maxPrice, propertyType } = req.query as Record<string, string>;
 
-        let query = supabase.from('listings').select('*')
+        const queryData = req.query as Record<string, string>;
 
-        if (title) query = query.ilike('title', `%${title}%`)
-        if (city) query = query.ilike('city', `%${city}%`)
-        if (state) query = query.ilike('state', `%${state}%`)
-        if (location) query = query.ilike('location', `%${location}%`)
-        if (status) query = query.ilike('status', `%${status}%`)
-        if (propertyType) query = query.ilike('propertyType', `%${propertyType}%`)
-        if (minPrice) query = query.gte('price', parsePrice(minPrice))
-        if (maxPrice) query = query.lte('price', parsePrice(maxPrice))
+        const data = await getAllListings(queryData)
 
-        const { data, error } = await query
-
-        if (error) throw error
         res.json(data)
+
   } catch (error) {
-    console.error(error)
+
+    res.status(500).json({ error: "Failed to fetch listings" });
+    
   }
 }
 
