@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import supabase from '../config/supabase.js';
 import type { Listing } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
+import { createListing } from '../services/listing.service.js';
 
 // Get all listings
 export const getAllListings = async (req: Request, res: Response) => {
@@ -42,17 +43,20 @@ export const getOneListing = async (req: Request, res:Response) => {
 }
 
 // Create Listing
-export async function createListing(req: Request, res: Response){
+export async function handleCreateListing(req: Request, res: Response){
 
+  try {
     const listingData: Omit<Listing, 'id' | 'createdAt'> = req.body
 
-    const { data, error } = await supabase.from('listings').insert(listingData).select().single();
+    const data = await createListing(listingData) // call createListing service
 
-    if (error) {
-        return res.status(500).json({ error: error.message })
+    return res.status(201).json(data);
+
+  } catch (error) {
+    if(error instanceof Error){
+      return res.status(500).json({ error: error.message })
     }
-    
-    res.status(201).json(data)
+  }
 }
 
 // Update one listing
