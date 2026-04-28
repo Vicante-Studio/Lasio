@@ -10,7 +10,7 @@ import { Checkbox } from '@/components/ui/forms/checkbox'
 import { Label } from '@/components/ui/forms/label'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import type { Listing } from '@/types/Listing'
 import { supabase } from '@/config/supabase'
 import { useSelector } from 'react-redux'
@@ -22,7 +22,7 @@ const formSchema = z.object({
     location: z.string().min(1, 'Location is required'),
     city: z.string().min(1, 'City is required'),
     state: z.string().min(1, 'State is required'),
-    propertyType: z.string().min(1, 'Property type is required'),
+    property_type: z.string().min(1, 'Property type is required'),
     bedrooms: z.coerce.number().min(1, 'At least 1 bedroom required'),
     bathrooms: z.coerce.number().min(1, 'At least 1 bathroom required'),
     sizeSqft: z.coerce.number().min(1, 'Size is required'),
@@ -33,7 +33,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-const propertyTypes = [
+const property_types = [
     'Apartment', 'Duplex', 'Flat', 'Detached House',
     'Studio', 'Penthouse', 'Bungalow', 'Villa',
     'Shortlet', 'Terraced House', 'Semi-Detached'
@@ -65,13 +65,14 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             status: 'For Sale',
-            features: []
+            features: [],
+            property_type: ''
         }
     })
 
     const selectedFeatures = useWatch({ control, name: 'features' })
     const current = selectedFeatures ?? []
-    const selectedPropertyType = useWatch({ control, name: 'propertyType' })
+    const selectedPropertyType = useWatch({ control, name: 'property_type' })
     const selectedStatus = useWatch({ control, name: 'status' })
 
     // Handle new image uploads
@@ -143,7 +144,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                 location: data.location ?? '',
                 city: data.city ?? '',
                 state: data.state ?? '',
-                propertyType: data.propertyType ?? '',
+                property_type: data.property_type ?? '',
                 bedrooms: data.bedrooms ?? 0,
                 bathrooms: data.bathrooms ?? 0,
                 sizeSqft: data.sizeSqft ?? 0,
@@ -165,51 +166,87 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
     // Submit form
     const onSubmit = async (values: FormValues) => {
-        if (!user) {
-            alert('Please wait, loading your session...')
-            return
-        }
+    if (!user) {
+        alert('Please wait, loading your session...')
+        return
+    }
+
+    try {
         console.log('1. submit fired', values)
-        try {
-            console.log('2. uploading images...')
-            // 1. Upload new images
-            const uploadPromises = newImages.map(file => uploadImage(file))
-            const uploadedUrls = await Promise.all(uploadPromises)
+        
+        // Upload images
+        const uploadPromises = newImages.map(file => uploadImage(file))
+        const uploadedUrls = await Promise.all(uploadPromises)
 
-            console.log('3. uploaded urls:', uploadedUrls)
+        const successfulUploads = uploadedUrls.filter(url => url !== null) as string[]
+        const allImages = [...existingUrls, ...successfulUploads]
 
-            // 2. Remove any failed uploads (null values)
-            const successfulUploads = uploadedUrls.filter(url => url !== null) as string[]
-
-            // 3. Combine existing URLs + new uploads
-            const allImages = [...existingUrls, ...successfulUploads]
-
-            console.log('4. all images:', allImages)
+        console.log('4. all images:', allImages)
         console.log('5. API URL:', import.meta.env.VITE_API_URL)
 
-            // 4. Save to backend
-            if (isEditMode && existingListing) {
-                await axios.put(
-                    `${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`,
-                    { ...values, images: allImages }
-                )
-            } else {
-                console.log('6. posting listing...')
-                await axios.post(
-                    `${import.meta.env.VITE_API_URL}/api/listings`,
-                    { ...values, images: allImages }
-                )
-            }
-
-            console.log('7. success, navigating...')
-
-            resetForm()
-            navigate('/')
-        } catch (err) {
-            console.error('Error saving listing:', err)
-            alert('Failed to save. Please try again.')
+        // Use fetch with the token directly
+        const { data: { session } } = await supabase.auth.getSession()
+        
+        if (!session) {
+            alert('Session expired. Please log in again.')
+            return
         }
+
+        const token = session.access_token
+        console.log('Token obtained:', !!token)
+
+        if (isEditMode && existingListing) {
+            console.log('6a. updating listing...')
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ ...values, images: allImages })
+                }
+            )
+            
+            if (!response.ok) {
+                const error = await response.json()
+                throw new Error(error.error || 'Failed to update listing')
+            }
+            
+            const result = await response.json()
+            console.log('6b. update response:', result)
+        } else {
+            console.log('6. posting listing...')
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/listings`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ ...values, images: allImages })
+                }
+            )
+            
+            if (!response.ok) {
+                const error = await response.json()
+                throw new Error(error.error || 'Failed to create listing')
+            }
+            
+            const result = await response.json()
+            console.log('6b. post response:', result)
+        }
+
+        console.log('7. success, navigating...')
+        resetForm()
+        navigate('/')
+    } catch (error) {
+        console.error('Error:', error)
+        alert(`Failed to save: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
+}
 
     // The form JSX - UPDATE THE IMAGES SECTION
     return (
@@ -260,19 +297,19 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                 <Field>
                     <FieldLabel>Property Type</FieldLabel>
                     <Select
-                        onValueChange={(val) => setValue('propertyType', val)}
+                        onValueChange={(val) => setValue('property_type', val)}
                         value={selectedPropertyType}
                     >
                         <SelectTrigger>
                             <SelectValue placeholder="Select property type" />
                         </SelectTrigger>
                         <SelectContent>
-                            {propertyTypes.map(type => (
+                            {property_types.map(type => (
                                 <SelectItem key={type} value={type}>{type}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
-                    <FieldError errors={[errors.propertyType]} />
+                    <FieldError errors={[errors.property_type]} />
                 </Field>
 
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
