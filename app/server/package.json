@@ -11,12 +11,6 @@
     "test:watch": "jest --watch"
   },
 
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "testMatch": ["**/__tests__/**/*.test.ts"]
-  },
-
   "dependencies": {
     "@supabase/supabase-js": "^2.99.2",
     "cors": "^2.8.6",
