@@ -601,4 +601,189 @@ Back to where things were headed before the break:
 *-* Tie listings to the authenticated user who created them
 *-* Lock down RLS policies so only owners can edit or delete their listings
 
-## Day 30 (15/04/2026)
+## Day 31 (17/04/2026)
+
+### Solved Authentication Latency Issues
+
+**What I did**
+Got back to dealing with auth and realized logins were taking way too long. Spent the day tracking down where the slowdowns were happening.
+
+**Why it matters**
+Users notice slow logins right away — it's one of those things that immediately makes them think something's broken. Plus every request after that depends on auth being fast, so fixing this early saves headaches later.
+
+**Problems faced**
+The auth flow was hitting the database multiple times for the same user and doing redundant work checking tokens. Every login felt sluggish and it was obvious something needed to be optimized.
+
+**Solution**
+I figured out I was fetching the user profile way more than I needed to. Cleaned up the auth middleware to not do duplicate lookups and started being smarter about what data I actually needed to check. Also realized I was verifying the token every single time even when I could have cached it.
+
+**Next step**
+The code was getting messy with everything in the routes. Time to actually organize it properly with controllers and services.
+
+---
+
+## Day 32 (18/04/2026)
+
+### Restructured Server Folder Architecture
+
+**What I did**
+Took a day to completely reorganize how the backend was laid out. Everything was living in route handlers and it was becoming impossible to follow. Split things into controllers, services, repositories, middleware — the whole nine yards.
+
+**Why it matters**
+When your backend code is all in one place, you can't test anything individually and it becomes a mess to add new features. Having separate layers means I can test business logic without worrying about HTTP stuff, and I can reuse services across different routes.
+
+**Problems faced**
+The existing code had route handlers that were doing literally everything — fetching from the database, running business logic, formatting responses, error handling. It was all tangled together and hard to understand what was happening where.
+
+**Solution**
+I reorganized the folder structure so everything has a home. Routes just define paths, controllers handle the HTTP request/response cycle, services contain the actual logic, and repositories talk to the database. Makes way more sense to read now.
+
+**Next step**
+Actually start moving the endpoint logic into controllers instead of leaving it in the routes.
+
+---
+
+## Day 33 (19/04/2026)
+
+### Built Listing Controllers
+
+**What I did**
+Moved all the listing endpoint logic into proper controller functions. Created controllers for getting all listings, getting a single listing, creating, updating, and deleting.
+
+**Why it matters**
+Controllers are the entry point for HTTP requests. Instead of having all the logic in the route handler, the controller takes the request, figures out what data it needs, calls the appropriate service, and sends back the response. Makes it way easier to understand what each endpoint does at a glance.
+
+**Problems faced**
+I had to extract logic from existing route handlers without breaking anything. Some of the endpoints had error handling scattered all over the place and it wasn't clear what was actually being checked.
+
+**Solution**
+I wrote clean controller functions that handle the HTTP part of things — pulling data from the request, validating it, calling services, and sending back the response. Kept them focused on just the HTTP layer, nothing else.
+
+**Next step**
+Wire these controllers into the routes so they actually get used.
+
+---
+
+## Day 34 (20/04/2026)
+
+### Connected Controllers to Routers
+
+**What I did**
+Went through each route and made sure it's calling the right controller function. Also set up the middleware chains so each route has exactly the middleware it needs — no more, no less.
+
+**Why it matters**
+Without this, the controllers are just floating functions that don't get called. This is what actually hooks everything together so requests flow through the system properly.
+
+**Problems faced**
+Had to think carefully about middleware order. Some routes need auth to be checked first, then role-based access, then ownership. But some routes don't need any of that. I had to map out which middleware applies where.
+
+**Solution**
+Structured the routes so public endpoints have no middleware, endpoints that just need auth have just authMiddleware, and endpoints that need ownership checks have the full chain. Made it explicit and easy to read.
+
+**Next step**
+Build out the middleware that actually does the auth and role checking.
+
+---
+
+## Day 35 (21/04/2026)
+
+### Built Authentication Middleware
+
+**What I did**
+Created the actual authMiddleware that checks if a request has a valid token and pulls the user's data so downstream code can access it.
+
+**Why it matters**
+This middleware is like the bouncer at the door. Every protected endpoint depends on this being solid. If auth middleware is broken, everything else falls apart.
+
+**Problems faced**
+Had to figure out how to work with Supabase's auth system. I can't just verify JWTs manually — I have to call Supabase to check if the token is valid. Also had to make sure TypeScript knew about the user data I was attaching to the request.
+
+**Solution**
+Wrote middleware that pulls the token from the authorization header, asks Supabase if it's valid, fetches the user's profile to get their role, and attaches all that to the request object. Also had to extend the Express Request type in TypeScript so TypeScript would stop complaining that req.user doesn't exist.
+
+**Next step**
+Build role-based access control so we can gate endpoints based on whether someone is an admin or agent.
+
+---
+
+## Day 36 (22/04/2026)
+
+### Built Role-Based Access Control Middleware
+
+**What I did**
+Created requireRole middleware that checks if the authenticated user has the right role to access an endpoint.
+
+**Why it matters**
+Even if someone is logged in, not everyone should be able to do everything. You need roles to say "only agents and admins can create listings" or "only admins can see all users."
+
+**Problems faced**
+Wanted to make this flexible so different routes could require different role combinations. Also had to make sure the difference between "not authenticated" (401) and "authenticated but wrong role" (403) was clear.
+
+**Solution**
+Made it work like a filter that accepts multiple roles and checks if the user's role is in that list. If not, they get a 403. Clean and simple, and routes can use it however they need.
+
+**Next step**
+Need one more middleware to check if someone owns the listing they're trying to edit or delete.
+
+---
+
+## Day 37 (23/04/2026)
+
+### Built Listing Ownership Middleware
+
+**What I did**
+Created middleware that verifies you actually own the listing before you can edit or delete it. Admins get a free pass though.
+
+**Why it matters**
+This is the final security check. You don't want agents being able to mess with other agents' listings. This middleware makes sure that's not possible.
+
+**Problems faced**
+Needs to fetch the listing from the database to check who owns it. Also had to handle the admin case — admins should be able to touch any listing without owning it.
+
+**Solution**
+Made the middleware fetch the listing, return 404 if it doesn't exist, then check if you're an admin (in which case you're good), or if you're an agent, check if your ID matches the listing's agent ID. Simple logic but it works.
+
+**Next step**
+Time to actually test all this stuff. Need to set up Jest and write some tests.
+
+---
+
+## Day 38 (24/04/2026)
+
+### Set Up Jest and Testing Infrastructure
+
+**What I did**
+Installed Jest and Supertest, configured TypeScript to work with Jest, and created the folder structure for tests.
+
+**Why it matters**
+Can't ship confident code without tests. Jest lets me test individual functions and services, and Supertest lets me test the actual HTTP endpoints without spinning up a real server. This is how I'll catch bugs before they hit production.
+
+**Problems faced**
+Jest doesn't work out of the box with TypeScript and Express. Had to configure it properly so it understands TypeScript and knows how to test a Node.js app.
+
+**Solution**
+Installed the necessary packages and set up the Jest config in package.json so it uses ts-jest and knows to look for test files in the tests folder.
+
+**Next step**
+Actually write some tests for the services and make sure the business logic works correctly.
+
+---
+
+## Day 39 (25/04/2026)
+
+### Unit Testing for Services
+
+**What I did**
+Wrote tests for the listing services to make sure create, read, update, and delete all work correctly when you call them directly.
+
+**Why it matters**
+Service tests are where you catch logic bugs. If the test passes, you know the business logic is correct. If it fails, you know the problem is in the service, not in the routing or middleware or HTTP stuff.
+
+**Problems faced**
+Services depend on Supabase, which I need to fake out in tests. Also had to think about what different scenarios to test — not just the happy path where everything works, but what happens when things go wrong too.
+
+**Solution**
+Mocked Supabase so tests don't actually hit the database, then wrote tests for the happy path and for error cases. Each test follows the same pattern — set up what you need, do the thing you're testing, check that you got what you expected.
+
+**Next step**
+Write integration tests that actually test the HTTP endpoints end-to-end.
