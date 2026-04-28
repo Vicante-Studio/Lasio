@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import supabase from '../config/supabase.js'
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeder = req.headers['authorization']
-  const token = authHeder?.split('')[1]
+  const authHeader = req.headers['authorization']
+  const token = authHeader?.split('')[1]
 
 // Check if there's no token
   if(!token){
