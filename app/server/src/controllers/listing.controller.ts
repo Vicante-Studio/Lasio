@@ -5,16 +5,16 @@ import { createListing, deleteListing, getAllListings, getOneListing, updateList
 
 // Get all listings
 export const handleGetAllListings = async (req: Request, res: Response) => {
+  console.log('function working')
   try {
-
         const queryData = req.query as Record<string, string>;
-
+       
         const data = await getAllListings(queryData)
 
         res.status(200).json(data)
 
   } catch (error) {
-
+    
     res.status(500).json({ error: "Failed to fetch listings" });
 
   }

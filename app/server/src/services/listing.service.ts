@@ -13,10 +13,14 @@ export const createListing = async (listingData: Omit<Listing, 'id' | 'createdAt
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
+  console.log("🔥 SERVICE STARTED");
+
     const { title, city, state, location, status, minPrice, maxPrice, property_type } = queryData
 
         let query = supabase.from('listings').select('*')
 
+        console.log("🔥 BASE QUERY CREATED");
+        
         if (title) query = query.ilike('title', `%${title}%`)
         if (city) query = query.ilike('city', `%${city}%`)
         if (state) query = query.ilike('state', `%${state}%`)

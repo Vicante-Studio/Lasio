@@ -20,7 +20,7 @@ app.use(cors({
   }
 }));
 
-app.use(express.json)
+app.use(express.json())
 app.use('/api/listings', listingRouter)
 app.use(errorHandler)
 

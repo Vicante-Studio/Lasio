@@ -19,7 +19,6 @@ router.get('/', handleGetAllListings)
 router.get('/:id', handleGetOneListing)
 
 
-
 // ONLY agents or admins
 
 // Create listings
