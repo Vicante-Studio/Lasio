@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import supabase from '../config/supabase.js';
 import type { Listing } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
-import { createListing, getAllListings } from '../services/listing.service.js';
+import { createListing, deleteListing, getAllListings, getOneListing, updateListing } from '../services/listing.service.js';
 
 // Get all listings
 export const handleGetAllListings = async (req: Request, res: Response) => {
@@ -12,26 +12,26 @@ export const handleGetAllListings = async (req: Request, res: Response) => {
 
         const data = await getAllListings(queryData)
 
-        res.json(data)
+        res.status(200).json(data)
 
   } catch (error) {
 
     res.status(500).json({ error: "Failed to fetch listings" });
-    
+
   }
 }
 
 // Get one Listing
-export const getOneListing = async (req: Request, res:Response) => {
-    const { id } = req.params
+export const handleGetOneListing = async (req: Request, res:Response) => {
+    try {
+      const { id } = req.params
 
-    const { data, error } = await supabase.from('listings').select('*').eq('id', id).single()
+      const data = await getOneListing(id as string)
 
-    if (error || !data){
-        return res.status(404).json({ error: 'Listing not found'})
+      res.status(200).json(data)
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch listing" });
     }
-
-    res.json(data)
 }
 
 // Create Listing
@@ -52,28 +52,37 @@ export async function handleCreateListing(req: Request, res: Response){
 }
 
 // Update one listing
-export const updateListing = async (req: Request, res: Response) => {
-    const { id } = req.params
-    const updates: Partial<Omit<Listing, 'id' | 'createdAt' >> = req.body
+export const handleUpdateListing = async (req: Request, res: Response) => {
+    
 
-    const { data, error } = await supabase.from('listings').update(updates).eq('id', id).select().single()
+    try {
+      const { id } = req.params
+      const updates: Partial<Omit<Listing, 'id' | 'createdAt' >> = req.body
 
-    if(error){
-        return res.status(500).json({ error: error.message })
+      const data = await updateListing(id as string, updates)
+
+      res.status(200).json(data)
+    } catch (error) {
+      if(error instanceof Error){
+         return res.status(500).json({ error: error.message })
+      }
     }
-
-    res.json(data)
 }
 
-// Delete one listing
-export const deleteOneListing = async (req: Request, res: Response) => {
-  const { id } = req.params
+// Delete listing
+export const handleDeleteListing = async (req: Request, res: Response) => {
   
-  const { error } = await supabase.from('listings').delete().eq('id', id)
+  try {
+    const { id } = req.params
 
-  if(error) {
-    return res.status(500).json({ error: error.message })
+    await deleteListing(id as string)
+
+    return res.status(200).json({ message: 'Listing deleted successfully'})
+  } catch (error) {
+    if(error instanceof Error){
+      const status = error.message === 'Listing not found' ? 404 : 500;
+
+      return res.status(status).json({message: 'Listing could not be deleted'})
+    }
   }
-
-  res.status(200).json({ message: 'Listing deleted successfully'})
 }

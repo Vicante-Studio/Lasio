@@ -32,3 +32,35 @@ export const getAllListings = async (queryData: listingFilters) => {
 
         return data
 }
+
+// Get one listing
+export const getOneListing = async (id: string) => {
+  const { data, error } = await supabase.from('listings').select('*').eq('id', id).single()
+
+  if(error) throw new Error(error.message)
+
+  return data
+}
+
+// Update Listing
+export const updateListing = async (id: string, updatedListingData: Partial<Omit<Listing, 'id' | 'createdAt' >>) => {
+  const { data, error } = await supabase.from('listings').update(updatedListingData).eq('id', id).select().single()
+
+  if(error) throw new Error(error.message)
+
+  return data
+}
+
+// Delete Listing
+export const deleteListing = async (id: string) => {
+  const { data, error } = await supabase.from('listings').delete().eq('id', id).select()
+
+  if(error) {
+    throw new Error(error.message)
+  }
+
+  if (!data || data.length === 0){
+    throw new Error('Listing not found')
+  }
+  return true
+}
