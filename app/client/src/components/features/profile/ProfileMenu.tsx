@@ -2,14 +2,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/Buttons/button'
 import { useSelector } from 'react-redux'
-import { selectIsAdmin, selectIsAgent } from '@/selectors/authSelectors'
+import { selectIsAdmin, selectIsAgent, selectRole } from '@/selectors/authSelectors'
 import { useNavigate } from 'react-router-dom'
 
 const ProfileMenu = () => {
     const navigate = useNavigate()
     const isAdmin = useSelector(selectIsAdmin)
     const isAgent = useSelector(selectIsAgent)
-    console.log(isAdmin)
+    const role = useSelector(selectRole)
+    console.log(role)
     
   return (
     <DropdownMenu>
