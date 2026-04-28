@@ -7,7 +7,7 @@ export interface Listing{
     city: string;
     state: string;
 
-    propertyType: string;
+    property_type: string;
 
     bedrooms: number;
     bathrooms: number;
@@ -24,6 +24,8 @@ export interface Listing{
     status: "For Sale" | "For Rent";
     
     createdAt: string;
+
+    agent_id: string
 }
 
 export interface listingFilters {
@@ -34,5 +36,5 @@ export interface listingFilters {
     status?: string
     minPrice?: string
     maxPrice?: string
-    propertyType?: string
+    property_type?: string
 }

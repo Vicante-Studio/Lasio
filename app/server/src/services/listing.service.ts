@@ -13,7 +13,7 @@ export const createListing = async (listingData: Omit<Listing, 'id' | 'createdAt
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters) => {
-    const { title, city, state, location, status, minPrice, maxPrice, propertyType } = queryData
+    const { title, city, state, location, status, minPrice, maxPrice, property_type } = queryData
 
         let query = supabase.from('listings').select('*')
 
@@ -22,7 +22,7 @@ export const getAllListings = async (queryData: listingFilters) => {
         if (state) query = query.ilike('state', `%${state}%`)
         if (location) query = query.ilike('location', `%${location}%`)
         if (status) query = query.ilike('status', `%${status}%`)
-        if (propertyType) query = query.ilike('propertyType', `%${propertyType}%`)
+        if (property_type) query = query.ilike('propertyType', `%${property_type}%`)
         if (minPrice) query = query.gte('price', parsePrice(minPrice))
         if (maxPrice) query = query.lte('price', parsePrice(maxPrice))
 
