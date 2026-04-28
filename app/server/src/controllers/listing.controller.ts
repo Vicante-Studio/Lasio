@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import supabase from '../config/supabase.js';
 import type { Listing } from '../types/listing.types.js';
-import parsePrice from '../utils/parsePriceFilter.js';
 import { createListing, deleteListing, getAllListings, getOneListing, updateListing } from '../services/listing.service.js';
 
 // Get all listings
