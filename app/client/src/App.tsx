@@ -4,47 +4,73 @@ import { supabase } from './config/supabase'
 import { setUser, clearUser } from './state/slices/auth/authSlice'
 import { Analytics } from '@vercel/analytics/react'
 import HomePage from './pages/HomePage'
-import type { Session } from '@supabase/supabase-js'
 
 const App = () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      let cancelled = false;
-        const handleUserSession = async (session: Session | null) => {
-          if (session?.user) {
+  useEffect(() => {
+    let isMounted = true;
 
-              const { data: profile } = await supabase
-                  .from('profiles')
-                  .select('role')
-                  .eq('id', session.user.id)
-                  .single()
+    const loadUserSession = async () => {
+      const {
+        data: { session }
+      } = await supabase.auth.getSession();
 
-              if (!cancelled) {
-                  dispatch(setUser({ 
-                      user: session.user, 
-                      role: profile?.role ?? 'user'
-                  }))
-              }
-          } else {
-              if (!cancelled) {
-                  dispatch(clearUser())
-              }
-          }
+      if (!session?.user) {
+        if (isMounted) dispatch(clearUser());
+        return;
       }
 
-        //check if there's already a session when the app loads
-        supabase.auth.getSession().then(async ({data: { session }}) => handleUserSession(session))
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
 
-        //Listen for login/logout events
-        const { data: { subscription } } = supabase.auth.onAuthStateChange( async(_event, session) => handleUserSession(session) )
+      if (!isMounted) return;
 
-        //cleanup listener when app unmounts
-        return () => {
-          cancelled = true;
-          subscription.unsubscribe()
-        }
-    }, [dispatch])
+      dispatch(
+        setUser({
+          user: session.user,
+          role: profile?.role ?? 'user'
+        })
+      );
+    };
+
+    loadUserSession();
+
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!isMounted) return;
+
+      if (!session?.user) {
+        dispatch(clearUser());
+        return;
+      }
+
+      supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single()
+        .then(({ data: profile }) => {
+          if (!isMounted) return;
+
+          dispatch(
+            setUser({
+              user: session.user,
+              role: profile?.role ?? 'user'
+            })
+          );
+        });
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [dispatch]);
 
   return (
     <>
