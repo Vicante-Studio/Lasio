@@ -1,30 +1,47 @@
-import supabase from '../config/supabase.js';
+import supabaseAdmin from '../config/supabaseAdmin.js';
 import { Listing, listingFilters } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
 
 // Create listings
-export const createListing = async (listingData: Omit<Listing, 'id' | 'createdAt'>) => {
-    const { data, error } = await supabase.from('listings').insert(listingData).select().single();
+export const createListing = async (listingData: Listing) => {
+  console.log('🔥 FINAL INSERT PAYLOAD:', listingData)
 
-    if(error) throw new Error(error.message)
+  const result = await supabaseAdmin
+    .from('listings')
+    .insert(listingData)
+    .select()
 
-    return data
+  console.log('🔥 SUPABASE RESULT:', result)
+
+  const { data, error } = result
+
+  if (error) {
+    console.log('❌ SUPABASE ERROR:', error)
+    throw new Error(error.message)
+  }
+
+  return data
 }
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
     const { title, city, state, location, status, minPrice, maxPrice, property_type } = queryData
 
-        let query = supabase.from('listings').select('*')
+        let query = supabaseAdmin.from<'listings', Listing>('listings').select('*')
 
+        /* -------------------------------- */
+        /* Query Parameters */
+        /* -------------------------------- */
+        const min = parsePrice(minPrice as string)
+        const max = parsePrice(maxPrice as string)
         if (title) query = query.ilike('title', `%${title}%`)
         if (city) query = query.ilike('city', `%${city}%`)
         if (state) query = query.ilike('state', `%${state}%`)
         if (location) query = query.ilike('location', `%${location}%`)
         if (status) query = query.ilike('status', `%${status}%`)
-        if (property_type) query = query.ilike('propertyType', `%${property_type}%`)
-        if (minPrice) query = query.gte('price', parsePrice(minPrice))
-        if (maxPrice) query = query.lte('price', parsePrice(maxPrice))
+        if (property_type) query = query.ilike('property_type', `%${property_type}%`)
+        if (!isNaN(min as number)) query = query.gte('price', min)
+        if (!isNaN(max as number)) query = query.lte('price', max)
 
         const { data, error } = await query
 
@@ -35,7 +52,7 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
 
 // Get one listing
 export const getOneListing = async (id: string) => {
-  const { data, error } = await supabase.from('listings').select('*').eq('id', id).single()
+  const { data, error } = await supabaseAdmin.from('listings').select('*').eq('id', id).single()
 
   if(error) throw new Error(error.message)
 
@@ -44,7 +61,14 @@ export const getOneListing = async (id: string) => {
 
 // Update Listing
 export const updateListing = async (id: string, updatedListingData: Partial<Omit<Listing, 'id' | 'createdAt' >>) => {
-  const { data, error } = await supabase.from('listings').update(updatedListingData).eq('id', id).select().single()
+
+  const cleanData = Object.fromEntries(
+    Object.entries(updatedListingData).filter(
+      ([_, v]) => v !== undefined
+    )
+  ) // Ensure updatedListingData doesn't have undefined fields
+
+  const { data, error } = await supabaseAdmin.from('listings').update(cleanData).eq('id', id).select().single()
 
   if(error) throw new Error(error.message)
 
@@ -53,14 +77,15 @@ export const updateListing = async (id: string, updatedListingData: Partial<Omit
 
 // Delete Listing
 export const deleteListing = async (id: string) => {
-  const { data, error } = await supabase.from('listings').delete().eq('id', id).select()
+  const { count, error } = await supabaseAdmin.from('listings').delete().eq('id', id).select()
 
   if(error) {
     throw new Error(error.message)
   }
 
-  if (!data || data.length === 0){
+  if(!count) {
     throw new Error('Listing not found')
   }
+
   return true
 }

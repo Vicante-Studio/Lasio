@@ -10,6 +10,11 @@ const allowedOrigins = [
   'https://lasio.vercel.app' //production origin
 ]
 
+app.use((req, res, next) => {
+  console.log('🔥 REQUEST HIT:', req.method, req.url)
+  next()
+})
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
