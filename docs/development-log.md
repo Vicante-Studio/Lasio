@@ -787,3 +787,4 @@ Mocked Supabase so tests don't actually hit the database, then wrote tests for t
 
 **Next step**
 Write integration tests that actually test the HTTP endpoints end-to-end.
+new step
