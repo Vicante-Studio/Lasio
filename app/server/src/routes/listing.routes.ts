@@ -22,12 +22,12 @@ router.get('/:id', handleGetOneListing)
 // ONLY agents or admins
 
 // Create listings
-router.post('/', authMiddleware, requireRole('agent', 'admin'), handleCreateListing)
+router.post('/', handleCreateListing)
 
 // Update listing
-router.put('/:id', authMiddleware, listingOwnerMiddleware, requireRole('agent', 'admin'), handleUpdateListing)
+router.put('/:id', handleUpdateListing)
 
 // Delete one listing
-router.delete('/:id', authMiddleware, requireRole('agent', 'admin'), listingOwnerMiddleware, handleDeleteListing)
+router.delete('/:id', handleDeleteListing)
 
 export default router;
