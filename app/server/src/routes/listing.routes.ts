@@ -1,8 +1,5 @@
 import express from 'express';
 import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing } from '../controllers/listing.controller.js';
-import { authMiddleware } from '../middleware/auth.middleware.js';
-import { requireRole } from '../middleware/role.middleware.js';
-import { listingOwnerMiddleware } from '../middleware/listingOwner.middleware.js';
 
 
 
