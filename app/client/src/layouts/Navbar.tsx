@@ -2,17 +2,8 @@ import { Button } from '@/components/ui/Buttons/button'
 import NavLink from '../components/ui/links/NavLink'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectIsAdmin, selectIsAgent, selectIsLoading, selectIsUser } from '@/selectors/authSelectors'
-import ProfileMenu from '@/components/features/profile/ProfileMenu'
 
 const Navbar = () => {
-    // Auth roles
-    const isUser = useSelector(selectIsUser)
-    const isAdmin = useSelector(selectIsAdmin)
-    const isAgent = useSelector(selectIsAgent)
-    const isLoading = useSelector(selectIsLoading)
-    const isAuthenticated = !isLoading && (isAdmin || isAgent || isUser)
 
     // Navigation
     const navigate = useNavigate();
@@ -57,16 +48,9 @@ const Navbar = () => {
                 <div className='w-1/3 flex justify-between items-center'>
                     <NavLink children='listings' to='/listings' />
 
-                    {isLoading ? (
-                        // show a placeholder that matches the button size
-                        <div className='h-9 w-20 rounded-md bg-neutral-200 animate-pulse' />
-                    ) : isAuthenticated ? (
-                        <ProfileMenu />
-                    ) : (
-                        <Button variant='outline' onClick={() => navigate('/login')}>
-                            Log In
-                        </Button>
-                    )}
+                    <Button variant='outline' onClick={() => navigate('/login')}>
+                        Log In
+                    </Button>
                 </div>
 
             </nav>

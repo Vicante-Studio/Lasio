@@ -1,16 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/Buttons/button'
-import { useSelector } from 'react-redux'
-import { selectIsAdmin, selectIsAgent, selectRole } from '@/selectors/authSelectors'
 import { useNavigate } from 'react-router-dom'
 
 const ProfileMenu = () => {
     const navigate = useNavigate()
-    const isAdmin = useSelector(selectIsAdmin)
-    const isAgent = useSelector(selectIsAgent)
-    const role = useSelector(selectRole)
-    console.log(role)
     
   return (
     <DropdownMenu>
@@ -27,15 +21,11 @@ const ProfileMenu = () => {
       {/* Dropdown content */}
       <DropdownMenuContent align="end">
         <div>
-            {
-                isAdmin || isAgent ? (
-                    <DropdownMenuItem>
-                        <Button variant='link' className='border-primary border w-full hover:bg-primary hover:text-white' onClick={() => navigate('./createListing')}>
-                            Create New Listing
-                        </Button>
-                    </DropdownMenuItem>
-                ) : null
-            }
+            <DropdownMenuItem>
+                <Button variant='link' className='border-primary border w-full hover:bg-primary hover:text-white' onClick={() => navigate('./createListing')}>
+                    Create New Listing
+                </Button>
+            </DropdownMenuItem>
             <DropdownMenuItem>My Profile</DropdownMenuItem>
         </div>
 
