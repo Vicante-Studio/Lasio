@@ -4,19 +4,14 @@ import parsePrice from '../utils/parsePriceFilter.js';
 
 // Create listings
 export const createListing = async (listingData: Listing) => {
-  console.log('🔥 FINAL INSERT PAYLOAD:', listingData)
-
   const result = await supabaseAdmin
     .from('listings')
     .insert(listingData)
     .select()
 
-  console.log('🔥 SUPABASE RESULT:', result)
-
   const { data, error } = result
 
   if (error) {
-    console.log('❌ SUPABASE ERROR:', error)
     throw new Error(error.message)
   }
 
