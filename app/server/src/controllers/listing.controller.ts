@@ -52,20 +52,15 @@ export const handleGetOneListing = async ( req: Request, res: Response ) => {
 /* -------------------------------- */
 export const handleCreateListing = async ( req: Request, res: Response ) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({
-        error: 'Unauthorized'
-      })
-    }
 
     const listingData = {
-      ...req.body,
-      agent_id: req.user.id
+      ...req.body
     }
 
     const data = await createListing(listingData)
 
     return res.status(201).json(data)
+
   } catch (error) {
     return res.status(500).json({
       error:
