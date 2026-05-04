@@ -1,12 +1,12 @@
 import { z } from 'zod/v3'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { supabase } from '@/config/supabase'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Field, FieldLabel, FieldError } from '@/components/ui/forms/field'
 import { Input } from '@/components/ui/forms/input'
 import { Button } from '@/components/ui/Buttons/button'
+import axios, {AxiosError} from 'axios'
 
 const loginSchema = z.object({
     email: z.string().email('Enter a valid email'),
@@ -26,17 +26,24 @@ const LoginPage = () => {
     const onSubmit = async (values: LoginValues) => {
         setServerError(null)
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email: values.email,
-            password: values.password,
-        })
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, values)
 
-        if (error) {
-            setServerError('Invalid email or password')
-            return
+            const { token, user } = response.data;
+
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify(user))
+
+            navigate('/')
+        } catch (err) {
+            const error = err as AxiosError<{ error: string }>
+            
+            if (!error.response) {
+                setServerError('Cannot connect to server. Please try again later.');
+            } else {
+                setServerError(error.response?.data?.error || 'Login failed');
+            }
         }
-
-        navigate('/')
     }
 
     return (

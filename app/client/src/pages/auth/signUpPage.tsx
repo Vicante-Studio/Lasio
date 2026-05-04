@@ -1,12 +1,12 @@
 import { z } from 'zod/v3'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { supabase } from '@/config/supabase'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Field, FieldLabel, FieldError } from '@/components/ui/forms/field'
 import { Input } from '@/components/ui/forms/input'
 import { Button } from '@/components/ui/Buttons/button'
+import axios, { AxiosError} from 'axios'
 
 const signUpSchema = z.object({
     full_name: z.string().min(1, 'Full name is required'),
@@ -31,20 +31,24 @@ const SignUpPage = () => {
     const onSubmit = async (values: SignUpValues) => {
         setServerError(null)
 
-        const { error } = await supabase.auth.signUp({
-            email: values.email,
-            password: values.password,
-            options: {
-                data: { full_name: values.full_name } // this gets passed to your trigger
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, values)
+
+            const { token, user } = response.data;
+
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify(user))
+
+            setSuccess(true) // show confirmation message instead of redirecting
+        } catch (err) {
+            const error = err as AxiosError<{ error: string }>
+            
+            if (!error.response) {
+                setServerError('Cannot connect to server. Please try again later.');
+            } else {
+                setServerError(error.response?.data?.error || 'Registration failed');
             }
-        })
-
-        if (error) {
-            setServerError(error.message)
-            return;
         }
-
-        setSuccess(true) // show confirmation message instead of redirecting
     }
 
     if (success) {
