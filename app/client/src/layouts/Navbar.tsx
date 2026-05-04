@@ -2,8 +2,13 @@ import { Button } from '@/components/ui/Buttons/button'
 import NavLink from '../components/ui/links/NavLink'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { selectIsAuthenticated } from '@/selectors/authSelectors'
+import { useSelector } from 'react-redux'
+import ProfileMenu from '@/components/features/profile/ProfileMenu'
+
 
 const Navbar = () => {
+    const isAuthenticated = useSelector(selectIsAuthenticated)
 
     // Navigation
     const navigate = useNavigate();
@@ -48,9 +53,15 @@ const Navbar = () => {
                 <div className='w-1/3 flex justify-between items-center'>
                     <NavLink children='listings' to='/listings' />
 
-                    <Button variant='outline' onClick={() => navigate('/login')}>
-                        Log In
-                    </Button>
+                    {
+                        isAuthenticated ? (
+                            <ProfileMenu />
+                        ) : (
+                            <Button variant='outline' onClick={() => navigate('/login')}>
+                                Log In
+                            </Button>
+                        )
+                    }
                 </div>
 
             </nav>
