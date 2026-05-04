@@ -7,6 +7,8 @@ import { Field, FieldLabel, FieldError } from '@/components/ui/forms/field'
 import { Input } from '@/components/ui/forms/input'
 import { Button } from '@/components/ui/Buttons/button'
 import axios, {AxiosError} from 'axios'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '@/state/slices/auth/authSlice'
 
 const loginSchema = z.object({
     email: z.string().email('Enter a valid email'),
@@ -16,6 +18,7 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>
 
 const LoginPage = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [serverError, setServerError] = useState<string | null>(null)
 
@@ -31,9 +34,7 @@ const LoginPage = () => {
 
             const { token, user } = response.data;
 
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
-
+            dispatch(setCredentials({user, token}))
             navigate('/')
         } catch (err) {
             const error = err as AxiosError<{ error: string }>

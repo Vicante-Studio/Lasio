@@ -7,6 +7,8 @@ import { Field, FieldLabel, FieldError } from '@/components/ui/forms/field'
 import { Input } from '@/components/ui/forms/input'
 import { Button } from '@/components/ui/Buttons/button'
 import axios, { AxiosError} from 'axios'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '@/state/slices/auth/authSlice'
 
 const signUpSchema = z.object({
     full_name: z.string().min(1, 'Full name is required'),
@@ -21,6 +23,7 @@ const signUpSchema = z.object({
 type SignUpValues = z.infer<typeof signUpSchema>
 
 const SignUpPage = () => {
+    const dispatch = useDispatch()
     const [serverError, setServerError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
 
@@ -36,8 +39,7 @@ const SignUpPage = () => {
 
             const { token, user } = response.data;
 
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
+            dispatch(setCredentials({user, token}))
 
             setSuccess(true) // show confirmation message instead of redirecting
         } catch (err) {
