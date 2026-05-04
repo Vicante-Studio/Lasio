@@ -10,11 +10,9 @@ import { Checkbox } from '@/components/ui/forms/checkbox'
 import { Label } from '@/components/ui/forms/label'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import type { Listing } from '@/types/Listing'
 import { supabase } from '@/config/supabase'
-import { useSelector } from 'react-redux'
-import { selectUser } from '@/selectors/authSelectors'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -50,7 +48,6 @@ interface CreateListingFormProps {
 }
 
 const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
-    const user = useSelector(selectUser)
     const navigate = useNavigate()
     const [existingListing, setExistingListing] = useState<Listing | null>(null)
 
@@ -86,7 +83,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
     // Upload image - simplified
     const uploadImage = async (file: File) => {
-        const fileName = `${user?.id}-${crypto.randomUUID()}-${file.name}`
+        const fileName = `${crypto.randomUUID()}-${file.name}`
         console.log('uploading to path:', fileName)
 
         const { error } = await supabase.storage
@@ -166,11 +163,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
     // Submit form
     const onSubmit = async (values: FormValues) => {
-    if (!user) {
-        alert('Please wait, loading your session...')
-        return
-    }
-
+    
     try {
         console.log('1. submit fired', values)
         
@@ -462,7 +455,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                     )}
 
                     {/* Submit Button */}
-                    <Button variant='default' type='submit' className='mt-4 active:bg-blue-500' disabled={isSubmitting || !user}>
+                    <Button variant='default' type='submit' className='mt-4 active:bg-blue-500' disabled={isSubmitting}>
                         {isSubmitting ? (isEditMode ? 'Save Changes' : 'Publish Listing'): (isEditMode ? 'Save Changes' : 'Publish Listing')}
                     </Button>
                 </div>
