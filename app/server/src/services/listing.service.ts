@@ -20,6 +20,7 @@ export const createListing = async (listingData: Listing) => {
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
+  console.log(1,'Service active')
     const { title, city, state, location, status, minPrice, maxPrice, property_type } = queryData
 
         let query = supabaseAdmin.from<'listings', Listing>('listings').select('*')
@@ -27,21 +28,30 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         /* -------------------------------- */
         /* Query Parameters */
         /* -------------------------------- */
-        const min = parsePrice(minPrice as string)
-        const max = parsePrice(maxPrice as string)
+        
+        if(minPrice){
+          const min = parsePrice(minPrice as string)
+
+          if (!isNaN(min as number)) query = query.gte('price', min)
+        }
+
+        if(maxPrice){
+          const max = parsePrice(maxPrice as string)
+          
+          if (!isNaN(max as number)) query = query.lte('price', max)
+        }
+
         if (title) query = query.ilike('title', `%${title}%`)
+
         if (city) query = query.ilike('city', `%${city}%`)
         if (state) query = query.ilike('state', `%${state}%`)
         if (location) query = query.ilike('location', `%${location}%`)
         if (status) query = query.ilike('status', `%${status}%`)
         if (property_type) query = query.ilike('property_type', `%${property_type}%`)
-        if (!isNaN(min as number)) query = query.gte('price', min)
-        if (!isNaN(max as number)) query = query.lte('price', max)
 
         const { data, error } = await query
 
         if (error) throw error
-
         return data
 }
 
