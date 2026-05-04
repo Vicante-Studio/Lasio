@@ -5,6 +5,7 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
   try {
     
     const userData = req.body
+    console.log(userData)
 
     const user = await authService.registerUser(userData)
 
@@ -17,5 +18,25 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
         return res.status(500).json({ error: error.message })
 
     }
+  }
+}
+
+export const handleLoginUser = async (req: Request, res: Response) => {
+  try {
+
+    const loginData = req.body
+
+    const { user, token } = await authService.loginUser(loginData)
+
+    return res.status(200).json({ message: 'User logged in successfully', user, token })
+
+  } catch (error) {
+
+    if(error instanceof Error){
+
+        return res.status(500).json({ error: error.message })
+
+    }
+
   }
 }
