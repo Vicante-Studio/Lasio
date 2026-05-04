@@ -119,8 +119,10 @@ export const handleDeleteListing = async ( req: Request, res: Response ) => {
         ? 404
         : 500
 
-    return res.status(status).json({
-      error: 'Listing could not be deleted'
+    if(error instanceof Error){
+      return res.status(status).json({
+      error: error.message
     })
+    }
   }
 }

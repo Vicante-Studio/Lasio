@@ -82,13 +82,13 @@ export const updateListing = async (id: string, updatedListingData: Partial<Omit
 
 // Delete Listing
 export const deleteListing = async (id: string) => {
-  const { count, error } = await supabaseAdmin.from('listings').delete().eq('id', id).select()
+  const { data, error } = await supabaseAdmin.from('listings').delete().eq('id', id).select()
 
   if(error) {
     throw new Error(error.message)
   }
 
-  if(!count) {
+  if(!data || data.length === 0) {
     throw new Error('Listing not found')
   }
 
