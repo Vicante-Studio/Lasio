@@ -2,12 +2,19 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/Buttons/button'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAdmin } from '@/selectors/authSelectors'
+import { logout } from '@/state/slices/auth/authSlice'
 
 const ProfileMenu = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const handleLogout = async () => {
+      console.log('Button')
+      dispatch(logout())
+    }
     
   return (
     <DropdownMenu>
@@ -39,7 +46,11 @@ const ProfileMenu = () => {
         <div>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Log Out</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Button variant='outline' onClick={() => handleLogout()}>
+                Log Out
+              </Button>
+            </DropdownMenuItem>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
