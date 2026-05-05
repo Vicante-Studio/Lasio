@@ -8,8 +8,12 @@ import { Button } from '@/components/ui/Buttons/button';
 import DeleteListingsModal from '@/components/features/listingFeatures/DeleteListingsModal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '@/selectors/authSelectors';
 
 const ListingDetails = () => {
+    const userIsAdmin = useSelector(selectIsAdmin)
+
     const navigate = useNavigate();
     const { listingId } = useParams(); //unique Id for listing
 
@@ -177,18 +181,22 @@ const ListingDetails = () => {
                         </div>
                     </div>
 
-                    <div className='flex gap-4'>
-                        <Button variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}
-                        >
-                            Edit
-                            <Pencil color='black' size={18} />
-                        </Button>
+                    {
+                        userIsAdmin ? (
+                            <div className='flex gap-4'>
+                                <Button variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}
+                                >
+                                    Edit
+                                    <Pencil color='black' size={18} />
+                                </Button>
 
-                        {
-                            // Delete modal 
-                            listingId && <DeleteListingsModal listingId={listingId}/>
-                        }
-                    </div>
+                                {
+                                    // Delete modal 
+                                    listingId && <DeleteListingsModal listingId={listingId}/>
+                                }
+                            </div>
+                        ) : null
+                    }
                 </section>
             ) : (
                 <p>
