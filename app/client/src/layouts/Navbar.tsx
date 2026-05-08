@@ -9,13 +9,10 @@ import { MenuIcon, XIcon } from 'lucide-react'
 
 const Navbar = () => {
     const isAuthenticated = useSelector(selectIsAuthenticated)
-
-    // Navigation
-    const navigate = useNavigate();
-    const [isSticky, setIsSticky] = useState(false)
-
+    const navigate = useNavigate()
+    
+    const [isSticky, setIsSticky] = useState<boolean>(false)
     const [mobileIsOpened, setMobileIsOpened] = useState<boolean>(false)
-
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,118 +20,190 @@ const Navbar = () => {
         }
 
         window.addEventListener('scroll', handleScroll)
-
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    return(
-        <>
-            {/* DESKTOP */}
-            {/* placeholder to prevent content jump when navbar becomes fixed */}
-            <div className='h-0'/>
+    // Shared nav link classes
+    const navLinkClass = "text-sm font-medium tracking-wide hover:text-secondary transition-colors duration-300 ease-out"
 
-            <nav className={`h-fit py-2 px-8 md:flex items-center fixed justify-between z-100 left-0 right-0 transition-all duration-500 ease-in-out w-full hidden  ${
-                isSticky
-                ? 'fixed py-3 transition-all duration-200 ease-in-out bg-[rgba(133,107,71,0.8)] *:text-black backdrop-blur-lg'
-                : 'mb-20'
-            }`}>
+    return (
+        <main className='relative'>
+            {/* Spacer to prevent content jump */}
+            <div className='h-0' />
 
-                {/* NAVIGATION Links */}
-                <div className='flex justify-between w-1/3'>
-                    <NavLink children='home' to='/' />  
-
-                    <NavLink children='about' to='/about' />  
-                </div> 
-
-                {/* Placeholder Logo */}
-                <NavLink to={'/'} className='w-1/3'>
-                    <h3 className='text-primary font-serif underline underline-offset-8 decoration-secondary border-t-2 border-primary border-x-2 pl-2 pr-2.5 flex-1'>
-                        LS
-                    </h3>
-                </NavLink>             
-                
-                <div className='w-1/3 flex justify-between items-center'>
-                    <NavLink children='listings' to='/listings' />
-
-                    {
-                        isAuthenticated ? (
-                            <ProfileMenu />
-                        ) : (
-                            <Button variant='outline' onClick={() => navigate('/login')}>
-                                Log In
-                            </Button>
-                        )
-                    }
+            {/* DESKTOP NAVBAR */}
+            <nav
+                className={`hidden md:flex items-center justify-between fixed top-0 left-0 right-0 px-8 py-5 z-100 transition-all duration-500 ease-out w-full ${
+                    isSticky
+                        ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md *:text-black'
+                        : 'bg-transparent *:text-white'
+                }`}
+            >
+                {/* Left Navigation Links */}
+                <div className='flex gap-8 w-1/3'>
+                    <NavLink to='/' color='inherit'>
+                        <span className={navLinkClass}>home</span>
+                    </NavLink>
+                    <NavLink to='/about' color='inherit'>
+                        <span className={navLinkClass}>about</span>
+                    </NavLink>
                 </div>
 
+                {/* Center Logo */}
+                <NavLink to='/' className='w-1/3 flex justify-center'>
+                    <h3
+                        className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-3 py-1 transition-all duration-500 ease-out ${
+                            isSticky ? 'text-black' : 'text-white'
+                        }`}
+                    >
+                        LS
+                    </h3>
+                </NavLink>
+
+                {/* Right Navigation Links */}
+                <div className='flex gap-6 w-1/3 justify-end items-center'>
+                    <NavLink to='/listings' color='inherit'>
+                        <span className={navLinkClass}>listings</span>
+                    </NavLink>
+
+                    {isAuthenticated ? (
+                        <ProfileMenu />
+                    ) : (
+                        <Button
+                            variant='outline'
+                            onClick={() => navigate('/login')}
+                            className={`transition-all duration-300 ease-out ${
+                                isSticky
+                                    ? 'border-black text-black hover:bg-black hover:text-white'
+                                    : 'border-white text-white hover:bg-white hover:text-black'
+                            }`}
+                        >
+                            Log In
+                        </Button>
+                    )}
+                </div>
             </nav>
 
-            {/* MOBILE */}
-            {
-                mobileIsOpened ? (
-                    <>
-                        {/* MOBILE Nav - Opened */}
-                        <nav className={`flex flex-col h-[40vh] items-center justify-between z-100 md:hidden transition-all duration-200 ease-in-out ${
-                            isSticky
-                            ? 'fixed py-3 bg-[rgba(133,107,71,1)] w-full backdrop-blur-lg'
-                            : 'mb-20'
-                        }`}>
-                            <div className='flex justify-between w-full items-center'>
-                                {/* Placeholder Logo */}
-                                <NavLink to={'/'} className='w-1/3'>
-                                    <h3 className='text-primary font-serif underline underline-offset-8 decoration-secondary border-t-2 border-primary border-x-2 pl-2 pr-2.5 flex-1'>
-                                        LS
-                                    </h3>
-                                </NavLink>  
-                                
-                                <Button onClick={() => setMobileIsOpened(false)}>
-                                    <XIcon size={24} color='#000'/>
+            {/* MOBILE NAVBAR */}
+            {mobileIsOpened ? (
+                // Mobile Open State
+                <nav
+                    className={`fixed top-0 left-0 right-0 flex flex-col z-100 md:hidden w-full transition-all duration-300 ease-out ${
+                        isSticky
+                            ? 'bg-[rgba(133,107,71,1)] shadow-lg backdrop-blur-md'
+                            : 'bg-[rgba(137,111,74,0.95)] backdrop-blur-md'
+                    }`}
+                >
+                    {/* Mobile Header with Close Button */}
+                    <div className='flex items-center justify-between px-4 py-4 border-b border-white/10'>
+                        <NavLink to='/' className='shrink-0'>
+                            <h3
+                                className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 ${
+                                    isSticky ? 'text-black' : 'text-white'
+                                }`}
+                            >
+                                LS
+                            </h3>
+                        </NavLink>
+
+                        <button
+                            type='button'
+                            onClick={() => setMobileIsOpened(false)}
+                            className={`p-2 rounded-lg transition-colors duration-200 ${
+                                isSticky
+                                    ? 'hover:bg-black/10'
+                                    : 'hover:bg-white/10'
+                            }`}
+                            aria-label='Close menu'
+                        >
+                            <XIcon
+                                size={24}
+                                color={isSticky ? '#000' : '#fff'}
+                                strokeWidth={2.5}
+                            />
+                        </button>
+                    </div>
+
+                    {/* Mobile Menu Links */}
+                    <div
+                        className={`flex flex-col gap-4 px-4 py-6 ${
+                            isSticky ? 'text-black' : 'text-white'
+                        }`}
+                    >
+                        <NavLink to='/' color='inherit'>
+                            <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
+                                home
+                            </span>
+                        </NavLink>
+                        <NavLink to='/about' color='inherit'>
+                            <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
+                                about
+                            </span>
+                        </NavLink>
+                        <NavLink to='/listings' color='inherit'>
+                            <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
+                                listings
+                            </span>
+                        </NavLink>
+
+                        <div className='pt-4 border-t border-white/10'>
+                            {isAuthenticated ? (
+                                <ProfileMenu />
+                            ) : (
+                                <Button
+                                    variant='outline'
+                                    onClick={() => {
+                                        navigate('/login')
+                                        setMobileIsOpened(false)
+                                    }}
+                                    className={`w-full transition-all duration-300 ease-out ${
+                                        isSticky
+                                            ? 'border-black text-black hover:bg-black hover:text-white'
+                                            : 'border-white text-white hover:bg-white hover:text-black'
+                                    }`}
+                                >
+                                    Log In
                                 </Button>
-                            </div>
+                            )}
+                        </div>
+                    </div>
+                </nav>
+            ) : (
+                // Mobile Closed State (Hamburger)
+                <nav
+                    className={`fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-4 z-50 md:hidden transition-all duration-300 ease-out ${
+                        isSticky
+                            ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md'
+                            : 'bg-transparent'
+                    }`}
+                >
+                    <NavLink to='/' className='shrink-0'>
+                        <h3
+                            className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 transition-all duration-500 ease-out ${
+                                isSticky ? 'text-black' : 'text-white'
+                            }`}
+                        >
+                            LS
+                        </h3>
+                    </NavLink>
 
-                            {/* NAVIGATION Links */}
-                            <NavLink children='home' to='/' />  
-
-                            <NavLink children='about' to='/about' />             
-                            
-                            <NavLink children='listings' to='/listings' />
-
-                            {
-                                isAuthenticated ? (
-                                    <ProfileMenu />
-                                ) : (
-                                    <Button variant='outline' onClick={() => navigate('/login')}>
-                                        Log In
-                                    </Button>
-                                )
-                            }
-                        </nav>
-                    </>
-                ) : (
-                    <>
-                        {/* MOBILE Nav - Closed */}
-                        <nav className={`flex items-center justify-between z-100 md:hidden py-3 transition-all duration-200 ease-in-out ${
-                            isSticky
-                            ? 'fixed py-3 bg-[rgba(133,107,71,1)] w-full backdrop-blur-lg'
-                            : null
-                        }`}>
-                            {/* Placeholder Logo */}
-                            <NavLink to={'/'} className='w-1/3'>
-                                <h3 className='text-primary font-serif underline underline-offset-8 decoration-secondary border-t-2 border-primary border-x-2 pl-2 pr-2.5 flex-1'>
-                                    LS
-                                </h3>
-                            </NavLink>  
-
-                            <Button onClick={() => setMobileIsOpened(true)}>
-                                <MenuIcon size={24} color='#000'/>
-                            </Button>
-                        </nav>
-                    </>
-                )
-            }
-
-            
-        </>
+                    <button
+                        type='button'
+                        onClick={() => setMobileIsOpened(true)}
+                        className={`p-2 rounded-lg transition-colors duration-200 ${
+                            isSticky ? 'hover:bg-black/10' : 'hover:bg-white/10'
+                        }`}
+                        aria-label='Open menu'
+                    >
+                        <MenuIcon
+                            size={24}
+                            color={isSticky ? '#000' : '#fff'}
+                            strokeWidth={2.5}
+                        />
+                    </button>
+                </nav>
+            )}
+        </main>
     )
 }
 
