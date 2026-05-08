@@ -4,7 +4,7 @@ import HeroSectionImage from '../components/ui/images/HeroSectionImages';
 
 const HeroSection = () => {
     return(
-        <section className='h-screen relative overflow-hidden border-black border-2'>
+        <section className='h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
                 <HeroSectionImage 
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
