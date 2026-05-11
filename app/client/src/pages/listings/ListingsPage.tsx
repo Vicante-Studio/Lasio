@@ -2,6 +2,7 @@ import ListingCard from '@/components/features/cards/ListingCard'
 import ListingLoadingState from '../../components/ui/LoadingStates/ListingLoadingState'
 import SearchPanel from '../../components/features/SearchPanel'
 import PageLink from '../../components/ui/links/PageLink'
+import HeroSection from '@/layouts/HeroSection'
 import { useEffect, useState } from 'react'
 import type { Listing } from '@/types/Listing'
 import axios from 'axios'
@@ -27,7 +28,10 @@ const ListingsPage = () => {
     }, [filters])
 
     return (
-        <section className='mt-42 flex flex-col gap-48 items-center'>
+        <section className='flex flex-col gap-48 items-center'>
+            <section className="h-screen w-full">
+                <img src="../../public/Images/Hero/hero11.webp" className='absolute -z-1 w-full h-full object-cover' alt="Hero section Image" />
+            </section>
             <SearchPanel/>
 
             <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-7xl mx-auto px-6 place-items-center py-16'>

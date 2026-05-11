@@ -28,12 +28,6 @@ export interface FilterProp{
     filterFunction: (listings: Listing[]) => void
 }
 
-export interface HeroSectionImageProps{
-    sizes?: string;
-    srcSet?: string;
-    src: string;
-}
-
 export interface IconSetProps{
     title: string;
     icon: React.ReactNode;
