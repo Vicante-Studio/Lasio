@@ -5,7 +5,7 @@ const HeroSection = () => {
     return(
         <section className='h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
-                <img src="../../public/Images/Hero/hero11.webp" className='absolute -z-1 w-full h-full object-cover' alt="Hero section Image" />
+                <img src="../../Images/Hero/hero11.webp" className='absolute -z-1 w-full h-full object-cover' alt="Hero section Image" />
                 {/* Gradient overlay — more premium than flat black */}
                 <div className='absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30' />
             </div>
