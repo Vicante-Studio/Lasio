@@ -30,7 +30,7 @@ function DropdownMenuTrigger({
 }
 
 function DropdownMenuContent({
-  className='bg-secondary-transparent p-4 w-[50vw] min-h-[70vh] flex flex-col justify-between',
+  className='bg-[rgba(20,15,10,0.9)] *:text-white p-4 w-[50vw] min-h-[60vh] flex flex-col justify-between',
   align = "start",
   sideOffset = 4,
   ...props
