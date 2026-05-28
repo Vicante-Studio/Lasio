@@ -29,10 +29,7 @@ export interface Listing{
 }
 
 export interface listingFilters {
-    title?: string
-    city?: string
-    state?: string
-    location?: string
+    keyword?: string
     status?: string
     minPrice?: string
     maxPrice?: string

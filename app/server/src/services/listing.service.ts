@@ -21,7 +21,7 @@ export const createListing = async (listingData: Listing) => {
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
   console.log(1,'Service active')
-    const { title, city, state, location, status, minPrice, maxPrice, property_type } = queryData
+    const { keyword, status, minPrice, maxPrice, property_type } = queryData
 
         let query = supabaseAdmin.from<'listings', Listing>('listings').select('*')
 
@@ -29,24 +29,29 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         /* Query Parameters */
         /* -------------------------------- */
         
+         // Keyword filters
+        if(keyword){
+          const searchTerm = `%${keyword}`
+
+          query = query.or(`title.ilike.${searchTerm},city.ilike.${searchTerm},state.ilike.${searchTerm},location.ilike.${searchTerm}`)
+        }
+        
+        // Price filters
         if(minPrice){
           const min = parsePrice(minPrice as string)
 
           if (!isNaN(min as number)) query = query.gte('price', min)
         }
-
         if(maxPrice){
           const max = parsePrice(maxPrice as string)
           
           if (!isNaN(max as number)) query = query.lte('price', max)
         }
 
-        if (title) query = query.ilike('title', `%${title}%`)
-
-        if (city) query = query.ilike('city', `%${city}%`)
-        if (state) query = query.ilike('state', `%${state}%`)
-        if (location) query = query.ilike('location', `%${location}%`)
+        // Status filters
         if (status) query = query.ilike('status', `%${status}%`)
+        
+        //Property Type filter 
         if (property_type) query = query.ilike('property_type', `%${property_type}%`)
 
         const { data, error } = await query
