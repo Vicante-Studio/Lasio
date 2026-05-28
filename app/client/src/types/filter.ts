@@ -2,17 +2,14 @@
 export type PriceFilterKey = 'under-10m' | '10m-20m' | '20m-30m' | 'above-30m';
 
 export interface Filters {
-    title: string,
-    city: string,
-    state: string,
-    location: string,
-    status: string,
-    propertyType: string,
-    minPrice: string,
-    maxPrice: string,
+    keyword:string
+    status: string
+    propertyType: string
+    minPrice: string
+    maxPrice: string
 }
 
 export interface PriceFilterProps {
-    label: string, 
-    filterKey: 'minPrice' | 'maxPrice',
+    label: string
+    filterKey: 'minPrice' | 'maxPrice'
 }

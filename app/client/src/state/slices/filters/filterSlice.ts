@@ -7,10 +7,7 @@ interface FilterState {
 
 const initialState: FilterState = {
     filterValues : {
-        title: '',
-        city: '',
-        state: '',
-        location: '',
+        keyword: '',
         status: '',
         propertyType: '',
         minPrice: '',
