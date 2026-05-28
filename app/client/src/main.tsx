@@ -16,7 +16,6 @@ import EditListing from './components/features/listingFeatures/EditListing.tsx'
 import App from './App.tsx'
 import SignUpPage from './pages/auth/signUpPage.tsx'
 import LoginPage from './pages/auth/LoginPage.tsx'
-import AgentLoginPage from './pages/auth/AgentLoginPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -43,10 +42,6 @@ const router = createBrowserRouter([
   {
     path: '/login', element: <LoginPage />
   },
-  {
-    path: '/agent/login', element: <AgentLoginPage />
-  },
-
   // Listing pages
   {
     path: 'listings/:listingId', element: <ListingDetails />
