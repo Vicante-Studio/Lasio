@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Buttons/button'
 import Divider from '../components/ui/Divider';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion'
 
 const HeroSection = () => {
     const navigate = useNavigate()
@@ -9,12 +10,23 @@ const HeroSection = () => {
         <section className='h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
                 <img src="../../Images/Hero/hero11.webp" className='absolute -z-1 w-full h-full object-cover' alt="Hero section Image" />
+
                 {/* Gradient overlay — more premium than flat black */}
-                <div className='absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30' />
+                <motion.div
+                    className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-black/10'
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1.2, ease: 'easeIn' }}
+                />
             </div>
  
-            {/* Centered content */}
-            <article className='absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 gap-6'>
+            {/* Hero content */}
+            <motion.article
+                className='absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 gap-6'
+                initial={{ opacity: 0, y: 120 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+            >
                 
                 <article className='flex flex-col gap-6 items-start absolute bottom-6 left-6 max-w-[90%] md:max-w-[60%]'>
                     {/* Eyebrow label */}
@@ -51,7 +63,7 @@ const HeroSection = () => {
                     </div>
                 </article>
 
-            </article>
+            </motion.article>
             
 
         </section>
