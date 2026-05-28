@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/Buttons/button'
 import Divider from '../components/ui/Divider';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+    const navigate = useNavigate()
+
     return(
         <section className='h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
@@ -38,11 +41,11 @@ const HeroSection = () => {
                     {/* CTA */}
                     <div className='flex gap-4 mt-4'>
 
-                        <Button variant='default' type='button'>
+                        <Button variant='default' type='button' onClick={() => navigate('/listings')}>
                             Explore Listings
                         </Button>
 
-                        <Button variant='outline' type='button'>
+                        <Button variant='outline' type='button' onClick={() => navigate('/about')}>
                             Learn More
                         </Button>
                     </div>
