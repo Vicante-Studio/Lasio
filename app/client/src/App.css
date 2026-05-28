@@ -113,6 +113,8 @@
     --tracking-wide-2: 0.1em;
     --tracking-wide-3: 0.2em;
 
+    --bg-hero: url('/Images/Hero/hero10.webp')
+
 }
 
 @layer base {
@@ -210,6 +212,27 @@
 
     .nav-link {
         @apply font-normal text-xs tracking-[0.15em] inline-flex items-center transition-colors duration-300 ease-out;
+    }
+
+    .bg-hero {
+        background-image: url('/Images/Hero/hero6.webp');
+        background-size: cover;
+        background-position: bottom;
+        
+    }
+
+    /* Add a dark overlay */
+    .bg-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 0;
+    }
+
+    .bg-hero > * {
+        position: relative;
+        z-index: 1;
     }
 
 }

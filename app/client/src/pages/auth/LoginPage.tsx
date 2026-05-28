@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Buttons/button'
 import axios, {AxiosError} from 'axios'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/state/slices/auth/authSlice'
-
+import { motion } from 'framer-motion'
 const loginSchema = z.object({
     email: z.string().email('Enter a valid email'),
     password: z.string().min(1, 'Password is required'),
@@ -48,25 +48,30 @@ const LoginPage = () => {
     }
 
     return (
-        <div className='min-h-screen flex items-center justify-center px-6'>
-            <div className='w-full max-w-125 flex flex-col gap-8'>
+        <main className='min-h-screen flex items-center justify-center px-6 bg-hero'>
+            <motion.section
+                initial={{ opacity: 0, y: 120 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+                className='w-full max-w-125 flex flex-col gap-8 backdrop-blur-md bg-[rgba(20,15,10,0.4)] rounded-xl *:text-white p-8'
+            >
 
                 <div className='text-center'>
-                    <h2>Welcome back</h2>
-                    <p className='text-neutral-500 text-sm mt-2'>Log in to your account</p>
+                    <h2 className='tracking-wide'>Welcome back</h2>
+                    <p className='text-white opacity-80 text-sm mt-2'>Log in to your account</p>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
 
                     <Field>
-                        <FieldLabel>Email</FieldLabel>
-                        <Input type='email' placeholder='john@example.com' {...register('email')} />
+                        <FieldLabel className='font-bold'>Email</FieldLabel>
+                        <Input type='email' placeholder='john@example.com' className='placeholder:text-white/70' {...register('email')} />
                         <FieldError errors={[errors.email]} />
                     </Field>
 
                     <Field>
-                        <FieldLabel>Password</FieldLabel>
-                        <Input type='password' placeholder='Your password' {...register('password')} />
+                        <FieldLabel className='font-bold'>Password</FieldLabel>
+                        <Input type='password' placeholder='Input Your password' className='placeholder:text-white/70' {...register('password')} />
                         <FieldError errors={[errors.password]} />
                     </Field>
 
@@ -84,8 +89,8 @@ const LoginPage = () => {
                     Don't have an account? <Link to='/signup' className='underline'>Sign up</Link>
                 </p>
 
-            </div>
-        </div>
+            </motion.section>
+        </main>
     )
 }
 
