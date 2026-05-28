@@ -30,12 +30,12 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         /* -------------------------------- */
         
          // Keyword filters
-        if(keyword){
+        if(keyword && keyword.trim().length > 0){
           const searchTerm = `%${keyword}`
 
           query = query.or(`title.ilike.${searchTerm},city.ilike.${searchTerm},state.ilike.${searchTerm},location.ilike.${searchTerm}`)
         }
-        
+
         // Price filters
         if(minPrice){
           const min = parsePrice(minPrice as string)
@@ -57,7 +57,8 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         const { data, error } = await query
 
         if (error) throw error
-        return data
+        
+        return data || []
 }
 
 // Get one listing
