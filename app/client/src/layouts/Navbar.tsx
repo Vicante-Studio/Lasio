@@ -36,7 +36,7 @@ const Navbar = () => {
                 className={`hidden md:flex items-center justify-between fixed top-0 left-0 right-0 px-8 py-5 z-100 transition-all duration-500 ease-out w-full ${
                     isSticky
                         ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md *:text-black'
-                        : 'bg-transparent *:text-white'
+                        : 'bg-[rgba(20,15,10,0.55)] shadow-lg border-b border-white/10 backdrop-blur-xl *:text-white'
                 }`}
             >
                 {/* Left Navigation Links */}
@@ -174,7 +174,7 @@ const Navbar = () => {
                     className={`fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-4 z-50 md:hidden transition-all duration-300 ease-out ${
                         isSticky
                             ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md'
-                            : 'bg-transparent'
+                            : 'bg-[rgba(20,15,10,0.65)] shadow-lg border-b border-white/10 backdrop-blur-xl'
                     }`}
                 >
                     <NavLink to='/' className='shrink-0'>
