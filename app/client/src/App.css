@@ -209,7 +209,7 @@
     }
 
     .nav-link {
-        @apply font-light text-2xs tracking-[0.25rem] uppercase hover:font-bold;
+        @apply font-normal text-xs tracking-[0.15em] inline-flex items-center transition-colors duration-300 ease-out;
     }
 
 }

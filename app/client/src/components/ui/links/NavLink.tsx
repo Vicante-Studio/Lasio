@@ -9,7 +9,7 @@ const NavLink = ({ to, children, color = 'inherit', className = '' }: NavLinkPro
     return (
         <Link 
             to={to} 
-            className={`inline-flex items-center transition-colors duration-300 ease-out ${className} uppercase nav-link`}
+            className={`${className} nav-link`}
             style={{ color: color === 'inherit' ? 'inherit' : color }}
         >
             {children}

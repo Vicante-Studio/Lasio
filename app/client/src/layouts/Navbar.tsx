@@ -6,6 +6,7 @@ import { selectIsAuthenticated } from '@/selectors/authSelectors'
 import { useSelector } from 'react-redux'
 import ProfileMenu from '@/components/features/profile/ProfileMenu'
 import { MenuIcon, XIcon } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const Navbar = () => {
     const isAuthenticated = useSelector(selectIsAuthenticated)
@@ -24,7 +25,7 @@ const Navbar = () => {
     }, [])
 
     // Shared nav link classes
-    const navLinkClass = "text-sm font-medium tracking-wide hover:text-secondary transition-colors duration-300 ease-out"
+    const navLinkClass = "hover:text-secondary transition-colors duration-300 ease-out text-white"
 
     return (
         <main className='relative'>
@@ -32,75 +33,74 @@ const Navbar = () => {
             <div className='h-0' />
 
             {/* DESKTOP NAVBAR */}
-            <nav
-                className={`hidden md:flex items-center justify-between fixed top-0 left-0 right-0 px-8 py-5 z-100 transition-all duration-500 ease-out w-full ${
-                    isSticky
-                        ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md *:text-black'
-                        : 'bg-[rgba(20,15,10,0.55)] shadow-lg border-b border-white/10 backdrop-blur-xl *:text-white'
-                }`}
+            <motion.nav
+                animate={{
+                    backgroundColor: isSticky ? 'rgba(20,15,10,0.9)' : 'rgba(20,15,10,0.7)',
+                    width: isSticky ? '80%' : '100%',
+                    top: isSticky ? 16 : 0,
+                    left: isSticky ? '10%' : '0%',
+                    right: isSticky ? '10%' : '0%',
+                    borderRadius: isSticky ? 4 : 0,
+                }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className='hidden md:flex items-center justify-between fixed px-8 py-2 z-100 shadow-lg backdrop-blur-md border-b border-white/10'
             >
-                {/* Left Navigation Links */}
-                <div className='flex gap-8 w-1/3'>
-                    <NavLink to='/' color='inherit'>
-                        <span className={navLinkClass}>home</span>
-                    </NavLink>
-                    <NavLink to='/about' color='inherit'>
-                        <span className={navLinkClass}>about</span>
-                    </NavLink>
-                </div>
+                {/* Left navigation links */}
+                <NavLink to='/' color='inherit'>
+                    <span className={navLinkClass}>Home</span>
+                </NavLink>
+                <NavLink to='/about' color='inherit'>
+                    <span className={navLinkClass}>About</span>
+                </NavLink>
 
                 {/* Center Logo */}
                 <NavLink to='/' className='w-1/3 flex justify-center'>
                     <h3
-                        className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-3 py-1 transition-all duration-500 ease-out ${
-                            isSticky ? 'text-black' : 'text-white'
-                        }`}
+                        className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-3 py-1 transition-all duration-500 ease-out text-white
+`}
                     >
                         LS
                     </h3>
                 </NavLink>
 
                 {/* Right Navigation Links */}
-                <div className='flex gap-6 w-1/3 justify-end items-center'>
-                    <NavLink to='/listings' color='inherit'>
-                        <span className={navLinkClass}>listings</span>
-                    </NavLink>
+                <NavLink to='/listings' color='inherit'>
+                    <span className={navLinkClass}>Listings</span>
+                </NavLink>
 
-                    {isAuthenticated ? (
-                        <ProfileMenu />
-                    ) : (
-                        <Button
-                            variant='outline'
-                            onClick={() => navigate('/login')}
-                            className={`transition-all duration-300 ease-out ${
-                                isSticky
-                                    ? 'border-black text-black hover:bg-black hover:text-white'
-                                    : 'border-white text-white hover:bg-white hover:text-black'
-                            }`}
-                        >
-                            Log In
-                        </Button>
-                    )}
-                </div>
-            </nav>
+                {isAuthenticated ? (
+                    <ProfileMenu />
+                ) : (
+                    <Button
+                        variant='outline'
+                        onClick={() => navigate('/login')}
+                        className={`transition-all duration-300 ease-out border-secondary text-white hover:bg-secondary hover:text-black`}
+                    >
+                        Log In
+                    </Button>
+                )}
+            </motion.nav>
 
             {/* MOBILE NAVBAR */}
             {mobileIsOpened ? (
                 // Mobile Open State
-                <nav
-                    className={`fixed top-0 left-0 right-0 flex flex-col z-100 md:hidden w-full transition-all duration-300 ease-out ${
-                        isSticky
-                            ? 'bg-[rgba(133,107,71,1)] shadow-lg backdrop-blur-md'
-                            : 'bg-[rgba(137,111,74,0.95)] backdrop-blur-md'
-                    }`}
+                <motion.nav
+                    className={`fixed top-0 left-0 right-0 flex flex-col z-100 md:hidden w-full transition-all duration-300 ease-out backdrop-blur-md`}
+                    animate={{
+                        backgroundColor: isSticky ? 'rgba(20,15,10,0.8)' : 'rgba(20,15,10,0.4)',
+                        width: isSticky ? '90%' : '100%',
+                        top: isSticky ? 8 : 0,
+                        left: isSticky ? '5%' : '0%',
+                        right: isSticky ? '5%' : '0%',
+                        borderRadius: isSticky ? 2 : 0,
+                    }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
                 >
                     {/* Mobile Header with Close Button */}
                     <div className='flex items-center justify-between px-4 py-4 border-b border-white/10'>
                         <NavLink to='/' className='shrink-0'>
                             <h3
-                                className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 ${
-                                    isSticky ? 'text-black' : 'text-white'
-                                }`}
+                                className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 text-white`}
                             >
                                 LS
                             </h3>
@@ -118,7 +118,7 @@ const Navbar = () => {
                         >
                             <XIcon
                                 size={24}
-                                color={isSticky ? '#000' : '#fff'}
+                                color={'#fff'}
                                 strokeWidth={2.5}
                             />
                         </button>
@@ -126,23 +126,21 @@ const Navbar = () => {
 
                     {/* Mobile Menu Links */}
                     <div
-                        className={`flex flex-col gap-4 px-4 py-6 ${
-                            isSticky ? 'text-black' : 'text-white'
-                        }`}
+                        className={`flex flex-col gap-4 px-4 py-6 text-white`}
                     >
                         <NavLink to='/' color='inherit'>
                             <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
-                                home
+                                Home
                             </span>
                         </NavLink>
                         <NavLink to='/about' color='inherit'>
                             <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
-                                about
+                                About
                             </span>
                         </NavLink>
                         <NavLink to='/listings' color='inherit'>
                             <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
-                                listings
+                                Listings
                             </span>
                         </NavLink>
 
@@ -156,32 +154,31 @@ const Navbar = () => {
                                         navigate('/login')
                                         setMobileIsOpened(false)
                                     }}
-                                    className={`w-full transition-all duration-300 ease-out ${
-                                        isSticky
-                                            ? 'border-black text-black hover:bg-black hover:text-white'
-                                            : 'border-white text-white hover:bg-white hover:text-black'
-                                    }`}
+                                    className={`w-full transition-all duration-300 ease-out border-primary text-white hover:text-white hover:bg-primary`}
                                 >
                                     Log In
                                 </Button>
                             )}
                         </div>
                     </div>
-                </nav>
+                </motion.nav>
             ) : (
                 // Mobile Closed State (Hamburger)
-                <nav
-                    className={`fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-4 z-50 md:hidden transition-all duration-300 ease-out ${
-                        isSticky
-                            ? 'bg-[rgba(133,107,71,0.95)] shadow-lg backdrop-blur-md'
-                            : 'bg-[rgba(20,15,10,0.65)] shadow-lg border-b border-white/10 backdrop-blur-xl'
-                    }`}
+                <motion.nav
+                    className={`fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-4 z-50 md:hidden transition-all duration-300 ease-out backdrop-blur-md`}
+                    animate={{
+                        backgroundColor: isSticky ? 'rgba(20,15,10,0.8)' : 'rgba(20,15,10,0.4)',
+                        width: isSticky ? '90%' : '100%',
+                        top: isSticky ? 8 : 0,
+                        left: isSticky ? '5%' : '0%',
+                        right: isSticky ? '5%' : '0%',
+                        borderRadius: isSticky ? 2 : 0,
+                    }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
                 >
                     <NavLink to='/' className='shrink-0'>
                         <h3
-                            className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 transition-all duration-500 ease-out ${
-                                isSticky ? 'text-black' : 'text-white'
-                            }`}
+                            className={`font-serif text-lg font-bold underline underline-offset-4 decoration-secondary border-t-2 border-x-2 border-current px-2 py-1 transition-all duration-500 ease-out text-white`}
                         >
                             LS
                         </h3>
@@ -190,18 +187,16 @@ const Navbar = () => {
                     <button
                         type='button'
                         onClick={() => setMobileIsOpened(true)}
-                        className={`p-2 rounded-lg transition-colors duration-200 ${
-                            isSticky ? 'hover:bg-black/10' : 'hover:bg-white/10'
-                        }`}
+                        className={`p-2 rounded-lg transition-colors duration-200 hover:bg-white/10`}
                         aria-label='Open menu'
                     >
                         <MenuIcon
                             size={24}
-                            color={isSticky ? '#000' : '#fff'}
+                            color={'#fff'}
                             strokeWidth={2.5}
                         />
                     </button>
-                </nav>
+                </motion.nav>
             )}
         </main>
     )
