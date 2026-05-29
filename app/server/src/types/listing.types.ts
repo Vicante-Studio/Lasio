@@ -35,4 +35,5 @@ export interface listingFilters {
     maxPrice?: string
     property_type?: string
     features?: string
+    bedrooms?: string
 }

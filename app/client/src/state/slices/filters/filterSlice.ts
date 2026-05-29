@@ -11,6 +11,7 @@ const initialState: FilterState = {
         status: '',
         property_type: '',
         features: '',
+        bedrooms: '',
         minPrice: '',
         maxPrice: '',
     }
@@ -20,7 +21,7 @@ const filterSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        setFilter: (state, action: PayloadAction<{key: keyof Filters, value: string}>) => {
+        setFilter: (state, action: PayloadAction<{key: keyof Filters, value: string }>) => {
             state.filterValues[action.payload.key] = action.payload.value
         },
 

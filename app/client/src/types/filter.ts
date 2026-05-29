@@ -8,6 +8,7 @@ export interface Filters {
     features: string
     minPrice: string
     maxPrice: string
+    bedrooms: string
 }
 
 export interface PriceFilterProps {

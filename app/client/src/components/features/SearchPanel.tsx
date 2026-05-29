@@ -80,8 +80,8 @@ const SearchPanel = () => {
                         }}>
                             <option value="">Select features</option>
                             {
-                                listingFeatures.map((feature, index) => (
-                                    <option key={index} value={feature}>{feature}</option>
+                                listingFeatures.map((features, index) => (
+                                    <option key={index} value={features}>{features}</option>
                                 ))
                             }
                         </select>
