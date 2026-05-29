@@ -16,7 +16,7 @@ const SearchPanel = () => {
     }
 
     const handleFeatureChange = (value: string) => {
-        dispatch(setFilter({ key: 'feature', value}))
+        dispatch(setFilter({ key: 'features', value}))
     }
 
     return (
@@ -59,7 +59,7 @@ const SearchPanel = () => {
                             <option value="">Search for a category</option>
                             {
                                 property_types.map((property, index) => (
-                                    <option key={index} value="">{property}</option>
+                                    <option key={index} value={property}>{property}</option>
                                 ))
                             }
                         </select>
@@ -81,7 +81,7 @@ const SearchPanel = () => {
                             <option value="">Select features</option>
                             {
                                 listingFeatures.map((feature, index) => (
-                                    <option key={index} value="">{feature}</option>
+                                    <option key={index} value={feature}>{feature}</option>
                                 ))
                             }
                         </select>

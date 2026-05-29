@@ -5,7 +5,7 @@ export interface Filters {
     keyword:string
     status: string
     property_type: string
-    feature: string
+    features: string
     minPrice: string
     maxPrice: string
 }
