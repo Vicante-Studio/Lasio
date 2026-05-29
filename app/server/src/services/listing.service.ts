@@ -31,7 +31,7 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         
          // Keyword filters
         if(keyword && keyword.trim().length > 0){
-          const searchTerm = `%${keyword}`
+          const searchTerm = `%${keyword}%`
 
           query = query.or(`title.ilike.${searchTerm},city.ilike.${searchTerm},state.ilike.${searchTerm},location.ilike.${searchTerm}`)
         }
