@@ -43,7 +43,7 @@ const HomePage = () => {
             }
                 
             fetchListings()
-        }, 500)
+        }, 300)
 
         return () => clearTimeout(debounceTimer)
     }, [filters])
