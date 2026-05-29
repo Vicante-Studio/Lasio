@@ -9,7 +9,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <main>
       <Navbar />
-        <section className='flex flex-col gap-40'>
+        <section className='flex flex-col gap-10'>
             {children}
         </section>
       <Footer />

@@ -49,7 +49,7 @@ const HomePage = () => {
     }, [filters])
 
     return (
-        <main className='flex flex-col gap-40'>
+        <main className='flex flex-col gap-20'>
         <HeroSection />
     
         <SearchPanel />

@@ -24,8 +24,8 @@ const SearchPanel = () => {
     }
 
     return (
-        <section className='flex flex-wrap border max-w-[90%] rounded mx-auto p-8 bg-accent  backdrop-blur-lg'>
-            <div className='flex gap-8 items-center'>
+        <section className='flex max-w-[80%] rounded mx-auto w-full p-8 bg-[rgba(20,15,10,0.1)] backdrop-blur-md'>
+            <div className='flex flex-wrap gap-8 align-bottom'>
 
                 {/* Keyword and location search Bar */}
                 <section className='flex flex-col gap-2'>
@@ -52,12 +52,12 @@ const SearchPanel = () => {
                 <section className='flex flex-col gap-2'>
                     <article className='flex items-center gap-2'>
                         <Home color='oklch(0.45 0.16 35)' size={24} />
-                        <h4 className='font-bold text-primary'>Looking for</h4>
+                        <h4 className='font-bold text-primary'>Looking for...</h4>
                     </article>
                     
-                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg py-3 p-4 hover:outline'>
+                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg pr-4'>
 
-                        <select title='category' name="category" className='w-full outline-0' onChange={(e) => {
+                        <select title='category' name="category" className='w-f bg-white rounded py-3 px-4 text-sm text-gray-700 transition duration-200 cursor-pointer' onChange={(e) => {
                             handleCategoryChange(e.target.value)
                         }}>
                             <option value="">Search for a category</option>
