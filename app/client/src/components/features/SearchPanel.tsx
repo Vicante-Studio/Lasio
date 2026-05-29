@@ -19,6 +19,10 @@ const SearchPanel = () => {
         dispatch(setFilter({ key: 'features', value}))
     }
 
+    const handleBedroomChange = (value: string) => {
+        dispatch(setFilter({ key: 'bedrooms', value}))
+    }
+
     return (
         <section className='flex flex-wrap border max-w-[90%] rounded mx-auto p-8 bg-accent  backdrop-blur-lg'>
             <div className='flex gap-8 items-center'>
@@ -99,11 +103,11 @@ const SearchPanel = () => {
 
                         <input
                             type="number"
-                            title='search'
+                            title='No. of Bedrooms'
                             className='w-full outline-0'
                             placeholder='Select no. of bedrooms'
                             onChange={(e) => {
-                                handleKeywordChange(e.target.value)
+                                handleBedroomChange(e.target.value)
                             }}
                         />
                     </div>
