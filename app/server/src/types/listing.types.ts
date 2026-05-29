@@ -34,4 +34,5 @@ export interface listingFilters {
     minPrice?: string
     maxPrice?: string
     property_type?: string
+    features?: string
 }

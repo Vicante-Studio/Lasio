@@ -21,7 +21,7 @@ export const createListing = async (listingData: Listing) => {
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
   console.log(1,'Service active')
-    const { keyword, status, minPrice, maxPrice, property_type } = queryData
+    const { keyword, status, minPrice, maxPrice, property_type, features } = queryData
 
         let query = supabaseAdmin.from<'listings', Listing>('listings').select('*')
 
@@ -53,6 +53,9 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         
         //Property Type filter 
         if (property_type) query = query.ilike('property_type', `%${property_type}%`)
+
+        //Features filter 
+        if (features) query = query.ilike('features', `%${features}%`)
 
         const { data, error } = await query
 
