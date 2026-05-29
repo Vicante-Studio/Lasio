@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import type { Listing } from '@/types/Listing'
 import { supabase } from '@/config/supabase'
+import { property_types, listingFeatures } from '@/data/ListingData'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -30,18 +31,6 @@ const formSchema = z.object({
 })
 
 type FormValues = z.infer<typeof formSchema>
-
-const property_types = [
-    'Apartment', 'Duplex', 'Flat', 'Detached House',
-    'Studio', 'Penthouse', 'Bungalow', 'Villa',
-    'Shortlet', 'Terraced House', 'Semi-Detached'
-]
-
-const listingFeatures = [
-    'Swimming Pool', 'Gym', 'Garden', 'Garage',
-    'Balcony', 'Fireplace', 'Air Conditioning',
-    'Security System', 'Solar Panels', 'Smart Home Features'
-]
 
 interface CreateListingFormProps {
     listingId?: string // optional — if provided, form is in edit mode

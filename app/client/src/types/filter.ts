@@ -4,7 +4,8 @@ export type PriceFilterKey = 'under-10m' | '10m-20m' | '20m-30m' | 'above-30m';
 export interface Filters {
     keyword:string
     status: string
-    propertyType: string
+    property_type: string
+    feature: string
     minPrice: string
     maxPrice: string
 }

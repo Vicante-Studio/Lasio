@@ -136,7 +136,7 @@ const ListingDetails = () => {
                             <IconSet 
                                 title={'Property Type'}
                                 icon={<Home color='gray' size={24}/>}
-                                value={listing.propertyType}
+                                value={listing.property_type}
                             />
 
                             <IconSet 

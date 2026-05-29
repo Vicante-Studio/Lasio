@@ -9,7 +9,8 @@ const initialState: FilterState = {
     filterValues : {
         keyword: '',
         status: '',
-        propertyType: '',
+        property_type: '',
+        feature: '',
         minPrice: '',
         maxPrice: '',
     }

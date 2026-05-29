@@ -7,7 +7,7 @@ export interface Listing{
     city: string;
     state: string;
 
-    propertyType: string;
+    property_type: string;
 
     bedrooms: number;
     bathrooms: number;

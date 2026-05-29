@@ -30,13 +30,19 @@ const PriceFilter = ({ label, filterKey }: PriceFilterProps) => {
     return (
         <div className='flex flex-col gap-1'>
 
+            {/* Hint before typing / expanded value while typing */}
+            <p className='text-xs text-neutral-700 px-1 h-4'>
+                {expanded ? expanded : `340M = ₦340,000,000`}
+            </p>
+
             {/* Input row */}
-            <div className='flex items-center bg-white shadow-lg rounded-md overflow-hidden'>
+            <div className='flex items-center bg-white shadow-lg rounded pr-4 overflow-hidden'>
+                
                 <input
                     type='number'
                     placeholder='e.g. 340'
                     value={amount}
-                    className='py-4 px-4 w-28 outline-none text-neutral-600 [appearance:textfield]'
+                    className='px-4 w-26 outline-none text-neutral-600 [appearance:textfield]'
                     onChange={(e) => {
                         setAmount(e.target.value);
                         handleChange(e.target.value, unit);
@@ -48,7 +54,7 @@ const PriceFilter = ({ label, filterKey }: PriceFilterProps) => {
                 <select
                     title={label}
                     value={unit}
-                    className='py-4 px-3 outline-none text-neutral-600 bg-transparent cursor-pointer'
+                    className='py-3 px-3 outline-none text-neutral-600 bg-transparent cursor-pointer'
                     onChange={(e) => {
                         setUnit(e.target.value);
                         handleChange(amount, e.target.value);
@@ -59,11 +65,6 @@ const PriceFilter = ({ label, filterKey }: PriceFilterProps) => {
                     <option value='B'>B — Billion</option>
                 </select>
             </div>
-
-            {/* Hint before typing / expanded value while typing */}
-            <p className='text-xs text-neutral-400 px-1 h-4'>
-                {expanded ? expanded : `e.g. 340M = ₦340,000,000`}
-            </p>
 
         </div>
     );
