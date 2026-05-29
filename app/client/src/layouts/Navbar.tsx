@@ -34,6 +34,7 @@ const Navbar = () => {
 
             {/* DESKTOP NAVBAR */}
             <motion.nav
+                initial={{ width: '100%' }}
                 animate={{
                     backgroundColor: isSticky ? 'rgba(20,15,10,0.9)' : 'rgba(20,15,10,0.7)',
                     width: isSticky ? '80%' : '100%',
