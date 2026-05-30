@@ -12,11 +12,12 @@ const router = express.Router()
 // Get all listings + filtering
 router.get('/', handleGetAllListings)
 
+// Get top locations
+router.get('/topLocations', handleGetTopLocations)
+
 // Get one listing
 router.get('/:id', handleGetOneListing)
 
-// Get top locations
-router.get('/topLocations', handleGetTopLocations)
 
 
 // ONLY agents or admins

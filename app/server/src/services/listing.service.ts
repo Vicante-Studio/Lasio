@@ -109,7 +109,7 @@ export const deleteListing = async (id: string) => {
 }
 
 export const getTopLocations = async () => {
-  const { data, error } = await supabaseAdmin.from('popular_places').select('*').limit(10)
+  const { data, error } = await supabaseAdmin.from('top_locations').select('*').limit(10)
 
   if(error) {
     throw new Error(error.message)
