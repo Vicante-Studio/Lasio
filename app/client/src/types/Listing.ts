@@ -36,3 +36,9 @@ export type ListingCardProps = Partial<Listing>
 export interface DeleteListingModalProps {
     listingId: string
 }
+
+export interface TopLocations {
+    location: string
+    total: number
+    image: string
+}
