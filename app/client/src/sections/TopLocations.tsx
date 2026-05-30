@@ -2,6 +2,7 @@ import type { TopLocations } from '@/types/Listing'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { MapPin, Home } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const TopLocations = () => {
     const [topLocations, setTopLocations] = useState<TopLocations[] | null>(null)
@@ -21,7 +22,7 @@ const TopLocations = () => {
     }, [])
 
   return (
-    <section className='mx-10'>
+    <section className='mx-10 max-w-[80%] flex flex-col gap-4'>
       <h3 className='font-bold text-text-primary'>
         Top Locations
       </h3>
@@ -32,26 +33,38 @@ const TopLocations = () => {
             topLocations && topLocations.sort((a,b) => b.total - a.total).map(topLocation => (
                 <div className='relative flex-1'>
 
-                    <img src={topLocation.image} alt={topLocation.location}  className='w-full h-50'/>
+                    {/* Image */}
+                    <div className='overflow-hidden'>
+                        <motion.img
+                            src={topLocation.image}
+                            alt={topLocation.location}
+                            className='w-full h-50'
+                            whileHover={{ scale: 1.2 }}
+                            transition={{ type: 'spring', stiffness: 150, damping: 30 }}
+                        />
+                    </div>
 
-                    <div className='absolute bottom-0 left-0 flex justify-between w-full flex-col *:font-bold h-[30%] bg-overlay-main'>
-                        <article className='flex gap-2 align-bottom *:text-white'>
-                            <MapPin size={24} color='oklch(0.45 0.16 35)' />
+                    {/* Overlay */}
+                    <div className='bg-linear-to-t from-black via-black/50 to-black/10 absolute top-0 left-0 w-full h-full pointer-events-none'>
+                        <div className='flex justify-between w-full flex-col absolute bottom-5 left-4 *:font-bold h-[30%]'>
+                            <article className='flex gap-2 align-bottom *:text-white'>
+                                <MapPin size={24} color='oklch(0.45 0.16 35)' />
 
-                            <p>
-                                {topLocation.location}
-                            </p>
-                        </article>
+                                <p className='text-md font-bold'>
+                                    {topLocation.location}
+                                </p>
+                            </article>
 
-                        <article className='flex gap-2 align-bottom *:text-white'>
-                            <Home size={24} color='oklch(0.45 0.16 35)' />
+                            <article className='flex gap-2 align-bottom *:text-white'>
+                                <Home size={24} color='oklch(0.45 0.16 35)' />
 
-                            <p>
-                                {
-                                    topLocation.total > 1 ? `${topLocation.total} Properties` : `${topLocation.total} Property`
-                                }
-                            </p>
-                        </article>
+                                <p>
+                                    {
+                                        topLocation.total > 1 ? `${topLocation.total} properties` : `${topLocation.total} property`
+                                    }
+                                </p>
+                            </article>
+                        </div>
                     </div>
 
                 </div>
