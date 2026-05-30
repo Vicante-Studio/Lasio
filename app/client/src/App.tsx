@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
-import HomePage from './pages/HomePage'
+import HomePage from './pages/mainPages/HomePage'
 
 const App = () => {
 

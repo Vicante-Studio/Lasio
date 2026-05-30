@@ -5,12 +5,12 @@ import './App.css'
 import { Provider } from 'react-redux'
 import { store } from './state/store.ts'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import HomePage from './pages/HomePage.tsx';
+import HomePage from './pages/mainPages/HomePage.tsx';
 import ListingDetails from './pages/listings/ListingDetails.tsx';
 import MainLayout from './layouts/MainLayout.tsx';
 import NotFound from './pages/404 Page/NotFound.tsx';
-import ListingsPage from './pages/listings/ListingsPage.tsx';
-import AboutPage from './pages/AboutPage.tsx';
+import ListingsPage from './pages/mainPages/ListingsPage.tsx';
+import AboutPage from './pages/mainPages/AboutPage.tsx';
 import CreateListingPage from './pages/listings/CreateListingPage.tsx'
 import EditListing from './components/features/listingFeatures/EditListing.tsx'
 import App from './App.tsx'
