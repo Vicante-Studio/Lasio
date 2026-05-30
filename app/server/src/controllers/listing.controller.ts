@@ -125,9 +125,7 @@ export const handleDeleteListing = async ( req: Request, res: Response ) => {
 
 export const handleGetTopLocations = async (req:Request, res: Response) => {
   try {
-    const { limit } = req.params
-
-    const data = await getTopLocations(Number(limit))
+    const data = await getTopLocations()
 
     return res.status(200).json(data)
   } catch (error) {

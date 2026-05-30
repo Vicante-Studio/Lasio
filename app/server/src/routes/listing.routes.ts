@@ -16,7 +16,7 @@ router.get('/', handleGetAllListings)
 router.get('/:id', handleGetOneListing)
 
 // Get top locations
-router.get('/topLocations/:limit', handleGetTopLocations)
+router.get('/topLocations', handleGetTopLocations)
 
 
 // ONLY agents or admins
