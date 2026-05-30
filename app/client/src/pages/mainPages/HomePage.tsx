@@ -10,6 +10,7 @@ import type { Listing } from '@/types/Listing'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/state/store'
 import { useNavigate } from 'react-router-dom'
+import TopLocations from '@/sections/TopLocations'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
@@ -51,6 +52,8 @@ const HomePage = () => {
     return (
         <main className='flex flex-col gap-20'>
         <HeroSection />
+
+        <TopLocations />
     
         <SearchPanel />
     

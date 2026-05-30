@@ -6,6 +6,7 @@ import {
   deleteListing,
   getAllListings,
   getOneListing,
+  getTopLocations,
   updateListing
 } from '../services/listing.service.js'
 
@@ -118,6 +119,22 @@ export const handleDeleteListing = async ( req: Request, res: Response ) => {
       return res.status(status).json({
       error: error.message
     })
+    }
+  }
+}
+
+export const handleGetTopLocations = async (req:Request, res: Response) => {
+  try {
+    const { limit } = req.params
+
+    const data = await getTopLocations(Number(limit))
+
+    return res.status(200).json(data)
+  } catch (error) {
+    if(error instanceof Error){
+      return res.status(500).json({
+        error: `Error: ${error.message}`
+      })
     }
   }
 }

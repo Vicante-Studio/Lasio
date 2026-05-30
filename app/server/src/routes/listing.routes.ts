@@ -1,5 +1,5 @@
 import express from 'express';
-import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing } from '../controllers/listing.controller.js';
+import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations } from '../controllers/listing.controller.js';
 
 
 
@@ -14,6 +14,9 @@ router.get('/', handleGetAllListings)
 
 // Get one listing
 router.get('/:id', handleGetOneListing)
+
+// Get top locations
+router.get('/topLocations/:limit', handleGetTopLocations)
 
 
 // ONLY agents or admins
