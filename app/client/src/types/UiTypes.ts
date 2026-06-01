@@ -33,3 +33,9 @@ export interface IconSetProps{
     icon: React.ReactNode;
     value: string | number;
 }
+
+export interface StatsType {
+    title: string
+    value: string
+    icon: "Home" | "DollarSign" | "MapPin" | "MessagesSquare"
+}
