@@ -3,19 +3,6 @@ import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY
 
-// Extend Express Request to include user data
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string
-        email: string
-        role: 'admin' | 'agent' | 'user'
-      }
-    }
-  }
-}
-
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization
