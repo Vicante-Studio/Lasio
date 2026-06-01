@@ -103,6 +103,9 @@ const HomePage = () => {
                         city={listing.city}
                         price={listing.price}
                         description={listing.description}
+                        bathrooms={listing.bathrooms}
+                        bedrooms={listing.bedrooms}
+                        sizeSqft={listing.sizeSqft}
                     />
                     ))
                 ) : hasSearched ? (
