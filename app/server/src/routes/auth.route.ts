@@ -1,6 +1,7 @@
 import express from 'express'
-import { handleRegisterUser, handleLoginUser } from '../controllers/auth.controller.js'
-import { verifyToken, handleGetProfile } from '../middleware/auth.middleware.js'
+import { handleRegisterUser, handleLoginUser, handleGetProfile } from '../controllers/auth.controller.js'
+import { verifyToken } from '../middleware/auth.middleware.js'
+
 
 const router = express.Router()
 
