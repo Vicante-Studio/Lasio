@@ -30,13 +30,8 @@ const PriceFilter = ({ label, filterKey }: PriceFilterProps) => {
     return (
         <div className='flex flex-col gap-1'>
 
-            {/* Hint before typing / expanded value while typing */}
-            <p className='text-xs text-neutral-700 px-1 h-4'>
-                {expanded ? expanded : `340M = ₦340,000,000`}
-            </p>
-
             {/* Input row */}
-            <div className='flex items-center bg-white shadow-lg rounded pr-4 overflow-hidden'>
+            <div className='flex items-center bg-white shadow-lg pr-4 overflow-hidden'>
                 
                 <input
                     type='number'
@@ -66,6 +61,10 @@ const PriceFilter = ({ label, filterKey }: PriceFilterProps) => {
                 </select>
             </div>
 
+            {/* Hint before typing / expanded value while typing */}
+            <p className='text-xs text-neutral-700 px-1 h-4'>
+                {expanded ? expanded : `340M = ₦340,000,000`}
+            </p>
         </div>
     );
 };

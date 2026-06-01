@@ -1,145 +1,154 @@
 import { MapPin, BedDouble, Home } from 'lucide-react'
-import { useDispatch } from 'react-redux';
-import { setFilter } from '@/state/slices/filters/filterSlice';
-import PriceFilter from './priceFilter';
-import { listingFeatures, property_types } from '@/data/ListingData';
+import { useDispatch } from 'react-redux'
+import { setFilter } from '@/state/slices/filters/filterSlice'
+import PriceFilter from './priceFilter'
+import { listingFeatures, property_types } from '@/data/ListingData'
 
 const SearchPanel = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-    const handleKeywordChange = (value: string) => {
-        dispatch(setFilter({ key: 'keyword', value}))
-    }
+  const handleKeywordChange = (value: string) => {
+    dispatch(setFilter({ key: 'keyword', value }))
+  }
 
-    const handleCategoryChange = (value: string) => {
-        dispatch(setFilter({ key: 'property_type', value}))
-    }
+  const handleCategoryChange = (value: string) => {
+    dispatch(setFilter({ key: 'property_type', value }))
+  }
 
-    const handleFeatureChange = (value: string) => {
-        dispatch(setFilter({ key: 'features', value}))
-    }
+  const handleFeatureChange = (value: string) => {
+    dispatch(setFilter({ key: 'features', value }))
+  }
 
-    const handleBedroomChange = (value: string) => {
-        dispatch(setFilter({ key: 'bedrooms', value}))
-    }
+  const handleBedroomChange = (value: string) => {
+    dispatch(setFilter({ key: 'bedrooms', value }))
+  }
 
-    return (
-        <section className='flex max-w-[80%] rounded mx-auto w-full p-8 bg-[rgba(20,15,10,0.1)] backdrop-blur-md'>
-            <div className='flex flex-wrap gap-8 align-bottom'>
-
-                {/* Keyword and location search Bar */}
-                <section className='flex flex-col gap-2'>
-                    <article className='flex items-center gap-2'>
-                        <MapPin color='oklch(0.45 0.16 35)' size={24} />
-                        <h4 className='font-bold text-primary'>Locations</h4>
-                    </article>
-                    
-                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg py-3 p-4 hover:outline'>
-
-                        <input
-                            type="text"
-                            title='search'
-                            className='w-full outline-0'
-                            placeholder='Type a location or keywords'
-                            onChange={(e) => {
-                                handleKeywordChange(e.target.value)
-                            }}
-                        />
-                    </div>
-                </section>
-
-                {/* Category search Bar */}
-                <section className='flex flex-col gap-2'>
-                    <article className='flex items-center gap-2'>
-                        <Home color='oklch(0.45 0.16 35)' size={24} />
-                        <h4 className='font-bold text-primary'>Looking for...</h4>
-                    </article>
-                    
-                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg pr-4'>
-
-                        <select title='category' name="category" className='w-f bg-white rounded py-3 px-4 text-sm text-gray-700 transition duration-200 cursor-pointer' onChange={(e) => {
-                            handleCategoryChange(e.target.value)
-                        }}>
-                            <option value="">Search for a category</option>
-                            {
-                                property_types.map((property, index) => (
-                                    <option key={index} value={property}>{property}</option>
-                                ))
-                            }
-                        </select>
-                    </div>
-                </section>
-
-                {/* Features search Bar */}
-                <section className='flex flex-col gap-2'>
-                    <article className='flex items-center gap-2'>
-                        <Home color='oklch(0.45 0.16 35)' size={24} />
-                        <h4 className='font-bold text-primary'>Looking for</h4>
-                    </article>
-                    
-                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg py-3 p-4 hover:outline'>
-
-                        <select title='category' name="category" className='w-full outline-0' onChange={(e) => {
-                            handleFeatureChange(e.target.value)
-                        }}>
-                            <option value="">Select features</option>
-                            {
-                                listingFeatures.map((features, index) => (
-                                    <option key={index} value={features}>{features}</option>
-                                ))
-                            }
-                        </select>
-                    </div>
-                </section>
-
-                {/* no. of bedrooms search Bar */}
-                <section className='flex flex-col gap-2'>
-                    <article className='flex items-center gap-2'>
-                        <BedDouble color='oklch(0.45 0.16 35)' size={24} />
-                        <h4 className='font-bold text-primary'>Number of Bedrooms</h4>
-                    </article>
-                    
-                    <div className='flex items-center gap-4 rounded w-full bg-white shadow-lg py-3 p-4 hover:outline'>
-
-                        <input
-                            type="number"
-                            title='No. of Bedrooms'
-                            className='w-full outline-0'
-                            placeholder='Select no. of bedrooms'
-                            onChange={(e) => {
-                                handleBedroomChange(e.target.value)
-                            }}
-                        />
-                    </div>
-                </section>
-
-                {/* All Price filters */}
-                    <div className='flex gap-4'>
-
-                        {/* Min Price Filter */}
-                        <div>
-                            <p className='text-md text-primary'>Min. Price</p>
-
-                            <PriceFilter 
-                                label='Enter Minimum Price'
-                                filterKey='minPrice'
-                            />
-                        </div>
-
-                        {/* Max Price Filter */}
-                        <div>
-                            <p className='text-md text-primary'>Max. Price</p>
-                            <PriceFilter 
-                            label='Enter Maximum Price'
-                            filterKey='maxPrice'
-                        />
-                        </div>
-                    </div>
+  return (
+    <section className='w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 lg:py-12'>
+      <div className='max-w-7xl mx-auto'>
+        {/* Grid layout - responsive columns */}
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-5 lg:gap-6'>
+          {/* Keyword/Location Search */}
+          <div className='sm:col-span-2 lg:col-span-2 xl:col-span-2'>
+            <div className='flex items-center gap-2 mb-2'>
+              <MapPin
+                color='oklch(0.45 0.16 35)'
+                size={20}
+                className='md:w-5 md:h-5 shrink-0'
+              />
+              <label className='font-bold text-sm md:text-base text-text-primary'>
+                Locations
+              </label>
             </div>
 
+            <input
+              type='text'
+              placeholder='Type a location'
+              className='w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2 focus:ring-oklch(0.45 0.16 35) transition-all text-sm md:text-base'
+              onChange={(e) => handleKeywordChange(e.target.value)}
+            />
+          </div>
 
-        </section>
-    )
+          {/* Property Type */}
+          <div className='sm:col-span-1 lg:col-span-1 xl:col-span-1'>
+            <div className='flex items-center gap-2 mb-2'>
+              <Home
+                color='oklch(0.45 0.16 35)'
+                size={20}
+                className='md:w-5 md:h-5 shrink-0'
+              />
+              <label className='font-bold text-sm md:text-base text-text-primary'>
+                Property Type
+              </label>
+            </div>
+
+            <select
+              title='Category filter'
+              className='w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-oklch(0.45 0.16 35) transition-all text-sm md:text-base cursor-pointer'
+              onChange={(e) => handleCategoryChange(e.target.value)}
+            >
+              <option value=''>Select type</option>
+              {property_types.map((property, index) => (
+                <option key={index} value={property}>
+                  {property}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Features */}
+          <div className='sm:col-span-1 lg:col-span-1 xl:col-span-1'>
+            <div className='flex items-center gap-2 mb-2'>
+              <Home
+                color='oklch(0.45 0.16 35)'
+                size={20}
+                className='md:w-5 md:h-5 shrink-0'
+              />
+              <label className='font-bold text-sm md:text-base text-text-primary'>
+                Features
+              </label>
+            </div>
+
+            <select
+              title='Feature filter'
+              className='w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-oklch(0.45 0.16 35) transition-all text-sm md:text-base cursor-pointer'
+              onChange={(e) => handleFeatureChange(e.target.value)}
+            >
+              <option value=''>Select feature</option>
+              {listingFeatures.map((feature, index) => (
+                <option key={index} value={feature}>
+                  {feature}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Bedrooms */}
+          <div className='sm:col-span-1 lg:col-span-1 xl:col-span-1'>
+            <div className='flex items-center gap-2 mb-2'>
+              <BedDouble
+                color='oklch(0.45 0.16 35)'
+                size={20}
+                className='md:w-5 md:h-5 shrink-0'
+              />
+              <label className='font-bold text-sm md:text-base text-text-primary'>
+                Bedrooms
+              </label>
+            </div>
+
+            <input
+              type='number'
+              placeholder='No. of beds'
+              className='w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2 focus:ring-oklch(0.45 0.16 35) transition-all text-sm md:text-base'
+              onChange={(e) => handleBedroomChange(e.target.value)}
+            />
+          </div>
+
+          {/* Min Price */}
+          <div className='sm:col-span-1 lg:col-span-1 xl:col-span-1'>
+            <label className='font-bold text-sm md:text-base text-text-primary block mb-2'>
+              Min Price
+            </label>
+            <PriceFilter
+              label='Min Price'
+              filterKey='minPrice'
+            />
+          </div>
+
+          {/* Max Price */}
+          <div className='sm:col-span-1 lg:col-span-1 xl:col-span-1'>
+            <label className='font-bold text-sm md:text-base text-text-primary block mb-2'>
+              Max Price
+            </label>
+            <PriceFilter
+              label='Max Price'
+              filterKey='maxPrice'
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-export default SearchPanel;
+export default SearchPanel
