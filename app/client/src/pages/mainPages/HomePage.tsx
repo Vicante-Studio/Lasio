@@ -10,7 +10,8 @@ import type { Listing } from '@/types/Listing'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/state/store'
 import { useNavigate } from 'react-router-dom'
-import TopLocations from '@/sections/TopLocations'
+import TopLocations from '../../sections/TopLocations'
+import Stats from '@/sections/Stats'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
@@ -54,6 +55,8 @@ const HomePage = () => {
         <HeroSection />
 
         <TopLocations />
+
+        <Stats />
     
         <SearchPanel />
     

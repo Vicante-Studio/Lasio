@@ -1,11 +1,11 @@
-import type { TopLocations } from '@/types/Listing'
+import type { TopLocationsType } from '@/types/Listing'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { MapPin, Home } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const TopLocations = () => {
-    const [topLocations, setTopLocations] = useState<TopLocations[] | null>(null)
+    const [topLocations, setTopLocations] = useState<TopLocationsType[] | null>(null)
 
     useEffect(() => {
         const fetchTopLocations = async () => {

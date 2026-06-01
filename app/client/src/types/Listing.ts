@@ -37,7 +37,7 @@ export interface DeleteListingModalProps {
     listingId: string
 }
 
-export interface TopLocations {
+export interface TopLocationsType {
     location: string
     total: number
     image: string
