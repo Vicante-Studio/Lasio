@@ -29,7 +29,7 @@ function ListingCard({id, images, title, location, city, state, price }: Listing
                         <article className='py-2 flex flex-col gap-6'>
 
                             <div>
-                                <h3>
+                                <h3 className='listing-display-heading'>
                                     {title}
                                 </h3>
                                 

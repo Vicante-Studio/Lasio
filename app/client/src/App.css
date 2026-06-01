@@ -138,10 +138,7 @@
     }
 
     h3 {
-        @apply font-light
-               text-xl leading-h3-mobile tracking-none
-               md:text-2xl md:leading-h3-tablet
-               lg:text-3xl lg:leading-h3-desktop lg:tracking-tight-1;
+        @apply font-bold text-text-primary text-2xl sm:text-3xl md:text-4xl leading-h3-mobile tracking-none md:leading-h3-tablet  lg:leading-h3-desktop lg:tracking-tight-1;
     }
 
     p {
@@ -178,6 +175,13 @@
                text-6xl leading-display-mobile tracking-tight-2
                md:text-8xl md:leading-display-tablet md:tracking-tight-3
                lg:text-9xl lg:leading-display-desktop lg:tracking-tight-4;
+    }
+
+    .listing-display-heading{
+        @apply font-light
+               text-3xl leading-h3-mobile tracking-none
+               md:text-2xl md:leading-h3-tablet
+               lg:text-3xl lg:leading-h3-desktop lg:tracking-tight-1;
     }
 
     .eyebrow {
