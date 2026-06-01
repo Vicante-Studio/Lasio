@@ -1,6 +1,5 @@
 import HeroSection from '../../layouts/HeroSection'
 import ListingCard from '@/components/features/cards/ListingCard'
-import SearchPanel from '../../components/features/SearchPanel'
 import ListingLoadingState from '../../components/ui/LoadingStates/ListingLoadingState'
 import PageLink from '../../components/ui/links/PageLink'
 import { Button } from '@/components/ui/Buttons/button'
@@ -12,6 +11,7 @@ import type { RootState } from '@/state/store'
 import { useNavigate } from 'react-router-dom'
 import TopLocations from '../../sections/TopLocations'
 import Stats from '@/sections/Stats'
+import PropertySearch from '@/sections/PropertySearch'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
@@ -58,7 +58,7 @@ const HomePage = () => {
 
         <Stats />
     
-        <SearchPanel />
+        <PropertySearch />
     
         <section className='flex flex-col gap-48 items-center'>
             {/* 

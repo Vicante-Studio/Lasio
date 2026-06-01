@@ -24,7 +24,7 @@ const SearchPanel = () => {
   }
 
   return (
-    <section className='w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 lg:py-12'>
+    <section className='w-full'>
       <div className='max-w-7xl mx-auto'>
         {/* Grid layout - responsive columns */}
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-5 lg:gap-6'>

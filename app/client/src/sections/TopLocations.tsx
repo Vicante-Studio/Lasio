@@ -32,7 +32,7 @@ const TopLocations = () => {
       <div className='max-w-7xl mx-auto flex flex-col gap-6 md:gap-8'>
         {/* Section Title */}
         <div>
-          <h3 className='font-bold text-text-primary text-2xl sm:text-3xl md:text-4xl'>
+          <h3>
             Top Locations
           </h3>
         </div>
