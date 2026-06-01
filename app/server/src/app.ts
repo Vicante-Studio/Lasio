@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import listingRouter from './routes/listing.routes.js'
-import authRouter from './routes/auth.route.js'
+import listingRoutes from './routes/listing.routes.js'
+import authRoutes from './routes/auth.route.js'
 import { errorHandler } from './middleware/error.middleware.js'
 
 const app = express()
@@ -28,8 +28,8 @@ app.use(cors({
 }));
 
 app.use(express.json())
-app.use('/api/listings', listingRouter)
-app.use('/api/auth', authRouter)
+app.use('/api/listings', listingRoutes)
+app.use('/api/auth', authRoutes)
 app.use(errorHandler)
 
 export default app;

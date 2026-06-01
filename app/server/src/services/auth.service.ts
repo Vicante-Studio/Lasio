@@ -40,3 +40,14 @@ export const loginUser = async (loginData: LoginType) => {
 
   return { user, token }
 }
+
+export const getProfile = async (requestedId: string, userId: string) => {
+  const data = await supabaseAdmin
+      .from('users')
+      .select('id, email, full_name, role, created_at')
+      .eq('id', requestedId || userId)
+      .single()
+
+      return data
+}
+
