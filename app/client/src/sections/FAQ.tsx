@@ -10,11 +10,11 @@ const FAQ = () => {
             <Accordion type='single' collapsible className='w-full space-y-3 sm:space-y-4 md:space-y-5'>
                 {
                     faqs.map((faq, index) => (
-                        <AccordionItem key={index} value={`item-${index}`} className='bg-white p-3 hover:border-b-secondary hover:border-b-3 transition-all duration-300 ease-in'>
-                            <AccordionTrigger className='font-bold text-base'>
+                        <AccordionItem key={index} value={`item-${index}`}>
+                            <AccordionTrigger>
                                 {faq.question}
                             </AccordionTrigger>
-                            <AccordionContent className='text-sm font-regular h-fit'>
+                            <AccordionContent>
                                 {faq.answer}
                             </AccordionContent>
                         </AccordionItem>
