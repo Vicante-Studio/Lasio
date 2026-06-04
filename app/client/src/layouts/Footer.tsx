@@ -5,12 +5,13 @@ const Footer = () => {
         return date.getFullYear();
     }
     return(
-        <footer className='flex justify-center bg-bg-secondary text-bg-main p-24 mt-40'>
+        <footer className='flex justify-center bg-secondary text-white mt-40'>
             <span>
                 &copy; {getCurrentYear()}  ClearListing - All rights reserved
             </span>
         </footer>
     )
 }
+// TODO: Add relevant information in footer
 
 export default Footer
