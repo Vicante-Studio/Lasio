@@ -16,7 +16,7 @@ import { supabase } from '@/config/supabase'
 import { property_types, listingFeatures } from '@/data/ListingData'
 import type { ToastProps } from '@/types/UiTypes'
 import { AnimatePresence } from 'framer-motion'
-import ToastMsg from '../toast/toastMsg'
+import ToastMsg from '../toast/ToastMsg'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
