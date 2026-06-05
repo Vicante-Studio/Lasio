@@ -14,6 +14,9 @@ import axios from 'axios';
 import type { Listing } from '@/types/Listing'
 import { supabase } from '@/config/supabase'
 import { property_types, listingFeatures } from '@/data/ListingData'
+import type { ToastProps } from '@/types/UiTypes'
+import { AnimatePresence } from 'framer-motion'
+import ToastMsg from '../toast/toastMsg'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -39,6 +42,12 @@ interface CreateListingFormProps {
 const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
     const navigate = useNavigate()
     const [existingListing, setExistingListing] = useState<Listing | null>(null)
+    const [toast, SetToast] = useState<ToastProps | null>(null)
+
+    const showToast = (msg: string, state: "error" | "success") => {
+        SetToast({ msg, state })
+        setTimeout(() => SetToast(null), 3000)
+    }
 
     const isEditMode = !!existingListing
 
@@ -73,16 +82,13 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
     // Upload image - simplified
     const uploadImage = async (file: File) => {
         const fileName = `${crypto.randomUUID()}-${file.name}`
-        console.log('uploading to path:', fileName)
 
         const { error } = await supabase.storage
             .from('listing-images')
             .upload(fileName, file)
 
-            console.log('upload error:', error)
         if (error) {
-            
-            console.error('Upload failed:', error)
+            showToast('Image upload failed', 'error')
             return null
         }
 
@@ -90,7 +96,6 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
             .from('listing-images')
             .getPublicUrl(fileName)
 
-             console.log('public url:', data.publicUrl)
         return data.publicUrl
     }
 
@@ -154,7 +159,6 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
     const onSubmit = async (values: FormValues) => {
     
     try {
-        console.log('1. submit fired', values)
         
         // Upload images
         const uploadPromises = newImages.map(file => uploadImage(file))
@@ -163,22 +167,17 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         const successfulUploads = uploadedUrls.filter(url => url !== null) as string[]
         const allImages = [...existingUrls, ...successfulUploads]
 
-        console.log('4. all images:', allImages)
-        console.log('5. API URL:', import.meta.env.VITE_API_URL)
-
         // Use fetch with the token directly
         const { data: { session } } = await supabase.auth.getSession()
         
         if (!session) {
-            alert('Session expired. Please log in again.')
+            showToast('Session expired. Please log in again.', 'error')
             return
         }
 
         const token = session.access_token
-        console.log('Token obtained:', !!token)
 
         if (isEditMode && existingListing) {
-            console.log('6a. updating listing...')
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`,
                 {
@@ -192,14 +191,17 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
             )
             
             if (!response.ok) {
-                const error = await response.json()
-                throw new Error(error.error || 'Failed to update listing')
+                const { error } = await response.json()
+
+                showToast(error instanceof Error ? error.message : 'Failed to Update Listing', 'error')
             }
             
             const result = await response.json()
+
             console.log('6b. update response:', result)
+            showToast('Listing updated successfully!', 'success')
         } else {
-            console.log('6. posting listing...')
+            
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/listings`,
                 {
@@ -213,20 +215,21 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
             )
             
             if (!response.ok) {
-                const error = await response.json()
-                throw new Error(error.error || 'Failed to create listing')
+                const { error } = await response.json()
+
+                showToast(error instanceof Error ? error.message : 'Failed to Create Listing', 'error')
             }
             
             const result = await response.json()
+
             console.log('6b. post response:', result)
+            showToast('Listing Created Successfully!', 'success')
         }
 
-        console.log('7. success, navigating...')
         resetForm()
         navigate('/')
     } catch (error) {
-        console.error('Error:', error)
-        alert(`Failed to save: ${error instanceof Error ? error.message : 'Unknown error'}`)
+        showToast(error instanceof Error ? error.message : 'Something went wrong', 'error')
     }
 }
 
@@ -449,6 +452,14 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                     </Button>
                 </div>
             </form>
+
+            <AnimatePresence>
+                {
+                    toast && (
+                        <ToastMsg key="toast" msg={toast.msg} state={toast.state}/>
+                    )
+                }
+            </AnimatePresence>
         </div>
     )
 }
