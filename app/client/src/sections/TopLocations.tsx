@@ -47,11 +47,9 @@ const TopLocations = () => {
             {topLocations
               .sort((a, b) => b.total - a.total)
               .map((topLocation, index) => (
-                <motion.div
+                <div
                   key={index}
                   className='relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-lg overflow-hidden group cursor-pointer'
-                  whileHover={{ y: -8 }}
-                  transition={{ duration: 0.3 }}
                 >
                   {/* Image with Hover Animation */}
                   <div className='overflow-hidden h-full'>
@@ -59,10 +57,10 @@ const TopLocations = () => {
                       src={topLocation.image}
                       alt={topLocation.location}
                       className='w-full h-full object-cover'
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.2 }}
                       transition={{
                         type: 'spring',
-                        stiffness: 150,
+                        stiffness: 120,
                         damping: 30,
                       }}
                     />
@@ -72,7 +70,7 @@ const TopLocations = () => {
                   <div className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-black/10 pointer-events-none' />
 
                   {/* Content */}
-                  <div className='absolute inset-0 flex flex-col justify-end p-4 sm:p-5 md:p-6 text-white'>
+                  <div className='absolute inset-0 flex flex-col justify-end p-4 sm:p-5 md:p-6 text-white pointer-events-none'>
                     {/* Location Info */}
                     <article className='flex items-center gap-2 mb-3 sm:mb-4'>
                       <MapPin
@@ -99,7 +97,7 @@ const TopLocations = () => {
                       </p>
                     </article>
                   </div>
-                </motion.div>
+                </div>
               ))}
           </section>
         ) : (
