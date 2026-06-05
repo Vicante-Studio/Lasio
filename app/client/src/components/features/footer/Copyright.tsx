@@ -7,7 +7,7 @@ const Copyright = () => {
         {/* Copyright */}
         <p className='text-xs sm:text-sm text-[rgba(255,255,255,0.8)]'>
             © {currentYear} Lasio. All rights reserved. Developed by{' '}
-            <span className='text-primary font-semibold'>Vicante Studio</span>
+            <a href='https://vicantestudio.framer.website/' className='text-secondary font-semibold hover:text-primary'>Vicante Studio</a>
         </p>
     </div> 
   )
