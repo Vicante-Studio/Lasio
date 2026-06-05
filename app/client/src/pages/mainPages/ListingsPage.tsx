@@ -1,6 +1,6 @@
 import ListingCard from '@/components/features/cards/ListingCard'
 import ListingLoadingState from '../../components/ui/LoadingStates/ListingLoadingState'
-import SearchPanel from '../../components/features/SearchPanel'
+import SearchPanel from '../../components/features/searchComponents/SearchPanel'
 import PageLink from '../../components/ui/links/PageLink'
 import { useEffect, useState } from 'react'
 import type { Listing } from '@/types/Listing'

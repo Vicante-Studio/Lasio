@@ -1,4 +1,4 @@
-import SearchPanel from '@/components/features/SearchPanel'
+import SearchPanel from '@/components/features/searchComponents/SearchPanel'
 
 const PropertySearch = () => {
   return (
