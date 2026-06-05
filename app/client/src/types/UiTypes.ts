@@ -39,3 +39,8 @@ export interface StatsType {
     value: string
     icon: "Home" | "DollarSign" | "MapPin" | "MessagesSquare"
 }
+
+export interface ToastProps {
+    msg: string;
+    state: "error" | "success"
+}
