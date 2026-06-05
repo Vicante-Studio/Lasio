@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
+import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, TwitterLogoIcon } from '@phosphor-icons/react'
+
 
 const SocialLinks = () => {
   return (
@@ -10,7 +11,7 @@ const SocialLinks = () => {
         className='text-[rgba(255,255,255,0.8)] hover:text-primary transition-colors duration-200'
         aria-label='Facebook'
         >
-        <Facebook size={20} />
+        <FacebookLogoIcon size={20} />
         </a>
         <a
         href='https://instagram.com'
@@ -19,7 +20,7 @@ const SocialLinks = () => {
         className='text-[rgba(255,255,255,0.8)] hover:text-primary transition-colors duration-200'
         aria-label='Instagram'
         >
-        <Instagram size={20} />
+        <InstagramLogoIcon size={20} />
         </a>
         <a
         href='https://twitter.com'
@@ -28,7 +29,7 @@ const SocialLinks = () => {
         className='text-[rgba(255,255,255,0.8)] hover:text-primary transition-colors duration-200'
         aria-label='Twitter'
         >
-        <Twitter size={20} />
+        <TwitterLogoIcon size={20} />
         </a>
         <a
         href='https://linkedin.com'
@@ -37,7 +38,7 @@ const SocialLinks = () => {
         className='text-[rgba(255,255,255,0.8)] hover:text-primary transition-colors duration-200'
         aria-label='LinkedIn'
         >
-        <Linkedin size={20} />
+        <LinkedinLogoIcon size={20} />
         </a>
     </div>
   )
