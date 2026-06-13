@@ -167,69 +167,40 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         const successfulUploads = uploadedUrls.filter(url => url !== null) as string[]
         const allImages = [...existingUrls, ...successfulUploads]
 
-        // Use fetch with the token directly
-        const { data: { session } } = await supabase.auth.getSession()
+        // Get the token from localStorage
+        const token = localStorage.getItem('token')
         
-        if (!session) {
+        if (!token) {
             showToast('Session expired. Please log in again.', 'error')
             return
         }
 
-        const token = session.access_token
+        const headers = { Authorization: `Bearer ${token}` }
+        const body = { ...values, images: allImages }
+
 
         if (isEditMode && existingListing) {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ ...values, images: allImages })
-                }
-            )
-            
-            if (!response.ok) {
-                const { error } = await response.json()
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`, body, { headers })
 
-                showToast(error instanceof Error ? error.message : 'Failed to Update Listing', 'error')
-            }
-            
-            const result = await response.json()
-
-            console.log('6b. update response:', result)
+            console.log('6b. update response:', data)
             showToast('Listing updated successfully!', 'success')
         } else {
             
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/listings`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ ...values, images: allImages })
-                }
-            )
-            
-            if (!response.ok) {
-                const { error } = await response.json()
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/listings/`, body, { headers })
 
-                showToast(error instanceof Error ? error.message : 'Failed to Create Listing', 'error')
-            }
-            
-            const result = await response.json()
-
-            console.log('6b. post response:', result)
+            console.log('6b. post response:', data)
             showToast('Listing Created Successfully!', 'success')
         }
 
         resetForm()
         navigate('/')
     } catch (error) {
-        showToast(error instanceof Error ? error.message : 'Something went wrong', 'error')
+        if (axios.isAxiosError(error)) {
+            const msg = error.response?.data?.error || 'Something went wrong'
+            showToast(msg, 'error')
+        } else {
+            showToast(error instanceof Error ? error.message : 'Something went wrong', 'error')
+        }
     }
 }
 
