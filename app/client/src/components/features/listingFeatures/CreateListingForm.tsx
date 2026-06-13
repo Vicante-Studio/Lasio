@@ -14,9 +14,7 @@ import axios from 'axios';
 import type { Listing } from '@/types/Listing'
 import { supabase } from '@/config/supabase'
 import { property_types, listingFeatures } from '@/data/ListingData'
-import type { ToastProps } from '@/types/UiTypes'
-import { AnimatePresence } from 'framer-motion'
-import ToastMsg from '../toast/ToastMsg'
+import { useToast } from '@/hooks/useToast'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -42,12 +40,7 @@ interface CreateListingFormProps {
 const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
     const navigate = useNavigate()
     const [existingListing, setExistingListing] = useState<Listing | null>(null)
-    const [toast, SetToast] = useState<ToastProps | null>(null)
-
-    const showToast = (msg: string, state: "error" | "success") => {
-        SetToast({ msg, state })
-        setTimeout(() => SetToast(null), 3000)
-    }
+    const { showToast, ToastComponent } = useToast()
 
     const isEditMode = !!existingListing
 
@@ -424,13 +417,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                 </div>
             </form>
 
-            <AnimatePresence>
-                {
-                    toast && (
-                        <ToastMsg key="toast" msg={toast.msg} state={toast.state}/>
-                    )
-                }
-            </AnimatePresence>
+            { ToastComponent }
         </div>
     )
 }

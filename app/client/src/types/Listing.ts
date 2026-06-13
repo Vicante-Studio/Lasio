@@ -35,6 +35,7 @@ export type ListingCardProps = Partial<Listing>
 
 export interface DeleteListingModalProps {
     listingId: string
+    showToast: (msg: string, state: "error" | "success") => void
 }
 
 export interface TopLocationsType {

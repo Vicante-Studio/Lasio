@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '@/selectors/authSelectors';
+import { useToast } from '@/hooks/useToast';
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
@@ -19,6 +20,8 @@ const ListingDetails = () => {
 
     const [listing, setListing] = useState<Listing>()
     const [loading, setLoading] = useState<boolean>(true)    
+
+    const { showToast, ToastComponent } = useToast()
 
     // Fetching Listing
     useEffect(() => {
@@ -49,7 +52,7 @@ const ListingDetails = () => {
         {
             !loading ? (
                 listing ? (
-                <section className='max-w-[90%] mx-auto flex flex-col gap-8'>
+                <section className='max-w-[90%] mx-auto flex flex-col gap-8 mb-40'>
 
                     <button
                         type='button'
@@ -192,7 +195,7 @@ const ListingDetails = () => {
 
                                 {
                                     // Delete modal 
-                                    listingId && <DeleteListingsModal listingId={listingId}/>
+                                    listingId && <DeleteListingsModal listingId={listingId} showToast={showToast}/>
                                 }
                             </div>
                         ) : null
@@ -205,6 +208,8 @@ const ListingDetails = () => {
             )
             ) : <h2>Loading ...</h2>
         }
+
+        { ToastComponent }
 
         <Footer />
     </section>

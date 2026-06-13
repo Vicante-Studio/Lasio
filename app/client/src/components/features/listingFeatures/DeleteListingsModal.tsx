@@ -12,8 +12,30 @@ import {
 import { Button } from '../../ui/Buttons/button'
 import type { DeleteListingModalProps } from '@/types/Listing'
 import { Trash2Icon } from 'lucide-react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-const DeleteListingsModal = ({ listingId }: DeleteListingModalProps) => {
+const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) => {
+
+    const navigate = useNavigate()
+
+    const handleDelete = async(listingId: string) => {
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/api/listings/${listingId}`)
+
+            console.log(res)
+            showToast('Listing Deleted Successfully', 'success')
+            setTimeout(() => navigate('/'), 1000)
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const msg = error.response?.data?.error || 'Something went wrong'
+                showToast(msg, 'error')
+            } else {
+                showToast(error instanceof Error ? error.message : 'Something went wrong', 'error')
+            }
+        }
+    }
+
   return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -31,7 +53,9 @@ const DeleteListingsModal = ({ listingId }: DeleteListingModalProps) => {
             </AlertDialogHeader>
             <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>
+                <AlertDialogAction onClick={() => {
+                     handleDelete(listingId)
+                }}>
                     Yes, Delete this listing
                 </AlertDialogAction>
             </AlertDialogFooter>
