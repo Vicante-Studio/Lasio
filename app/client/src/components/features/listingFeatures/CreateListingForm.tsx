@@ -82,6 +82,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
         if (error) {
             showToast('Image upload failed', 'error')
+            console.log(error)
             return null
         }
 
