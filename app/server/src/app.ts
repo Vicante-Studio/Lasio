@@ -9,7 +9,8 @@ const app = express()
 const allowedOrigins = [
     'http://localhost:5173', //development origin
     'http://localhost:5174', //development origin
-  'https://lasio.vercel.app' //production origin
+  'https://lasio.vercel.app', //production origin
+  'https://fuzzy-fishstick-wr5wxx4x4jqjfvgqp-5173.app.github.dev'
 ]
 
 app.use((req, res, next) => {
