@@ -32,6 +32,7 @@ export const loginUser = async (loginData: LoginType) => {
   if(!isMatch) throw new Error('Invalid email or password')
 
   if(!JWT_SECRET) throw new Error('JWT_SECRET is not defined in environment variables')
+
   const token = jwt.sign(
     {id: user.id, email: user.email, role: user.role},
     JWT_SECRET,
