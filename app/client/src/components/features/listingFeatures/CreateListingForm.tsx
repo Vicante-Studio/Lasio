@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import type { Listing } from '@/types/Listing'
-import { supabase } from '@/config/supabase'
 import { property_types, listingFeatures } from '@/data/ListingData'
 import { useToast } from '@/hooks/useToast'
 
@@ -74,23 +73,25 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
     // Upload image - simplified
     const uploadImage = async (file: File) => {
-        const fileName = `${crypto.randomUUID()}-${file.name}`
+        const token = localStorage.getItem('token')
 
-        const { error } = await supabase.storage
-            .from('listing-images')
-            .upload(fileName, file)
+        const formData = new FormData()
+        formData.append('image', file)
 
-        if (error) {
+        try {
+            const { data } = await axios.post(
+                `${import.meta.env.VITE_API_URL}/upload/listing/image`,
+                formData,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            
+            console.log(data)
+            return data.url
+        } catch (error) {
             showToast('Image upload failed', 'error')
             console.log(error)
             return null
         }
-
-        const { data } = supabase.storage
-            .from('listing-images')
-            .getPublicUrl(fileName)
-
-        return data.publicUrl
     }
 
     // Remove images correctly
@@ -154,7 +155,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
     
     try {
         
-        // Upload images
+        // Upload images one by one
         const uploadPromises = newImages.map(file => uploadImage(file))
         const uploadedUrls = await Promise.all(uploadPromises)
 

@@ -10,10 +10,14 @@ export const handleUploadImageFiles = async (req: Request, res: Response) => {
 
         if (!image) return res.status(400).json({ message: 'No file provided'})
         
-        const { data } = await uploadImageFile(image)
+        const { data, error } = await uploadImageFile(image as Express.Multer.File)
+
+        if(error){
+            console.log(error)
+        }
 
         return res.status(200).json({ message: 'Image upload successful', data, url: data.publicUrl})
   } catch (error) {
-        return res.status(404).json({ message: 'Image upload failed', error: error })
+        return res.status(404).json({ message: 'Image upload failed', error })
   }
 }
