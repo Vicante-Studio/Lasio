@@ -4,6 +4,6 @@ import { verifyToken } from '../middleware/auth.middleware.js';
 
 const router = express.Router()
 
-router.post('/image', verifyToken, handleUploadImageFiles)
+router.post('/listing/image', verifyToken, handleUploadImageFiles)
 
 export default router
