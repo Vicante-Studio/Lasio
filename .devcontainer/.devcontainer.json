@@ -1,0 +1,10 @@
+{
+  "portsAttributes": {
+    "3000": {
+      "visibility": "public"
+    },
+    "5173": {
+      "visibility": "public"
+    }
+  }
+}
