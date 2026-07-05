@@ -1,25 +1,36 @@
 import { Button } from '@/components/ui/Buttons/button'
 import PageLink from '../../components/ui/links/PageLink'
+import { motion } from 'framer-motion'
 
 const AboutPage = () => {
   return (
     <main className='flex flex-col gap-24'>
-      <section className='relative min-h-140 overflow-hidden'>
+      <section className='relative min-h-screen overflow-hidden'>
         <img
           src='/Images/Hero/hero5.webp'
           alt='Lasio real estate showcase'
-          className='absolute inset-0 h-full w-full object-cover'
+          className='absolute inset-0 h-screen w-full object-cover'
         />
-        <div className='absolute inset-0 bg-black/70' />
-        <div className='relative z-10 mx-auto flex min-h-140 max-w-7xl items-center px-6 py-24 text-white'>
-          <div className='space-y-6'>
+        <motion.div
+         initial={{ opacity: 0.5 }}
+         animate={{ opacity: 1 }}
+         transition={{ duration: 1.2, ease: 'easeIn' }}
+         className='absolute inset-0 bg-black/70'
+        />
+        <div className='relative z-10 mx-auto flex min-h-screen max-w-[90%] items-center px-6  text-white'>
+          <motion.div
+            className='max-w-[70%] absolute bottom-17 left-0 flex flex-col gap-2'
+            initial={{ opacity: 0, y: 120 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+          >
             <span className='inline-flex items-center rounded w-fit border border-secondary/40 bg-white/5 px-4 py-1 text-sm uppercase tracking-[0.35em] text-secondary'>
               About Lasio
             </span>
-            <h1 className='text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
-              Modern real estate storytelling for investors and operators.
+            <h1 className='text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight [word-spacing:0.1em]'>
+              Modern real estate storytelling for <span className='text-secondary'>investors and operators.</span>
             </h1>
-            <p className='text-slate-200'>
+            <p className='text-slate-200 max-w-[50%]'>
               Lasio is a polished demo platform built to showcase premium listings, highlight value, and help teams present their capabilities to investors and partners.
             </p>
             <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
@@ -32,7 +43,7 @@ const AboutPage = () => {
                 Contact Us
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
