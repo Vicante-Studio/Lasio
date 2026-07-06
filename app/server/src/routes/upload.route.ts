@@ -7,7 +7,7 @@ const router = express.Router()
 
 const upload = multer({ 
     storage: multer.memoryStorage(),
-    limits: { fileSize: 5 * 1024 * 1024 }, // limit the size of the file to be uploded -> 5MB
+    limits: { fileSize: 10 * 1024 * 1024 }, // limit the size of the file to be uploded -> 10MB
     fileFilter: (req, file, cb) => {
         if (file.mimetype.startsWith('image/')) {
         cb(null, true)
