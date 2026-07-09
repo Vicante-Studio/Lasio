@@ -53,6 +53,9 @@ const Navbar = () => {
                 <NavLink to='/about' color='inherit'>
                     <span className={navLinkClass}>About</span>
                 </NavLink>
+                <NavLink to='/contact' color='inherit'>
+                    <span className={navLinkClass}>Contact</span>
+                </NavLink>
 
                 {/* Center Logo */}
                 <NavLink to='/' className='w-1/3 flex justify-center'>
@@ -137,6 +140,11 @@ const Navbar = () => {
                         <NavLink to='/about' color='inherit'>
                             <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
                                 About
+                            </span>
+                        </NavLink>
+                        <NavLink to='/contact' color='inherit'>
+                            <span className='text-base font-medium hover:text-secondary transition-colors duration-300'>
+                                Contact
                             </span>
                         </NavLink>
                         <NavLink to='/listings' color='inherit'>
