@@ -2,51 +2,22 @@ import { Button } from '@/components/ui/Buttons/button'
 import PageLink from '../../components/ui/links/PageLink'
 import { motion } from 'framer-motion'
 import ContactForm from '@/components/features/forms/ContactForm'
+import HeroSection from '@/layouts/HeroSection'
 
 const AboutPage = () => {
   return (
     <main className='flex flex-col gap-24'>
-      <section className='relative min-h-screen overflow-hidden'>
-        <img
-          src='/Images/Hero/hero5.webp'
-          alt='Lasio real estate showcase'
-          className='absolute inset-0 h-screen w-full object-cover'
-        />
-        <motion.div
-         initial={{ opacity: 0.5 }}
-         animate={{ opacity: 1 }}
-         transition={{ duration: 1.2, ease: 'easeIn' }}
-         className='absolute inset-0 bg-black/70'
-        />
-        <div className='relative z-10 mx-auto flex min-h-screen max-w-[90%] items-center px-6  text-white'>
-          <motion.div
-            className='max-w-[70%] absolute bottom-17 left-0 flex flex-col gap-2'
-            initial={{ opacity: 0, y: 120 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          >
-            <span className='inline-flex items-center rounded w-fit border border-secondary/40 bg-white/5 px-4 py-1 text-sm uppercase tracking-[0.35em] text-secondary'>
-              About Lasio
-            </span>
-            <h1 className='text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight [word-spacing:0.1em]'>
-              Modern real estate storytelling for <span className='text-secondary'>investors and operators.</span>
-            </h1>
-            <p className='text-slate-200 max-w-[50%]'>
-              Lasio is a polished demo platform built to showcase premium listings, highlight value, and help teams present their capabilities to investors and partners.
-            </p>
-            <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
-              <PageLink to='/listings'>Browse Listings</PageLink>
-              <Button
-                variant='outline'
-                className='text-white border-white/20 hover:border-secondary hover:bg-secondary hover:text-black'
-                onClick={() => window.location.assign('mailto:hello@lasio.com')}
-              >
-                Contact Us
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection
+        eyebrow='About Lasio'
+        bgImage='/Images/Hero/hero5.webp'
+        title={
+          <>
+            Modern real estate storytelling for <span className='text-secondary'>investors and operators.</span>
+          </>
+        }
+        subtitle={'Lasio is a polished demo platform built to showcase premium listings, highlight value, and help teams present their capabilities to investors and partners.'}
+        ctas={[{ label: 'Browse Listings', to: '/listings' }, { label: 'Contact Us', to: 'mailto:hello@lasio.com', variant: 'outline' }]}
+      />
 
       <section className='max-w-7xl mx-auto px-6 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-start'>
         <motion.div 

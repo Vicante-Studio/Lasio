@@ -7,6 +7,7 @@ import type { Listing } from '@/types/Listing'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/state/store'
+import HeroSection from '@/layouts/HeroSection'
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -28,9 +29,13 @@ const ListingsPage = () => {
 
     return (
         <section className='flex flex-col gap-48 items-center'>
-            <section className="h-screen w-full">
-                <img src="../../public/Images/Hero/hero11.webp" className='absolute -z-1 w-full h-full object-cover' alt="Hero section Image" />
-            </section>
+                <HeroSection
+                    eyebrow='Listings'
+                    title={'Explore the market — find properties that fit your needs.'}
+                    subtitle={'Search, filter, and browse curated listings with detailed photos and specs.'}
+                    bgImage={'/Images/Hero/hero11.webp'}
+                    ctas={[{ label: 'Browse Listings', to: '/listings' }]}
+                />
             <SearchPanel/>
 
             <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-7xl mx-auto px-6 place-items-center py-16'>
