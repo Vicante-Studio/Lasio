@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Buttons/button'
 import PageLink from '../../components/ui/links/PageLink'
 import { motion } from 'framer-motion'
+import ContactForm from '@/components/ui/ContactForm'
 
 const AboutPage = () => {
   return (
@@ -171,6 +172,17 @@ const AboutPage = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className='py-20 bg-slate-50'>
+        <div className='max-w-7xl mx-auto px-6'>
+          <div className='text-center mb-8'>
+            <p className='text-sm font-semibold uppercase tracking-[0.35em] text-secondary'>Contact</p>
+            <h2 className='text-2xl font-semibold'>Reach out to the team</h2>
+            <p className='text-slate-600'>For demos, partnerships, or general inquiries, send us a message below.</p>
+          </div>
+          <ContactForm />
         </div>
       </section>
     </main>

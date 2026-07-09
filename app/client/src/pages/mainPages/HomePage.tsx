@@ -13,6 +13,7 @@ import TopLocations from '../../sections/TopLocations'
 import Stats from '@/sections/Stats'
 import PropertySearch from '@/sections/PropertySearch'
 import FAQ from '@/sections/FAQ'
+import ContactForm from '@/components/ui/ContactForm'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
@@ -140,6 +141,16 @@ const HomePage = () => {
             </section>
 
             <FAQ />
+            <section className='py-20 bg-slate-50'>
+                <div className='max-w-7xl mx-auto px-6'>
+                    <div className='text-center mb-8'>
+                        <p className='text-sm font-semibold uppercase tracking-[0.35em] text-secondary'>Contact</p>
+                        <h2 className='text-2xl font-semibold'>Get in touch</h2>
+                        <p className='text-slate-600'>Questions about listings or partnerships? Send us a message.</p>
+                    </div>
+                    <ContactForm />
+                </div>
+            </section>
         </main>
     )
 }
