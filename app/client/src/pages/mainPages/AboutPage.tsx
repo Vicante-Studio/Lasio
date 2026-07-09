@@ -7,3 +7,4 @@ const AboutPage = () => {
 }
 
 export default AboutPage
+//to be added
