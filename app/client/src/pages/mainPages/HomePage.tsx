@@ -55,7 +55,14 @@ const HomePage = () => {
     return (
         <main className='flex flex-col gap-20'>
 
-            <HeroSection />
+            <HeroSection 
+                title={
+                    <>
+                        Find verified homes <span className='text-[rgb(224,24,24)] italic'>faster.</span>
+                    </>
+                }
+                ctas={[{ label: 'Browse Listings', to: '/listings' }, { label: 'Contact Us', to: 'mailto:hello@lasio.com', variant: 'outline' }]}
+            />
 
             <TopLocations />
 

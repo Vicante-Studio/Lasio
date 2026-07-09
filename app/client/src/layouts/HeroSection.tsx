@@ -19,10 +19,10 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
     return (
         <section className='h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
-                <img src={bgImage} className='absolute -z-1 w-full h-full object-cover' alt='Hero section Image' />
+                <img src={bgImage} className='absolute z-0 inset-0 w-full h-full object-cover' alt='Hero section Image' />
 
                 <motion.div
-                    className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-black/10'
+                    className='absolute inset-0 z-10 bg-linear-to-t from-black via-black/50 to-black/10'
                     initial={{ opacity: 0.5 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2, ease: 'easeIn' }}
@@ -30,7 +30,7 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
             </div>
 
             <motion.article
-                className='absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 gap-6'
+                className='absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 gap-6'
                 initial={{ opacity: 0, y: 120 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}

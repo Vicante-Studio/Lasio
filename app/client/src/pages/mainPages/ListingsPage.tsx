@@ -31,9 +31,13 @@ const ListingsPage = () => {
         <section className='flex flex-col gap-48 items-center'>
                 <HeroSection
                     eyebrow='Listings'
-                    title={'Explore the market — find properties that fit your needs.'}
+                    title={
+                        <>
+                            Explore the market — find properties that fit your<span className='text-[rgb(224,24,24)] italic'>needs.</span>
+                        </>
+                    }
                     subtitle={'Search, filter, and browse curated listings with detailed photos and specs.'}
-                    bgImage={'/Images/Hero/hero11.webp'}
+                    bgImage={'/Images/Hero/hero6.webp'}
                     ctas={[{ label: 'Browse Listings', to: '/listings' }]}
                 />
             <SearchPanel/>

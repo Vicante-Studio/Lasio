@@ -3,7 +3,7 @@ import HeroSection from '@/layouts/HeroSection'
 
 const ContactPage = () => {
   return (
-    <main className='mx-auto px-6 py-20'>
+    <main className='mx-auto w-full flex flex-col gap-20'>
       <HeroSection
         eyebrow='Contact'
         title={'Contact Lasio'}
@@ -11,7 +11,11 @@ const ContactPage = () => {
         bgImage={'/Images/Hero/hero7.webp'}
       />
 
-      <section className=' max-w-7xl text-center mx-auto mb-12'>
+      <section className=' max-w-7xl text-left mb-12 px-12'>
+        <section className=' max-w-7xl text-left mb-12'>
+        <p className='text-sm font-semibold uppercase tracking-[0.35em] text-secondary'>Get in touch</p>
+        <p className='text-slate-600 mt-2'>Questions about listings, partnerships, or demos — send us a message.</p>
+      </section>
         <ContactForm />
       </section>
     </main>
