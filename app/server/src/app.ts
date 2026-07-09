@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import listingRoutes from './routes/listing.routes.js'
 import authRoutes from './routes/auth.route.js'
+import uploadRoutes from './routes/upload.route.js'
 import { errorHandler } from './middleware/error.middleware.js'
 
 const app = express()
@@ -9,7 +10,8 @@ const app = express()
 const allowedOrigins = [
     'http://localhost:5173', //development origin
     'http://localhost:5174', //development origin
-  'https://lasio.vercel.app' //production origin
+  'https://lasio.vercel.app', //production origin
+  'https://fuzzy-fishstick-wr5wxx4x4jqjfvgqp-5173.app.github.dev'
 ]
 
 app.use((req, res, next) => {
@@ -30,6 +32,7 @@ app.use(cors({
 app.use(express.json())
 app.use('/api/listings', listingRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/upload', uploadRoutes)
 app.use(errorHandler)
 
 export default app;
