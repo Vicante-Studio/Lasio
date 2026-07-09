@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout.tsx';
 import NotFound from './pages/404 Page/NotFound.tsx';
 import ListingsPage from './pages/mainPages/ListingsPage.tsx';
 import AboutPage from './pages/mainPages/AboutPage.tsx';
+import ContactPage from './pages/mainPages/ContactPage.tsx';
 import CreateListingPage from './pages/listings/CreateListingPage.tsx'
 import EditListing from './components/features/listingFeatures/EditListing.tsx'
 import App from './App.tsx'
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { index: false, path: '/listings', element: <ListingsPage />},
       { index: false, path: '/home', element: <HomePage />},
       { index: false, path: '/about', element: <AboutPage />},
+      { index: false, path: '/contact', element: <ContactPage />},
       { index: false, path: '/createListing', element: <CreateListingPage />},
     ],
     errorElement: <NotFound />
