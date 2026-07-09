@@ -13,7 +13,7 @@ import TopLocations from '../../sections/TopLocations'
 import Stats from '@/sections/Stats'
 import PropertySearch from '@/sections/PropertySearch'
 import FAQ from '@/sections/FAQ'
-import ContactForm from '@/components/ui/ContactForm'
+import ContactForm from '@/components/features/forms/ContactForm'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
