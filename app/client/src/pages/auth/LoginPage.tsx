@@ -30,7 +30,7 @@ const LoginPage = () => {
         setServerError(null)
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, values)
+            const response = await axios.post(`/api/auth/login`, values)
 
             const { token, user } = response.data;
 

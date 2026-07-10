@@ -31,7 +31,7 @@ const HomePage = () => {
                 setError(null)
 
                 try {            
-                    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/listings`, {
+                    const { data } = await axios.get(`/api/listings`, {
                         params: filters
                     })
 

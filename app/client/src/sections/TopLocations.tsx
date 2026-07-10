@@ -14,7 +14,7 @@ const TopLocations = () => {
     const fetchTopLocations = async () => {
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/listings/topLocations`
+          `/api/listings/topLocations`
         )
         setTopLocations(data)
       } catch (error) {

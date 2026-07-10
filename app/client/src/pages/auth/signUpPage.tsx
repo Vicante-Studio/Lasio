@@ -36,7 +36,7 @@ const SignUpPage = () => {
         setServerError(null)
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, values)
+            const response = await axios.post(`/api/auth/register`, values)
 
             const { token, user } = response.data;
 

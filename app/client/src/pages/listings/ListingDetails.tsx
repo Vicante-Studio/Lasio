@@ -27,7 +27,7 @@ const ListingDetails = () => {
     useEffect(() => {
         const fetchListing = async () => {
             try {
-                const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/listings/${listingId}`);
+                const { data } = await axios.get(`/api/listings/${listingId}`);
 
                 setListing(data)
             

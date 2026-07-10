@@ -80,7 +80,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
         try {
             const { data } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/upload/listing/image`,
+                `/upload/listing/image`,
                 formData,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -119,7 +119,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         if (!listingId) return
 
         const fetchExistingListing = async (id: string) => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/listings/${id}`)
+            const { data } = await axios.get(`/api/listings/${id}`)
 
             setExistingListing(data)
             setExistingUrls(data.images ?? [])  // Store existing image URLs
@@ -175,13 +175,13 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
 
         if (isEditMode && existingListing) {
-            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/listings/${existingListing.id}`, body, { headers })
+            const { data } = await axios.put(`/api/listings/${existingListing.id}`, body, { headers })
 
             console.log('6b. update response:', data)
             showToast('Listing updated successfully!', 'success')
         } else {
             
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/listings/`, body, { headers })
+            const { data } = await axios.post(`/api/listings/`, body, { headers })
 
             console.log('6b. post response:', data)
             showToast('Listing Created Successfully!', 'success')

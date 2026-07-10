@@ -21,7 +21,7 @@ const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) 
 
     const handleDelete = async(listingId: string) => {
         try {
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/api/listings/${listingId}`)
+            const res = await axios.delete(`/api/listings/${listingId}`)
 
             console.log(res)
             showToast('Listing Deleted Successfully', 'success')
