@@ -19,7 +19,8 @@ const ListingDetails = () => {
     const { listingId } = useParams(); //unique Id for listing
 
     const [listing, setListing] = useState<Listing>()
-    const [loading, setLoading] = useState<boolean>(true)    
+    const [loading, setLoading] = useState<boolean>(true)
+    const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
 
     const { showToast, ToastComponent } = useToast()
 
@@ -117,14 +118,26 @@ const ListingDetails = () => {
 
                     {/* Listing content */}
                     <div className='flex flex-col gap-8'>
-                        <div className='flex justify-between items-start'>
+                        <div className='flex justify-between items-start gap-8'>
                             {/* Listing description */}
-                            <p className='text-md max-w-[60%]'>
-                                {listing.description}
-                            </p>
+                            <div className='w-full max-w-[55%] min-w-0'>
+                                <p className={`text-md leading-7 text-gray-700 ${isDescriptionExpanded ? '' : 'line-clamp-3'}`}>
+                                    {listing.description}
+                                </p>
+
+                                {listing.description.length > 220 ? (
+                                    <button
+                                        type='button'
+                                        className='mt-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-300'
+                                        onClick={() => setIsDescriptionExpanded(prev => !prev)}
+                                    >
+                                        {isDescriptionExpanded ? 'See less' : 'See more'}
+                                    </button>
+                                ) : null}
+                            </div>
 
                             {/* Listing location */}
-                            <div className='flex gap-4'>
+                            <div className='flex gap-3 items-start max-w-[40%] text-sm text-gray-700'>
                                 <MapPin color='#ff6666' size={24}/>
                                 <p>
                                     {`${listing.location}, ${listing.city}, ${listing.state}`}
