@@ -105,7 +105,7 @@ const ListingDetails = () => {
                         </div>
 
                         <div className='flex w-full justify-between items-start'>
-                            <h1 className='text-5xl text-black'>
+                            <h1 className='text-5xl font-regular text-black'>
                                 {listing.title}
                             </h1>
 
@@ -119,7 +119,7 @@ const ListingDetails = () => {
                     <div className='flex flex-col gap-8'>
                         <div className='flex justify-between items-start'>
                             {/* Listing description */}
-                            <p className='text-xl max-w-[60%]'>
+                            <p className='text-md max-w-[60%]'>
                                 {listing.description}
                             </p>
 
