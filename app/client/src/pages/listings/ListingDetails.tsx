@@ -48,14 +48,15 @@ const ListingDetails = () => {
     const getCurrentImage = () => listing && listing.images[mainImage];
 
   return (
-    <section className='flex flex-col mt-20'>
+    <section className='flex flex-col'>
 
         {
             !loading ? (
                 listing ? (
-                <section className='max-w-[90%] mx-auto flex flex-col gap-8 mb-40'>
+                <section className='w-full mx-auto flex flex-col gap-8 mb-40'>
 
-                    <button
+                   <div className='bg-gray-200'>
+                     <button
                         type='button'
                         className='w-fit mb-8 text-sm text-blue-800 hover:text-gray-700 transition-colors duration-300 flex items-center gap-2'
                         onClick={() => navigate(-1)}
@@ -67,10 +68,10 @@ const ListingDetails = () => {
                             Return
                         </p>
                     </button>
-
+                   </div>
                     {/* listing image, title and price */}
                     <div className='flex flex-col gap-4'>
-                        <div className="overflow-hidden rounded-2xl h-125">
+                        <div className="overflow-hidden rounded-2xl h-screen">
                             {/* Main Listing Image */}
                             <img
                                 src={getCurrentImage()}
