@@ -1,12 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { Listing } from '../../types/Listing';
 import { formatPrice } from '../../utils/formatPrice';
-import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, Pencil } from 'lucide-react'
+import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
 import Footer from '../../layouts/Footer';
 import IconSet from '../../components/ui/IconSet';
 import { Button } from '@/components/ui/Buttons/button';
 import DeleteListingsModal from '@/components/features/listingFeatures/DeleteListingsModal';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '@/selectors/authSelectors';
@@ -43,9 +43,30 @@ const ListingDetails = () => {
         fetchListing();
     }, [listingId, navigate])
 
-    // Image thumbnails
+    // Image thumbnails + carousel
     const [mainImage, setMainImage] = useState<number>(0)
+    const carouselRef = useRef<number | null>(null)
     const getCurrentImage = () => listing && listing.images[mainImage];
+
+    // Auto-advance carousel every 3 seconds; resets when `mainImage` or `listing` changes
+    useEffect(() => {
+        if (!listing || !listing.images || listing.images.length <= 1) return;
+
+        if (carouselRef.current) {
+            clearInterval(carouselRef.current)
+        }
+
+        carouselRef.current = window.setInterval(() => {
+            setMainImage(prev => (prev + 1) % listing.images.length)
+        }, 3000)
+
+        return () => {
+            if (carouselRef.current) {
+                clearInterval(carouselRef.current)
+                carouselRef.current = null
+            }
+        }
+    }, [listing, mainImage])
 
   return (
     <section className='flex flex-col'>
@@ -55,28 +76,49 @@ const ListingDetails = () => {
                 listing ? (
                 <section className='w-full mx-auto flex flex-col gap-8 mb-40'>
 
-                   <div className='bg-gray-200'>
-                     <button
-                        type='button'
-                        className='w-fit mb-8 text-sm text-blue-800 hover:text-gray-700 transition-colors duration-300 flex items-center gap-2'
-                        onClick={() => navigate(-1)}
-                    >
-            
-                        <ArrowLeft size={16}/>
-                        
-                        <p className='underline underline-offset-2 font-bold decoration-2'>
-                            Return
-                        </p>
-                    </button>
-                   </div>
+                                     <div className='mb-6'>
+                                         <button
+                                                type='button'
+                                                onClick={() => navigate(-1)}
+                                                className='inline-flex items-center gap-3 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full shadow-md'
+                                         >
+                                                <ArrowLeft size={16} />
+                                                <span className='font-semibold'>Back</span>
+                                         </button>
+                                     </div>
                     {/* listing image, title and price */}
                     <div className='flex flex-col gap-4'>
-                        <div className="overflow-hidden rounded-2xl h-screen">
-                            {/* Main Listing Image */}
+                        <div className="overflow-hidden rounded-2xl h-[520px] relative bg-gray-100">
+                            {/* Main Listing Image (carousel) */}
                             <img
                                 src={getCurrentImage()}
-                                alt={`Image of ${listing.title}`} className='object-cover w-full h-full transition-all duration-500 ease-in-out'
+                                alt={`Image of ${listing.title}`} 
+                                className='object-cover w-full h-full transition-opacity duration-700 ease-in-out'
                             />
+
+                            {/* Image count badge */}
+                            <div className='absolute top-4 right-4 bg-black/60 text-white text-sm px-3 py-1 rounded-md'>
+                                {`${mainImage + 1}/${listing.images.length}`}
+                            </div>
+
+                            {/* Left/Right controls */}
+                            <button
+                                type='button'
+                                onClick={() => setMainImage(prev => (prev - 1 + listing.images.length) % listing.images.length)}
+                                className='absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition'
+                                aria-label='Previous image'
+                            >
+                                <ArrowLeft size={20} />
+                            </button>
+
+                            <button
+                                type='button'
+                                onClick={() => setMainImage(prev => (prev + 1) % listing.images.length)}
+                                className='absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 transition'
+                                aria-label='Next image'
+                            >
+                                <ArrowRight size={20} />
+                            </button>
                         </div>
                         
                         {/* Thumbnail images */}
