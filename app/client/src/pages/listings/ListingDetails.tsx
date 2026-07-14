@@ -219,14 +219,14 @@ const ListingDetails = () => {
                                     <div className='flex items-center gap-4'>
                                         <div className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold'>A</div>
                                         <div>
-                                            <p className='font-semibold'>TopNotch City</p>
+                                            <p className='font-semibold'>Lasio Properties</p>
                                             <p className='text-sm text-gray-500'>Agent</p>
                                         </div>
                                     </div>
 
                                     <div className='mt-4 flex gap-3'>
-                                        <button className='px-3 py-2 bg-neutral-900 text-white rounded-md text-sm'>View Portfolio</button>
-                                        <button className='px-3 py-2 border border-neutral-300 rounded-md text-sm text-neutral-600'>Chat Agent</button>
+                                        <button className='px-3 py-2 bg-secondary text-white rounded-md text-sm'>View Portfolio</button>
+                                        <button className='px-3 py-2 border border-neutral-300 rounded-md text-sm text-neutral-600'>Contact Agent</button>
                                     </div>
                                 </div>
 
@@ -236,7 +236,7 @@ const ListingDetails = () => {
 
                                     <div className='flex flex-col gap-3'>
                                         <input placeholder='Full Name' className='w-full rounded-md border px-3 py-2' />
-                                        <input placeholder='Email' className='w-full rounded-md border px-3 py-2' />
+                                        <input placeholder='Phone Number' className='w-full rounded-md border px-3 py-2' />
                                         <button className='mt-2 px-4 py-2 text-white bg-primary hover:bg-secondary transition-all duration-700 ease-in-out'>Send</button>
                                     </div>
                                 </div>
