@@ -44,3 +44,8 @@ export interface ToastProps {
     msg: string;
     state: "error" | "success"
 }
+
+export interface CarouselImageProps {
+    src: string
+    alt: string
+}
