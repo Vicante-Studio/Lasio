@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '@/selectors/authSelectors';
 import { useToast } from '@/hooks/useToast';
+import CarouselImage from '@/components/features/images/CarouselImage';
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
@@ -45,7 +46,6 @@ const ListingDetails = () => {
 
     // Image thumbnails + carousel
     const [mainImage, setMainImage] = useState<number>(0)
-    const [imageLoaded, setImageLoaded] = useState(false)
     const carouselRef = useRef<number | null>(null)
     const getCurrentImage = () => listing && listing.images[mainImage];
 
@@ -72,11 +72,6 @@ const ListingDetails = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [listing])
 
-    // Reset imageLoaded state when image index changes
-    useEffect(() => {
-        setImageLoaded(false)
-    }, [mainImage])
-
   return (
     <section className='flex flex-col'>
 
@@ -90,7 +85,7 @@ const ListingDetails = () => {
                             <button
                                 type='button'
                                 onClick={() => navigate(-1)}
-                                className='inline-flex items-center gap-3 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full shadow-md'
+                                className='inline-flex items-center gap-3 bg-secondary hover:bg-primary transition-opacity duration-700 ease-in-out text-white px-4 py-2 shadow-md'
                             >
                                 <ArrowLeft size={16} />
                                 <span className='font-semibold'>Back</span>
@@ -103,12 +98,11 @@ const ListingDetails = () => {
                                 onMouseEnter={stopCarousel}
                                 onMouseLeave={startCarousel}
                             >
-                                <img
+
+                                <CarouselImage 
                                     key={mainImage}
-                                    src={getCurrentImage()}
-                                    alt={`Image of ${listing.title}`} 
-                                    onLoad={() => setImageLoaded(true)}
-                                    className={`object-cover w-full h-full transition-opacity duration-700 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                    src={getCurrentImage()!}
+                                    alt={`Image of ${listing.title}`}
                                 />
 
                                 <div className='absolute top-4 right-4 bg-black/60 text-white text-sm px-3 py-1 rounded-md'>
@@ -244,7 +238,7 @@ const ListingDetails = () => {
                             <div className='flex flex-col gap-3'>
                                 <input placeholder='Full Name' className='w-full rounded-md border px-3 py-2' />
                                 <input placeholder='Email' className='w-full rounded-md border px-3 py-2' />
-                                <button className='mt-2 px-4 py-2 bg-orange-500 text-white rounded-md'>Send</button>
+                                <button className='mt-2 px-4 py-2 text-white bg-primary hover:bg-secondary transition-all duration-700 ease-in-out'>Send</button>
                             </div>
                         </div>
                     </aside>
