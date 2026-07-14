@@ -24,7 +24,7 @@ const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
                 setLoaded(true)
                 timeoutRef.current = window.setTimeout(() => {
                     setPrevSrc(null)
-                }, 1000) // match duration below
+                }, 1800) // match duration below
             })
         })
     }
@@ -44,8 +44,8 @@ const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
                 alt={alt}
                 onLoad={markLoaded}
                 ref={(img) => { if (img?.complete) markLoaded(); }}
-                className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-1000 ease-out ${
-                    loaded ? 'opacity-100' : 'opacity-0'
+                className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-[1800ms] ease-out ${
+                    loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
                 }`}
             />
         </div>

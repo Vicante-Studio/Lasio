@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '@/selectors/authSelectors';
 import { useToast } from '@/hooks/useToast';
-import CarouselImage from '@/components/features/images/CarouselImage';
+import CrossfadeImage from '@/components/features/images/CrossfadeImage';
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
@@ -61,7 +61,7 @@ const ListingDetails = () => {
         stopCarousel()
         carouselRef.current = window.setInterval(() => {
             setMainImage(prev => (prev + 1) % listing.images.length)
-        }, 3000)
+        }, 5000)
     }
 
     // Start carousel when listing loads; stop on unmount
@@ -99,8 +99,7 @@ const ListingDetails = () => {
                                 onMouseLeave={startCarousel}
                             >
 
-                                <CarouselImage 
-                                    key={mainImage}
+                                <CrossfadeImage 
                                     src={getCurrentImage()!}
                                     alt={`Image of ${listing.title}`}
                                 />
