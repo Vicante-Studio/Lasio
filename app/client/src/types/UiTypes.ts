@@ -45,7 +45,7 @@ export interface ToastProps {
     state: "error" | "success"
 }
 
-export interface CarouselImageProps {
+export interface CrossfadeImageProps {
     src: string
     alt: string
 }
