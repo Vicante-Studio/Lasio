@@ -1,10 +1,5 @@
-// import type { CarouselImageProps } from '@/types/UiTypes'
+import type { CrossfadeImageProps } from '@/types/UiTypes'
 import { useState, useEffect, useRef } from 'react'
-
-interface CrossfadeImageProps {
-    src: string
-    alt: string
-}
 
 const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
     const [currentSrc, setCurrentSrc] = useState(src)
@@ -14,8 +9,6 @@ const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
 
     useEffect(() => {
         if (src === currentSrc) return
-
-        // keep the old image visible underneath while the new one loads/fades in
         setPrevSrc(currentSrc)
         setCurrentSrc(src)
         setLoaded(false)
@@ -29,10 +22,9 @@ const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 setLoaded(true)
-                // drop the old image after the transition duration finishes
                 timeoutRef.current = window.setTimeout(() => {
                     setPrevSrc(null)
-                }, 700) // match your duration-700
+                }, 1000) // match duration below
             })
         })
     }
@@ -52,8 +44,8 @@ const CrossfadeImage = ({ src, alt }: CrossfadeImageProps) => {
                 alt={alt}
                 onLoad={markLoaded}
                 ref={(img) => { if (img?.complete) markLoaded(); }}
-                className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-[2000ms] ease-in-out ${
-                    loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-1000 ease-out ${
+                    loaded ? 'opacity-100' : 'opacity-0'
                 }`}
             />
         </div>
