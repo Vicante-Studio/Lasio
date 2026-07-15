@@ -17,12 +17,12 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
     const navigate = useNavigate()
 
     return (
-        <section className='h-screen relative overflow-hidden'>
+        <section className='min-h-[70vh] sm:min-h-[75vh] md:h-screen relative overflow-hidden'>
             <div className='absolute inset-0'>
                 <img src={bgImage} className='absolute z-0 inset-0 w-full h-full object-cover' alt='Hero section Image' />
 
                 <motion.div
-                    className='absolute inset-0 z-10 bg-linear-to-t from-black via-black/50 to-black/10'
+                    className='absolute inset-0 z-10 bg-gradient-to-t from-black via-black/50 to-black/10'
                     initial={{ opacity: 0.5 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2, ease: 'easeIn' }}
@@ -35,10 +35,10 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
             >
-                <article className='flex flex-col gap-6 items-start absolute bottom-6 left-6 max-w-[90%] md:max-w-[60%]'>
-                    <p className='text-secondary uppercase tracking-widest text-xs md:text-sm font-medium text-left'>{eyebrow}</p>
+                <article className='flex flex-col gap-6 items-center md:items-start absolute inset-x-4 top-10 md:top-auto md:bottom-6 max-w-[min(90vw,56rem)] md:inset-x-auto md:left-6 md:right-auto md:max-w-[60%]'>
+                    <p className='text-secondary uppercase tracking-widest text-xs md:text-sm font-medium text-center md:text-left'>{eyebrow}</p>
 
-                    <h1 className='text-left text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
+                    <h1 className='text-center md:text-left text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
                         {title ?? (
                             <>
                                 Find Verified Homes <span className='font-bold italic'>Faster.</span>
@@ -48,11 +48,11 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
 
                     <Divider />
 
-                    <p className='text-neutral-300 text-sm md:text-base font-light leading-relaxed max-w-[80%] text-left'>
+                    <p className='text-neutral-300 text-sm md:text-base font-light leading-relaxed max-w-full sm:max-w-[80%]'>
                         {subtitle ?? 'Explore verified real estate and architectural listings designed for modern buyers and sellers. Every property is presented with clarity, helping you discover spaces that match your lifestyle.'}
                     </p>
 
-                    <div className='flex gap-4 mt-4'>
+                    <div className='flex flex-col sm:flex-row sm:flex-wrap gap-4 mt-4 justify-center md:justify-start'>
                         {ctas?.map((cta, i) => (
                             <Button
                                 key={i}

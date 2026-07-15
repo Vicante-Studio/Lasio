@@ -71,7 +71,8 @@ const SignUpPage = () => {
             <motion.section
                 initial={{ opacity: 0, y: 120 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}className='w-full max-w-125 flex flex-col gap-8 backdrop-blur-md bg-[rgba(20,15,10,0.4)] rounded-xl *:text-white p-8'
+                transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+                className='w-full max-w-xl mx-auto flex flex-col gap-8 backdrop-blur-md bg-[rgba(20,15,10,0.4)] rounded-xl text-white p-8'
             >
 
                 <div className='text-center'>

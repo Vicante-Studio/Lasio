@@ -169,7 +169,14 @@ html{
     }
 
     * {
-        @apply border-border outline-ring/50;
+        @apply box-border border-border outline-ring/50;
+    }
+
+    img,
+    video,
+    picture,
+    figure {
+        @apply max-w-full h-auto;
     }
 
     html {
@@ -229,9 +236,11 @@ html{
     }
 
     .bg-hero {
+        position: relative;
         background-image: url('/Images/Hero/hero6.webp');
         background-size: cover;
-        background-position: bottom;
+        background-position: center center;
+        background-repeat: no-repeat;
         
     }
 

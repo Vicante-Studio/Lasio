@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const ToastMsg = ({ msg, state }: ToastProps) => {
   return (
     <motion.div
-       className='w-fit fixed right-10 top-10 z-100'
+       className='w-fit fixed right-10 top-10 z-50'
        initial={{ opacity: 0.5, y: 100}}
        animate={{ opacity: 1, y: 0}}
        exit={{ opacity: 0, y: 100 }}

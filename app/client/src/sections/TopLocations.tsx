@@ -29,7 +29,7 @@ const TopLocations = () => {
   }, [])
 
   return (
-    <section className='w-full px-4 sm:px-6 md:px-10 lg:px-12 py-8 md:py-12'>
+    <section className='w-full px-4 sm:px-6 md:px-8 lg:px-12 py-8 md:py-12'>
       <div className='max-w-7xl mx-auto flex flex-col gap-6 md:gap-8'>
         {/* Section Title */}
         <div>
@@ -66,7 +66,7 @@ const TopLocations = () => {
                   </div>
 
                   {/* Gradient Overlay */}
-                  <div className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-black/10 pointer-events-none' />
+                  <div className='absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10 pointer-events-none' />
 
                   {/* Content */}
                   <div className='absolute inset-0 flex flex-col justify-end p-4 sm:p-5 md:p-6 text-white pointer-events-none'>

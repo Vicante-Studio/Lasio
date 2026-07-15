@@ -2,7 +2,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import type { Listing } from '../../types/Listing';
 import { formatPrice } from '../../utils/formatPrice';
 import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
-import Footer from '../../layouts/Footer';
 import IconSet from '../../components/ui/IconSet';
 import { Button } from '@/components/ui/Buttons/button';
 import DeleteListingsModal from '@/components/features/listingFeatures/DeleteListingsModal';
@@ -99,9 +98,9 @@ const ListingDetails = () => {
                         </div>
 
                         <div className='mx-auto grid gap-10 lg:grid-cols-[1.4fr_0.6fr] items-start'>
-                            <section className='space-y-6 '>
+                            <section className='space-y-6 w-full'>
                                 <div
-                                    className="overflow-hidden rounded-2xl h-[520px] relative bg-gray-100"
+                                    className="overflow-hidden rounded-2xl h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px] relative bg-gray-100"
                                     onMouseEnter={stopCarousel}
                                     onMouseLeave={startCarousel}
                                 >
@@ -155,12 +154,12 @@ const ListingDetails = () => {
                                     }
                                 </div>
 
-                                <div className='flex items-start justify-between gap-6'>
-                                    <h1 className='text-4xl font-semibold text-black leading-tight'>
+                                <div className='flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between'>
+                                    <h1 className='text-4xl md:text-5xl font-semibold text-black leading-tight'>
                                         {listing.title}
                                     </h1>
 
-                                    <h3 className='text-primary font-bold text-2xl'>
+                                    <h3 className='text-primary font-bold text-2xl md:text-3xl'>
                                         {formatPrice(listing.price)}
                                     </h3>
                                 </div>
@@ -191,7 +190,7 @@ const ListingDetails = () => {
                                         </div>
                                     </div>
 
-                                    <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                                    <div className='grid grid-cols-2 gap-3 md:grid-cols-4 gap-4'>
                                         <IconSet title={'Property Type'} icon={<Home color='gray' size={20}/>} value={listing.property_type} />
                                         <IconSet title={'Bedrooms'} icon={<Bed color='gray' size={20}/>} value={listing.bedrooms} />
                                         <IconSet title={'Bathrooms'} icon={<Bath color='gray' size={20}/>} value={listing.bathrooms} />
@@ -207,20 +206,20 @@ const ListingDetails = () => {
                                     </div>
 
                                     {userIsAdmin ? (
-                                        <div className='flex gap-4'>
-                                            <Button variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}>
+                                        <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
+                                            <Button className='w-full sm:w-auto' variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}>
                                                 Edit
                                                 <Pencil color='black' size={18} />
                                             </Button>
 
-                                            {listingId && <DeleteListingsModal listingId={listingId} showToast={showToast}/>} 
+                                            {listingId && <DeleteListingsModal listingId={listingId} showToast={showToast} />}
                                         </div>
                                     ) : null}
                                 </div>
                             </section>
 
                             {/* Right: sidebar with contact / agent info (placeholder) */}
-                            <aside className='space-y-6 sticky top-6 self-start'>
+                            <aside className='space-y-6 lg:sticky lg:top-6 self-start'>
                                 <div className='bg-white/95 rounded-2xl p-6 border border-slate-100 shadow-sm'>
                                     <div className='flex items-center gap-4'>
                                         <div className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold'>A</div>
@@ -259,8 +258,6 @@ const ListingDetails = () => {
         }
 
         { ToastComponent }
-
-        <Footer />
     </section>
   )
 }

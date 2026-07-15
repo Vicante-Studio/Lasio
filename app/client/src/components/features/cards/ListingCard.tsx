@@ -8,11 +8,11 @@ import { Bath, Bed, Maximize } from 'lucide-react'
 function ListingCard({id, images, title, location, city, state, price, bedrooms, bathrooms, sizeSqft }: ListingCardProps){
     return(
         
-           <Link to={`/listings/${id}`} className='w-100 h-fit'>
+           <Link to={`/listings/${id}`} className='w-full h-fit'>
 
              <article
                 id={id}
-                className='w-100 flex flex-col h-140 justify-between'
+                className='w-full flex flex-col min-h-[28rem] justify-between'
                 >
                     <div>
                         {
@@ -20,7 +20,7 @@ function ListingCard({id, images, title, location, city, state, price, bedrooms,
                                 <div className='overflow-hidden'>
                                     <img
                                         src={images[0]}
-                                        className='w-full hover:scale-110 transition-all ease-in-out duration-500 h-68'
+                                        className='w-full hover:scale-110 transition-all ease-in-out duration-500 h-64 sm:h-72'
                                         alt={title} 
                                     />
                                 </div>
@@ -82,8 +82,8 @@ function ListingCard({id, images, title, location, city, state, price, bedrooms,
                                 {`${location}, ${city}, ${state}`}
                         </p>
  
-                        <div className='flex justify-center *:w-full'>
-                            <Button variant='secondary' type='button'
+                        <div className='flex justify-center w-full'>
+                            <Button className='w-full' variant='secondary' type='button'
                             >
                                 View Property
                             </Button>

@@ -51,7 +51,7 @@ const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) 
                     <Trash2Icon size={18} color='rgba(255,0,0,0.6)' />
                 </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className='border-0 min-w-fit bg-bg-main px-16 py-8 gap-16'>
+        <AlertDialogContent className='border-0 min-w-[20rem] w-full max-w-xl bg-bg-main px-6 py-8 gap-8 sm:px-8 sm:py-10'>
             <AlertDialogHeader>
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>

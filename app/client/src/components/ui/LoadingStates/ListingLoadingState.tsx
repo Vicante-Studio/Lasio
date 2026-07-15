@@ -2,9 +2,9 @@ const ListingLoadingState = () => {
   return (
     <>
       {Array.from({ length: 6 }).map((_, i) => (
-        <article key={i} className='w-full flex flex-col h-130 justify-between animate-pulse'>
+        <article key={i} className='w-full flex flex-col min-h-[28rem] justify-between animate-pulse'>
           <div>
-            <div className='w-full h-68 bg-neutral-300 rounded-md' />
+            <div className='w-full h-64 bg-neutral-300 rounded-md' />
             <article className='py-2 flex flex-col gap-6'>
               <div className='flex flex-col gap-2'>
                 <div className='h-6 bg-neutral-300 rounded w-3/4' />

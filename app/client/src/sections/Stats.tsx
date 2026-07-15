@@ -33,7 +33,7 @@ const Stats = () => {
   }
 
   return (
-    <section className='relative w-full min-h-150'>
+    <section className='relative w-full min-h-[28rem]'>
         {/* Background Image */}
         <img
             src='../../Images/Hero/hero12.webp'

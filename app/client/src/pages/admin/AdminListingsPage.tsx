@@ -9,7 +9,7 @@ const AdminListingsPage = () => {
     const filteredListings = useSelector(selectFilteredListings)
 
   return (
-    <section className='mt-42 flex flex-col gap-48 items-center'>
+    <section className='mt-12 flex flex-col gap-48 items-center'>
       {/* TODO: Customize this for admins */}
         <SearchPanel/>
 

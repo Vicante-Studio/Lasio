@@ -44,7 +44,7 @@ const Navbar = () => {
                     borderRadius: isSticky ? 4 : 0,
                 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className='hidden md:flex items-center justify-between fixed px-8 py-2 z-100 shadow-lg backdrop-blur-md border-b border-white/10'
+                className='hidden md:flex items-center justify-between fixed px-8 py-2 z-50 shadow-lg backdrop-blur-md border-b border-white/10'
             >
                 {/* Left navigation links */}
                 <NavLink to='/' color='inherit'>
@@ -89,7 +89,7 @@ const Navbar = () => {
             {mobileIsOpened ? (
                 // Mobile Open State
                 <motion.nav
-                    className={`fixed top-0 left-0 right-0 flex flex-col z-100 md:hidden w-full transition-all duration-300 ease-out backdrop-blur-md`}
+                    className={`fixed top-0 left-0 right-0 flex flex-col z-50 md:hidden w-full transition-all duration-300 ease-out backdrop-blur-md`}
                     animate={{
                         backgroundColor: isSticky ? 'rgba(20,15,10,0.8)' : 'rgba(20,15,10,0.4)',
                         width: isSticky ? '90%' : '100%',

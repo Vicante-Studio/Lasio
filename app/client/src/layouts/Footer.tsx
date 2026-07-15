@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className='bg-button-primary text-white'>
 
       {/* Main Footer Content */}
-      <div className='max-w-[80%] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20'>
 
         {/* Divider */}
        <div className='h-px w-full bg-neutral-300 mb-8 md:mb-10'></div>

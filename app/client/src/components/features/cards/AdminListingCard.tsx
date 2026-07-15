@@ -14,7 +14,7 @@ function AdminListingCard({id, images, title, location, city, state, price }: Li
             {/* Listing Card */}
             <article
                 id={id}
-                className='w-100 flex flex-col h-130 justify-between'
+                className='w-full flex flex-col min-h-[24rem] justify-between'
              >
                 <div>
                     { //Card Image
@@ -22,7 +22,7 @@ function AdminListingCard({id, images, title, location, city, state, price }: Li
                             <div className='overflow-hidden'>
                                 <img
                                     src={images[0]}
-                                    className='w-full hover:scale-110 transition-all ease-in-out duration-500 h-68'
+                                    className='w-full hover:scale-110 transition-all ease-in-out duration-500 h-64 sm:h-72'
                                     alt="" 
                                 />
                             </div>
@@ -54,14 +54,14 @@ function AdminListingCard({id, images, title, location, city, state, price }: Li
                             {`${location}, ${city}, ${state}`}
                     </p>
 
-                    <div className='flex justify-between w-full'>
-                        <Link to={`/listings/${id}`}>
-                            <Button variant="secondary">
+                    <div className='flex flex-col gap-2 w-full sm:flex-row sm:justify-between'>
+                        <Link to={`/listings/${id}`} className='w-full sm:w-auto'>
+                            <Button className='w-full sm:w-auto' variant="secondary">
                                 View
                                 <Eye color='black' size={18} />
                             </Button>
                         </Link>
-                        <Button variant='outline' type='button' onClick={() => navigate(`/listings/${id}/edit`)}
+                        <Button className='w-full sm:w-auto' variant='outline' type='button' onClick={() => navigate(`/listings/${id}/edit`)}
                         >
                             Edit
                             <Pencil color='black' size={18} />

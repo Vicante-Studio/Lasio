@@ -404,13 +404,13 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                     )}
                 </Field>
 
-                <div className='flex gap-4 w-full'>
+                <div className='flex flex-col gap-4 w-full sm:flex-row sm:items-center sm:justify-end'>
                     {isEditMode && (
                         // Cancel Button
                         <Button
                             variant='outline'
                             type='button'
-                            className='mt-4'
+                            className='w-full sm:w-auto'
                             onClick={() => navigate(`/listings/${existingListing?.id}`)}
                         >
                             Cancel
@@ -418,8 +418,8 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
                     )}
 
                     {/* Submit Button */}
-                    <Button variant='default' type='submit' className='mt-4 active:bg-blue-500' disabled={isSubmitting}>
-                        {isSubmitting ? (isEditMode ? 'Save Changes' : 'Publish Listing'): (isEditMode ? 'Save Changes' : 'Publish Listing')}
+                    <Button variant='default' type='submit' className='w-full sm:w-auto active:bg-blue-500' disabled={isSubmitting}>
+                        {isSubmitting ? (isEditMode ? 'Save Changes' : 'Publish Listing') : (isEditMode ? 'Save Changes' : 'Publish Listing')}
                     </Button>
                 </div>
             </form>
