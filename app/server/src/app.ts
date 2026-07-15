@@ -11,7 +11,7 @@ const allowedOrigins = [
     'http://localhost:5173', //development origin
     'http://localhost:5174', //development origin
   'https://lasio.vercel.app', //production origin
-  'https://scaling-enigma-v6rxww5w576936xv.github.dev'
+  'https://friendly-pancake-jj7x99g9gwwwhp55p.github.dev'
 ]
 
 app.use((req, res, next) => {
