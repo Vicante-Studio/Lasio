@@ -20,8 +20,15 @@ const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) 
     const navigate = useNavigate()
 
     const handleDelete = async(listingId: string) => {
+        //Get token from localStorage
+        const token = localStorage.getItem('token')
+        if (!token) {
+            showToast('Session expired. Please log in again.', 'error')
+            return
+        }
+        
         try {
-            const res = await axios.delete(`/api/listings/${listingId}`)
+            const res = await axios.delete(`/api/listings/${listingId}`, { headers: { Authorization: `Bearer ${token}` } })
 
             console.log(res)
             showToast('Listing Deleted Successfully', 'success')
