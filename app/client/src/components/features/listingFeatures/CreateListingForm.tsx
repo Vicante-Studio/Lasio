@@ -81,7 +81,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
         try {
             const { data } = await axios.post(
-                `/upload/listing/image`,
+                `/api/upload/listing/image`,
                 formData,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
