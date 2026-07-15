@@ -9,9 +9,8 @@ const app = express()
 
 const allowedOrigins = [
     'http://localhost:5173', //development origin
-    'http://localhost:5174', //development origin
+    'https://localhost:5173', //development origin
   'https://lasio.vercel.app', //production origin
-  'https://musical-cod-jj7x99g9ggr72prvr.github.dev'
 ]
 
 app.use((req, res, next) => {
@@ -21,12 +20,19 @@ app.use((req, res, next) => {
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+     console.log('🌍 Incoming Origin:', origin) //Log the oriin that's being used
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /\.app\.github\.dev$/.test(new URL(origin).hostname)
+    ) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
-  }
+  },
+
+  credentials: true,
 }));
 
 app.use(express.json())
