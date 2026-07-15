@@ -3,3 +3,8 @@
 body{
     font-family: 'Manrope', Helvetica, Arial, sans-serif;
 }
+
+/* Smooth scrolling for a more polished feel */
+html {
+    scroll-behavior: smooth;
+}
