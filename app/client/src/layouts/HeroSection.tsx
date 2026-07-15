@@ -35,7 +35,7 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
             >
-                <article className='flex flex-col gap-6 items-start max-w-[min(90vw,56rem)] md:max-w-[60%]'>
+                <article className='flex flex-col gap-6 items-start max-w-[min(90vw,56rem)] md:max-w-[65%] absolute bottom-6 left-4'>
                     <p className='text-secondary uppercase tracking-widest text-xs md:text-sm font-medium text-left'>{eyebrow}</p>
 
                     <h1 className='text-left text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
