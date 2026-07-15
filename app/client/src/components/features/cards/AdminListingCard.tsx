@@ -4,9 +4,11 @@ import { formatPrice } from '../../../utils/formatPrice'
 import { Button } from '@/components/ui/Buttons/button'
 import { Eye, Pencil } from 'lucide-react'
 import DeleteListingsModal from '../listingFeatures/DeleteListingsModal'
+import { useToast } from '@/hooks/useToast'
 
 function AdminListingCard({id, images, title, location, city, state, price }: ListingCardProps){
     const navigate = useNavigate();
+    const { showToast } = useToast()
     return(
          
         <section>
@@ -69,7 +71,7 @@ function AdminListingCard({id, images, title, location, city, state, price }: Li
 
                         {
                             // Delete modal 
-                            id && <DeleteListingsModal listingId={id}/>
+                            id && <DeleteListingsModal listingId={id} showToast={showToast}/>
                         }
                     </div>
                 </div>
