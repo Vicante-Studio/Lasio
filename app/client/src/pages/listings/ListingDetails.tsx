@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '@/selectors/authSelectors';
 import { useToast } from '@/hooks/useToast';
 import CrossfadeImage from '@/components/features/images/CrossfadeImage';
+import ListingDetailsLoadingState from '../../components/ui/LoadingStates/ListingDetailsLoadingState';
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
@@ -43,6 +44,11 @@ const ListingDetails = () => {
 
         fetchListing();
     }, [listingId, navigate])
+
+    // Ensure page is at top on mount to avoid showing footer-only state
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }, [])
 
     // Image thumbnails + carousel
     const [mainImage, setMainImage] = useState<number>(0)
@@ -249,7 +255,7 @@ const ListingDetails = () => {
                     Listing not found
                 </p>
             )
-            ) : <h2>Loading ...</h2>
+            ) : <ListingDetailsLoadingState />
         }
 
         { ToastComponent }

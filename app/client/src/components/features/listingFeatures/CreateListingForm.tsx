@@ -14,6 +14,7 @@ import axios from 'axios';
 import type { Listing } from '@/types/Listing'
 import { property_types, listingFeatures } from '@/data/ListingData'
 import { useToast } from '@/hooks/useToast'
+import CreateListingFormLoadingState from '@/components/ui/LoadingStates/CreateListingFormLoadingState'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -200,6 +201,10 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 }
 
     // The form JSX - UPDATE THE IMAGES SECTION
+    if (listingId && !existingListing) {
+        return <CreateListingFormLoadingState />
+    }
+
     return (
         <div className='w-full max-w-7xl mx-auto py-12 px-6'>
             <article className='text-center flex flex-col items-center gap-2 mb-12'>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { MapPin, Home } from 'lucide-react'
 import { motion } from 'framer-motion'
+import TopLocationsLoadingState from '@/components/ui/LoadingStates/TopLocationsLoadingState'
 
 const TopLocations = () => {
   const [topLocations, setTopLocations] = useState<TopLocationsType[] | null>(
@@ -39,9 +40,7 @@ const TopLocations = () => {
 
         {/* Grid of Locations */}
         {isLoading ? (
-          <div className='flex items-center justify-center h-64'>
-            <p className='text-gray-500'>Loading locations...</p>
-          </div>
+          <TopLocationsLoadingState />
         ) : topLocations ? (
           <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8 w-full'>
             {topLocations
