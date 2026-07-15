@@ -2,6 +2,7 @@ import express from 'express'
 import multer from 'multer';
 import { handleUploadImageFiles } from '../controllers/upload.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
+import { requireAdminOrAgent } from '../middleware/requireAdminOrAgent.middleware.js';
 
 const router = express.Router()
 
@@ -17,6 +18,6 @@ const upload = multer({
     } //Ensures only image files cn be uploaded
  })
 
-router.post('/listing/image', verifyToken, upload.single('image'), handleUploadImageFiles)
+router.post('/listing/image', verifyToken, requireAdminOrAgent, upload.single('image'), handleUploadImageFiles)
 
 export default router
