@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Buttons/button'
 import NavLink from '../components/ui/links/NavLink'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { selectIsAuthenticated } from '@/selectors/authSelectors'
 import { useSelector } from 'react-redux'
 import ProfileMenu from '@/components/features/profile/ProfileMenu'
@@ -11,6 +11,8 @@ import { motion } from 'framer-motion'
 const Navbar = () => {
     const isAuthenticated = useSelector(selectIsAuthenticated)
     const navigate = useNavigate()
+    const location = useLocation()
+    const menuRef = useRef<HTMLElement | null>(null)
     
     const [isSticky, setIsSticky] = useState<boolean>(false)
     const [mobileIsOpened, setMobileIsOpened] = useState<boolean>(false)
@@ -24,6 +26,23 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    useEffect(() => {
+        setMobileIsOpened(false)
+    }, [location.pathname])
+
+    useEffect(() => {
+        if (!mobileIsOpened) return
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMobileIsOpened(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [mobileIsOpened])
+
     // Shared nav link classes
     const navLinkClass = "hover:text-secondary transition-colors duration-300 ease-out text-white"
 
@@ -34,17 +53,17 @@ const Navbar = () => {
 
             {/* DESKTOP NAVBAR */}
             <motion.nav
-                initial={{ width: '100%' }}
+                initial={{ width: '90%' }}
                 animate={{
-                    backgroundColor: isSticky ? 'rgba(20,15,10,0.9)' : 'rgba(20,15,10,0.7)',
-                    width: isSticky ? '80%' : '100%',
-                    top: isSticky ? 16 : 0,
-                    left: isSticky ? '10%' : '0%',
-                    right: isSticky ? '10%' : '0%',
+                    backgroundColor: isSticky ? 'rgba(20,15,10,0.9)' : 'rgba(20,15,10,0.55)',
+                    width: isSticky ? '80%' : '90%',
+                    top: 16,
+                    left: isSticky ? '10%' : '5%',
+                    right: isSticky ? '10%' : '5%',
                     borderRadius: isSticky ? 4 : 0,
                 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className='hidden md:flex items-center justify-between fixed px-8 py-2 z-50 shadow-lg backdrop-blur-md border-b border-white/10'
+                className='hidden md:flex items-center justify-between fixed px-8 py-3 z-50 shadow-2xl backdrop-blur-xl border border-white/10'
             >
                 {/* Left navigation links */}
                 <NavLink to='/' color='inherit'>
@@ -89,6 +108,7 @@ const Navbar = () => {
             {mobileIsOpened ? (
                 // Mobile Open State
                 <motion.nav
+                    ref={menuRef}
                     className={`fixed top-0 left-0 right-0 flex flex-col z-50 md:hidden w-full transition-all duration-300 ease-out backdrop-blur-md`}
                     animate={{
                         backgroundColor: isSticky ? 'rgba(20,15,10,0.8)' : 'rgba(20,15,10,0.4)',
