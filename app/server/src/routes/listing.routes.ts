@@ -1,7 +1,7 @@
 import express from 'express';
 import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations } from '../controllers/listing.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
-import { requireAdminOrAgent } from '../middleware/authz.middleware.js';
+import { requireAdminOrAgent, requireOwnershipOrAdmin } from '../middleware/authz.middleware.js';
 
 
 
@@ -28,9 +28,9 @@ router.get('/:id', handleGetOneListing)
 router.post('/', verifyToken, requireAdminOrAgent, handleCreateListing)
 
 // Update listing
-router.put('/:id', verifyToken, requireAdminOrAgent, handleUpdateListing)
+router.put('/:id', verifyToken, requireAdminOrAgent, requireOwnershipOrAdmin, handleUpdateListing)
 
 // Delete one listing
-router.delete('/:id', verifyToken, requireAdminOrAgent, handleDeleteListing)
+router.delete('/:id', verifyToken, requireAdminOrAgent, requireOwnershipOrAdmin, handleDeleteListing)
 
 export default router;
