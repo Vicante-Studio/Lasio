@@ -1,5 +1,6 @@
 import express from 'express';
 import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations } from '../controllers/listing.controller.js';
+import { verifyToken } from '../middleware/auth.middleware.js';
 
 
 
@@ -23,12 +24,12 @@ router.get('/:id', handleGetOneListing)
 // ONLY agents or admins
 
 // Create listings
-router.post('/', handleCreateListing)
+router.post('/', verifyToken, handleCreateListing)
 
 // Update listing
-router.put('/:id', handleUpdateListing)
+router.put('/:id', verifyToken, handleUpdateListing)
 
 // Delete one listing
-router.delete('/:id', handleDeleteListing)
+router.delete('/:id', verifyToken, handleDeleteListing)
 
 export default router;
