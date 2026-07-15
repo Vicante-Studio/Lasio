@@ -17,7 +17,7 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
     const navigate = useNavigate()
 
     return (
-        <section className='min-h-[70vh] sm:min-h-[75vh] md:h-screen relative overflow-hidden'>
+        <section className='relative w-full overflow-hidden h-[70vh] sm:h-[75vh] md:h-screen' style={{ minHeight: '70vh' }}>
             <div className='absolute inset-0'>
                 <img src={bgImage} className='absolute z-0 inset-0 w-full h-full object-cover' alt='Hero section Image' />
 
@@ -30,15 +30,15 @@ const HeroSection = ({ eyebrow = 'Premium Real Estate', title, subtitle, ctas, b
             </div>
 
             <motion.article
-                className='absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 gap-6'
+                className='relative z-20 flex min-h-full items-center justify-center text-left px-6 gap-6'
                 initial={{ opacity: 0, y: 120 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
             >
-                <article className='flex flex-col gap-6 items-center md:items-start absolute inset-x-4 top-10 md:top-auto md:bottom-6 max-w-[min(90vw,56rem)] md:inset-x-auto md:left-6 md:right-auto md:max-w-[60%]'>
-                    <p className='text-secondary uppercase tracking-widest text-xs md:text-sm font-medium text-center md:text-left'>{eyebrow}</p>
+                <article className='flex flex-col gap-6 items-start max-w-[min(90vw,56rem)] md:max-w-[60%]'>
+                    <p className='text-secondary uppercase tracking-widest text-xs md:text-sm font-medium text-left'>{eyebrow}</p>
 
-                    <h1 className='text-center md:text-left text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
+                    <h1 className='text-left text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight'>
                         {title ?? (
                             <>
                                 Find Verified Homes <span className='font-bold italic'>Faster.</span>
