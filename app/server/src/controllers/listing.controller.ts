@@ -55,7 +55,8 @@ export const handleCreateListing = async ( req: Request, res: Response ) => {
   try {
 
     const listingData = {
-      ...req.body
+      ...req.body,
+      agent_id: req.user.id
     }
 
     const data = await createListing(listingData)
