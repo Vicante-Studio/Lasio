@@ -11,7 +11,17 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    // Prevent browser from restoring previous scroll position on navigation
+    if ('scrollRestoration' in window.history) {
+      try {
+        window.history.scrollRestoration = 'manual'
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    // Jump to top immediately when route changes
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname])
   
   return (
