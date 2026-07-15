@@ -1,7 +1,7 @@
 import express from 'express';
 import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations } from '../controllers/listing.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
-import { requireAdminOrAgent } from '../middleware/requireAdminOrAgent.middleware.js';
+import { requireAdminOrAgent } from '../middleware/authz.middleware.js';
 
 
 
