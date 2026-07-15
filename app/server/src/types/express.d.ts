@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { Listing } from './listing.types.ts';
 
 declare global {
     namespace Express {
@@ -8,6 +9,7 @@ declare global {
                 email: string;
                 role: 'user' | 'agent' | 'admin';
             }
+            listing?: Listing
         }
     }
 }
