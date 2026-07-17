@@ -10,6 +10,7 @@ import axios, {AxiosError} from 'axios'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/state/slices/auth/authSlice'
 import { motion } from 'framer-motion'
+import api from '@/config/api/axiosInstance'
 const loginSchema = z.object({
     email: z.string().email('Enter a valid email'),
     password: z.string().min(1, 'Password is required'),
@@ -30,7 +31,7 @@ const LoginPage = () => {
         setServerError(null)
 
         try {
-            const response = await axios.post(`/api/auth/login`, values)
+            const response = await api.post(`/api/auth/login`, values)
 
             const { token, user } = response.data;
 

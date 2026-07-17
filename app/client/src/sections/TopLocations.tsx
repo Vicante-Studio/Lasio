@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { MapPin, Home } from 'lucide-react'
 import { motion } from 'framer-motion'
 import TopLocationsLoadingState from '@/components/ui/LoadingStates/TopLocationsLoadingState'
+import api from '@/config/api/axiosInstance'
 
 const TopLocations = () => {
   const [topLocations, setTopLocations] = useState<TopLocationsType[] | []>(
@@ -14,7 +15,7 @@ const TopLocations = () => {
   useEffect(() => {
     const fetchTopLocations = async () => {
       try {
-        const { data } = await axios.get(
+        const { data } = await api.get(
           `/api/listings/topLocations`
         )
         console.log(`TopLocations Data`, data)

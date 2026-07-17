@@ -14,6 +14,7 @@ import Stats from '@/sections/Stats'
 import PropertySearch from '@/sections/PropertySearch'
 import FAQ from '@/sections/FAQ'
 import ContactForm from '@/components/features/forms/ContactForm'
+import api from '@/config/api/axiosInstance'
 
 const HomePage = () => {
     const filters = useSelector((state: RootState) => state.filters.filterValues);
@@ -31,7 +32,7 @@ const HomePage = () => {
                 setError(null)
 
                 try {            
-                    const { data } = await axios.get(`/api/listings`, {
+                    const { data } = await api.get(`/api/listings`, {
                         params: filters
                     })
 

@@ -15,6 +15,7 @@ import type { Listing } from '@/types/Listing'
 import { property_types, listingFeatures } from '@/data/ListingData'
 import { useToast } from '@/hooks/useToast'
 import CreateListingFormLoadingState from '@/components/ui/LoadingStates/CreateListingFormLoadingState'
+import api from '@/config/api/axiosInstance'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -80,7 +81,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         formData.append('image', file)
 
         try {
-            const { data } = await axios.post(
+            const { data } = await api.post(
                 `/api/upload/listing/image`,
                 formData,
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -120,7 +121,7 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
         if (!listingId) return
 
         const fetchExistingListing = async (id: string) => {
-            const { data } = await axios.get(`/api/listings/${id}`)
+            const { data } = await api.get(`/api/listings/${id}`)
 
             setExistingListing(data)
             setExistingUrls(data.images ?? [])  // Store existing image URLs
@@ -176,13 +177,13 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
 
         if (isEditMode && existingListing) {
-            const { data } = await axios.put(`/api/listings/${existingListing.id}`, body, { headers })
+            const { data } = await api.put(`/api/listings/${existingListing.id}`, body, { headers })
 
             console.log('6b. update response:', data)
             showToast('Listing updated successfully!', 'success')
         } else {
             
-            const { data } = await axios.post(`/api/listings/`, body, { headers })
+            const { data } = await api.post(`/api/listings/`, body, { headers })
 
             console.log('6b. post response:', data)
             showToast('Listing Created Successfully!', 'success')

@@ -12,6 +12,7 @@ import { selectIsAdmin } from '@/selectors/authSelectors';
 import { useToast } from '@/hooks/useToast';
 import CrossfadeImage from '@/components/features/images/CrossfadeImage';
 import ListingDetailsLoadingState from '../../components/ui/LoadingStates/ListingDetailsLoadingState';
+import api from '@/config/api/axiosInstance';
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
@@ -29,7 +30,7 @@ const ListingDetails = () => {
     useEffect(() => {
         const fetchListing = async () => {
             try {
-                const { data } = await axios.get(`/api/listings/${listingId}`);
+                const { data } = await api.get(`/api/listings/${listingId}`);
 
                 setListing(data)
             

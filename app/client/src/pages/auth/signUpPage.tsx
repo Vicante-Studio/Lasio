@@ -10,6 +10,7 @@ import axios, { AxiosError} from 'axios'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/state/slices/auth/authSlice'
 import { motion } from 'framer-motion'
+import api from '@/config/api/axiosInstance'
 
 const signUpSchema = z.object({
     full_name: z.string().min(1, 'Full name is required'),
@@ -36,7 +37,7 @@ const SignUpPage = () => {
         setServerError(null)
 
         try {
-            const response = await axios.post(`/api/auth/register`, values)
+            const response = await api.post(`/api/auth/register`, values)
 
             const { token, user } = response.data;
 

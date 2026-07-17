@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/state/store'
 import HeroSection from '@/layouts/HeroSection'
+import api from '@/config/api/axiosInstance'
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -17,7 +18,7 @@ const ListingsPage = () => {
     useEffect(() => {
         const fetchListings = async () => {
             setIsLoading(true)
-            const { data } = await axios.get(`/api/listings`, {
+            const { data } = await api.get(`/api/listings`, {
                 params: filters
             });
             setListings(data)

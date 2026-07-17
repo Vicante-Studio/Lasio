@@ -14,6 +14,7 @@ import type { DeleteListingModalProps } from '@/types/Listing'
 import { Trash2Icon } from 'lucide-react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import api from '@/config/api/axiosInstance'
 
 const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) => {
 
@@ -28,7 +29,7 @@ const DeleteListingsModal = ({ listingId, showToast }: DeleteListingModalProps) 
         }
         
         try {
-            const res = await axios.delete(`/api/listings/${listingId}`, { headers: { Authorization: `Bearer ${token}` } })
+            const res = await api.delete(`/api/listings/${listingId}`, { headers: { Authorization: `Bearer ${token}` } })
 
             console.log(res)
             showToast('Listing Deleted Successfully', 'success')
