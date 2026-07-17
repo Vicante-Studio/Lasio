@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 import TopLocationsLoadingState from '@/components/ui/LoadingStates/TopLocationsLoadingState'
 
 const TopLocations = () => {
-  const [topLocations, setTopLocations] = useState<TopLocationsType[] | null>(
-    null
+  const [topLocations, setTopLocations] = useState<TopLocationsType[] | []>(
+    []
   )
   const [isLoading, setIsLoading] = useState(true)
 
