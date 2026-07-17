@@ -1,6 +1,6 @@
-import CreateListingForm from '../../components/features/listingFeatures/CreateListingForm';
-import ReturnButton from '../../components/ui/Buttons/ReturnButton';
-import HeroSection from '../../layouts/HeroSection';
+import CreateListingForm from '@/features/listings/components/CreateListingForm'
+import ReturnButton from '@/components/ui/buttons/ReturnButton'
+import HeroSection from '@/components/layout/HeroSection'
 
 const CreateListingPage = () => {
 

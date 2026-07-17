@@ -1,22 +1,22 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import './App.css'
+import './styles/index.css'
+import './styles/App.css'
 import { Provider } from 'react-redux'
-import { store } from './state/store.ts'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import HomePage from './pages/mainPages/HomePage.tsx';
-import ListingDetails from './pages/listings/ListingDetails.tsx';
-import MainLayout from './layouts/MainLayout.tsx';
-import NotFound from './pages/404 Page/NotFound.tsx';
-import ListingsPage from './pages/mainPages/ListingsPage.tsx';
-import AboutPage from './pages/mainPages/AboutPage.tsx';
-import ContactPage from './pages/mainPages/ContactPage.tsx';
-import CreateListingPage from './pages/listings/CreateListingPage.tsx'
-import EditListing from './components/features/listingFeatures/EditListing.tsx'
-import App from './App.tsx'
-import SignUpPage from './pages/auth/signUpPage.tsx'
-import LoginPage from './pages/auth/LoginPage.tsx'
+import { store } from '@/store/store'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import HomePage from '@/pages/home/HomePage'
+import ListingDetails from '@/pages/listings/ListingDetails'
+import MainLayout from '@/components/layout/MainLayout'
+import NotFound from '@/pages/not-found/NotFound'
+import ListingsPage from '@/pages/listings/ListingsPage'
+import AboutPage from '@/pages/about/AboutPage'
+import ContactPage from '@/pages/contact/ContactPage'
+import CreateListingPage from '@/pages/listings/CreateListingPage'
+import EditListing from '@/features/listings/components/EditListing'
+import App from '@/app/App'
+import SignUpPage from '@/pages/auth/signUpPage'
+import LoginPage from '@/pages/auth/LoginPage'
 
 const router = createBrowserRouter([
   {

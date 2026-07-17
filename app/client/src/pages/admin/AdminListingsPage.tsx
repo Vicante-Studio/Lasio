@@ -1,12 +1,11 @@
-import ListingLoadingState from '../../components/ui/LoadingStates/ListingLoadingState'
-import SearchPanel from '../../components/features/searchComponents/SearchPanel'
-import PageLink from '../../components/ui/links/PageLink'
-import { useSelector } from 'react-redux'
-import { selectFilteredListings } from '@/state/listings/listingsSlice'
-import AdminListingCard from '@/components/features/cards/AdminListingCard'
+import ListingLoadingState from '@/components/ui/loading-states/ListingLoadingState'
+import SearchPanel from '@/features/search/components/SearchPanel'
+import PageLink from '@/components/ui/links/PageLink'
+import AdminListingCard from '@/features/listings/components/AdminListingCard'
+import type { Listing } from '@/types/Listing'
 
 const AdminListingsPage = () => {
-    const filteredListings = useSelector(selectFilteredListings)
+    const filteredListings: Listing[] = []
 
   return (
     <section className='mt-12 flex flex-col gap-48 items-center'>

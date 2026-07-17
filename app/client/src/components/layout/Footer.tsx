@@ -1,10 +1,10 @@
-import BrandInfo from '@/components/features/footer/BrandInfo'
-import ContactInfo from '@/components/features/footer/ContactInfo'
-import Copyright from '@/components/features/footer/Copyright'
-import Legals from '@/components/features/footer/Legals'
-import QuickLinks from '@/components/features/footer/QuickLinks'
-import SocialLinks from '@/components/features/footer/SocialLinks'
-import Support from '@/components/features/footer/Support'
+import BrandInfo from '@/components/layout/footer/BrandInfo'
+import ContactInfo from '@/components/layout/footer/ContactInfo'
+import Copyright from '@/components/layout/footer/Copyright'
+import Legals from '@/components/layout/footer/Legals'
+import QuickLinks from '@/components/layout/footer/QuickLinks'
+import SocialLinks from '@/components/layout/footer/SocialLinks'
+import Support from '@/components/layout/footer/Support'
 
 const Footer = () => {
 
