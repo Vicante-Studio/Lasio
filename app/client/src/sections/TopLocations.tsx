@@ -17,6 +17,7 @@ const TopLocations = () => {
         const { data } = await axios.get(
           `/api/listings/topLocations`
         )
+        console.log(`TopLocations Data`, data)
         setTopLocations(data)
       } catch (error) {
         console.log(error)
