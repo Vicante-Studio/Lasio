@@ -17,6 +17,7 @@ import EditListing from '@/features/listings/components/EditListing'
 import App from '@/app/App'
 import SignUpPage from '@/pages/auth/signUpPage'
 import LoginPage from '@/pages/auth/LoginPage'
+import AdminPage from './pages/admin/AdminPage'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       { index: false, path: '/about', element: <AboutPage />},
       { index: false, path: '/contact', element: <ContactPage />},
       { index: false, path: '/createListing', element: <CreateListingPage />},
+      { index: false, path: '/admin', element: <AdminPage />},
     ],
     errorElement: <NotFound />
   },
