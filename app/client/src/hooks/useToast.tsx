@@ -1,7 +1,7 @@
 import type { ToastProps } from '@/types/UiTypes'
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import ToastMessage from '@/components/features/toast/ToastMsg'
+import ToastMessage from '@/features/toast/components/ToastMsg'
 
 export function useToast(){
      const [toast, setToast] = useState<ToastProps | null>(null)

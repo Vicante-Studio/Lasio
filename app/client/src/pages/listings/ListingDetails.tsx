@@ -1,18 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import type { Listing } from '../../types/Listing';
-import { formatPrice } from '../../utils/formatPrice';
+import type { Listing } from '@/types/Listing'
+import { formatPrice } from '@/utils/formatPrice'
 import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
-import IconSet from '../../components/ui/IconSet';
-import { Button } from '@/components/ui/Buttons/button';
-import DeleteListingsModal from '@/components/features/listingFeatures/DeleteListingsModal';
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { selectIsAdmin } from '@/selectors/authSelectors';
-import { useToast } from '@/hooks/useToast';
-import CrossfadeImage from '@/components/features/images/CrossfadeImage';
-import ListingDetailsLoadingState from '../../components/ui/LoadingStates/ListingDetailsLoadingState';
-import api from '@/config/api/axiosInstance';
+import IconSet from '@/components/ui/IconSet'
+import { Button } from '@/components/ui/buttons/button'
+import DeleteListingsModal from '@/features/listings/components/DeleteListingsModal'
+import { useState, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { selectIsAdmin } from '@/store/selectors/authSelectors'
+import { useToast } from '@/hooks/useToast'
+import CrossfadeImage from '@/features/listings/components/CrossfadeImage'
+import ListingDetailsLoadingState from '@/components/ui/loading-states/ListingDetailsLoadingState'
+import api from '@/config/api/axiosInstance'
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
