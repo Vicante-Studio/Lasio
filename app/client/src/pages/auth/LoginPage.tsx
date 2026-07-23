@@ -54,7 +54,7 @@ const LoginPage = () => {
                 initial={{ opacity: 0, y: 120 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-                className='w-full max-w-xl mx-auto flex flex-col gap-8 backdrop-blur-md bg-[rgba(20,15,10,0.4)] rounded-xl text-white p-8'
+                className='w-fit max-w-[80%] mx-auto flex flex-col gap-8 backdrop-blur-md bg-[rgba(20,15,10,0.4)] rounded-xl text-white p-8'
             >
 
                 <div className='text-center'>
