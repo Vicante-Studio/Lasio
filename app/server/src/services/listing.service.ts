@@ -5,11 +5,7 @@ import { listingRepository } from '../repositories/listing.repository.js'
 
 // Create listings
 export const createListing = async (listingData: Listing) => {
-  const { data, error } = await listingRepository.insertNewListing(listingData)
-
-  if (error) {
-    throw new Error(error.message)
-  }
+  const data = await listingRepository.insertNewListing(listingData)
 
   return data
 }
@@ -19,8 +15,6 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
     const { keyword, status, minPrice, maxPrice, property_type, features, bedrooms } = queryData
 
     const filters: cleanListingFilters = {}
-
-        let query = supabaseAdmin.from('listings').select('*')
 
         /* -------------------------------- */
         /* Query Parameters */
@@ -60,9 +54,7 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
 
 // Get one listing
 export const getOneListing = async (id: string) => {
-  const { data, error } = await supabaseAdmin.from('listings').select('*').eq('id', id).single()
-
-  if(error) throw new Error(error.message)
+  const { data, error } = await listingRepository.findOne(id)
 
   return data
 }
@@ -76,34 +68,20 @@ export const updateListing = async (id: string, updatedListingData: Partial<Omit
     )
   ) // Ensure updatedListingData doesn't have undefined fields
 
-  const { data, error } = await supabaseAdmin.from('listings').update(cleanData).eq('id', id).select().single()
-
-  if(error) throw new Error(error.message)
+  const data = await listingRepository.updateListing(id, cleanData)
 
   return data
 }
 
 // Delete Listing
 export const deleteListing = async (id: string) => {
-  const { data, error } = await supabaseAdmin.from('listings').delete().eq('id', id).select()
+  const data = await listingRepository.deleteListing(id)
 
-  if(error) {
-    throw new Error(error.message)
-  }
-
-  if(!data || data.length === 0) {
-    throw new Error('Listing not found')
-  }
-
-  return true
+  return data
 }
 
 export const getTopLocations = async () => {
-  const { data, error } = await supabaseAdmin.from('top_locations').select('*').limit(10)
-
-  if(error) {
-    throw new Error(error.message)
-  }
+  const data = await listingRepository.findTopLocations()
 
   return data
 }
