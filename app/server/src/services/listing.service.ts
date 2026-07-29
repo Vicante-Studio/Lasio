@@ -80,8 +80,24 @@ export const deleteListing = async (id: string) => {
   return data
 }
 
+// Get top locations
 export const getTopLocations = async () => {
   const data = await listingRepository.findTopLocations()
 
   return data
+}
+
+// Set listing availability
+export const changeListingAvailability = async(id: string) => {
+
+}
+
+// Get admin/agent stats
+export const getAdminStats = async(id: string) => {
+  // Get all listings if user is admin
+  // Get total listings for a specific agent if user is agent
+  
+  // filter the available ones and calculte them
+  // Calculate total revenue
+  // Calculate total listings
 }
