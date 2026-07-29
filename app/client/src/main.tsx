@@ -34,7 +34,6 @@ const router = createBrowserRouter([
       { index: false, path: '/about', element: <AboutPage />},
       { index: false, path: '/contact', element: <ContactPage />},
       { index: false, path: '/createListing', element: <CreateListingPage />},
-      { index: false, path: '/admin', element: <AdminPage />},
     ],
     errorElement: <NotFound />
   },
@@ -53,6 +52,9 @@ const router = createBrowserRouter([
   {
     path: 'listings/:listingId/edit', element: <EditListing />
   },
+
+  // Admin Page
+  { index: false, path: '/admin', element: <AdminPage />},
 
 ])
 
