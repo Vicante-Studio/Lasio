@@ -5,3 +5,10 @@ export interface SideBarProps {
     description: string;
     Icon: LucideIcon
 }
+
+export interface StatsCardType {
+    title: string;
+    value: string;
+    Icon: LucideIcon;
+    additionalInfo: string;
+}
