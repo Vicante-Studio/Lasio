@@ -74,7 +74,7 @@ const ProfileMenu = () => {
         {/* Main actions */}
         <div className="py-2">
           <DropdownMenuItem
-            onClick={() => navigate('./profile')}
+            onClick={() => navigate('./admin')}
             className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-gray-50"
           >
             <User size={16} className="text-gray-600" />
