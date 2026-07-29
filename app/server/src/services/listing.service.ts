@@ -1,15 +1,11 @@
 import supabaseAdmin from '../config/supabaseAdmin.js';
 import { Listing, listingFilters } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
+import { listingRepository } from '../repositories/listing.repository.js'
 
 // Create listings
 export const createListing = async (listingData: Listing) => {
-  const result = await supabaseAdmin
-    .from('listings')
-    .insert(listingData)
-    .select()
-
-  const { data, error } = result
+  const { data, error } = await listingRepository.insertNewListing(listingData)
 
   if (error) {
     throw new Error(error.message)
