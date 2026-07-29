@@ -1,5 +1,5 @@
 import supabaseAdmin from '../config/supabaseAdmin.js';
-import { Listing, listingFilters } from '../types/listing.types.js';
+import { cleanListingFilters, Listing, listingFilters } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
 import { listingRepository } from '../repositories/listing.repository.js'
 
@@ -16,8 +16,9 @@ export const createListing = async (listingData: Listing) => {
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
-  console.log(1,'Service active')
     const { keyword, status, minPrice, maxPrice, property_type, features, bedrooms } = queryData
+
+    const filters: cleanListingFilters = {}
 
         let query = supabaseAdmin.from('listings').select('*')
 
@@ -27,41 +28,34 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         
          // Keyword filters
         if(keyword && keyword.trim().length > 0){
-          const searchTerm = `%${keyword}%`
-
-          query = query.or(`title.ilike.${searchTerm},city.ilike.${searchTerm},state.ilike.${searchTerm},location.ilike.${searchTerm}`)
+          filters.keyword = keyword.trim();
         }
 
         // Price filters
         if(minPrice){
-          const min = parsePrice(minPrice as string)
+          const min = parsePrice(minPrice as string);
+            if (!isNaN(min as number)) filters.minPrice = min as number;
+          }
 
-          if (!isNaN(min as number)) query = query.gte('price', min)
-        }
-        if(maxPrice){
-          const max = parsePrice(maxPrice as string)
-          
-          if (!isNaN(max as number)) query = query.lte('price', max)
+         if (maxPrice) {
+          const max = parsePrice(maxPrice as string);
+          if (!isNaN(max as number)) filters.maxPrice = max as number;
         }
 
         // Status filters
-        if (status) query = query.ilike('status', `%${status}%`)
+        if (status) filters.status = status;
         
         //Property Type filter 
-        if (property_type) query = query.ilike('property_type', `%${property_type}%`)
+        if (property_type) filters.propertyType = property_type;
 
         //Features filter
         // Use query.contains for an array of texts
-        if (features) query = query.contains('features', [features])
+        if (features) filters.features = features;
 
         //Bedrooms filter
-        if (bedrooms) query = query.eq('bedrooms', Number(bedrooms))
+        if (bedrooms) filters.bedrooms = Number(bedrooms);
 
-        const { data, error } = await query
-
-        if (error) throw error
-        
-        return data || []
+        return listingRepository.findAllListings(filters);
 }
 
 // Get one listing
