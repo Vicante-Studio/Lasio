@@ -12,13 +12,13 @@ const AdminPage = () => {
     return(
         <main className='p-8 w-full h-full flex'>
             {/* Side bar */}
-            <section className='border-r border-gray-300 h-screen flex flex-col gap-8 pr-4 max-w-[20%] '>
+            <aside className='border-r border-gray-300 h-screen flex flex-col gap-8 pr-4 max-w-[20%] '>
                 {
                     sideBarContent.map(content => (
                         <SideBar title={content.title} description={content.description} Icon={content.Icon}/>
                     ))
                 }
-            </section>
+            </aside>
 
            <section>
                 {/* Top bar */}
