@@ -75,5 +75,16 @@ export const listingRepository = {
         }
 
         return data
+    },
+
+    // Get all listings that has a certain agent_id
+    async findListingsByAgentId (id: string) {
+        const { data, error } = await supabaseAdmin.from('listings').select('*').eq('agent_id', id).single()
+
+        if(error) {
+            throw new Error(error.message)
+        }
+
+        return data
     }
 }
