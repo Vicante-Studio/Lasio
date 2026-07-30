@@ -29,11 +29,11 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <App />},
-      { index: false, path: '/listings', element: <ListingsPage />},
-      { index: false, path: '/home', element: <HomePage />},
-      { index: false, path: '/about', element: <AboutPage />},
-      { index: false, path: '/contact', element: <ContactPage />},
-      { index: false, path: '/createListing', element: <CreateListingPage />},
+      { path: '/listings', element: <ListingsPage />},
+      { path: '/home', element: <HomePage />},
+      { path: '/about', element: <AboutPage />},
+      { path: '/contact', element: <ContactPage />},
+      { path: '/createListing', element: <CreateListingPage />},
     ],
     errorElement: <NotFound />
   },
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
   },
 
   // Admin Page
-  { index: false, path: '/admin', element: <AdminPage />},
+  { path: '/admin', element: <AdminPage />},
 
 ])
 
