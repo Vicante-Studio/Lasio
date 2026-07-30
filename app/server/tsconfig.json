@@ -10,12 +10,9 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "skipLibCheck": true,
-        "types": ["jest", "node"],
+        "types": ["node"],
         "isolatedModules": true,
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules", "dist", "src/__tests__"],
-    "references": [
-        { "path": "./tsconfig.test.json" }
-    ]
 }
