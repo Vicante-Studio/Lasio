@@ -24,6 +24,9 @@ router.get('/:id', handleGetOneListing)
 
 // ONLY agents or admins
 
+// Get listings by agent_id
+router.get('/admin')
+
 // Create listings
 router.post('/', verifyToken, requireAdminOrAgent, handleCreateListing)
 

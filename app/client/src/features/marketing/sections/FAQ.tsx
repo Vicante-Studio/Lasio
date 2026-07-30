@@ -1,5 +1,5 @@
 import { Accordion, AccordionContent, AccordionTrigger, AccordionItem } from '@/components/ui/accordion'
-import { faqs } from '@/data/FaqData'
+import { faqs } from '@/data/faqData'
 
 const FAQ = () => {
 

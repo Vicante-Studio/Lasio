@@ -1,29 +1,20 @@
 import supabaseAdmin from '../config/supabaseAdmin.js';
-import { Listing, listingFilters } from '../types/listing.types.js';
+import { cleanListingFilters, Listing, listingFilters } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
+import { listingRepository } from '../repositories/listing.repository.js'
 
 // Create listings
 export const createListing = async (listingData: Listing) => {
-  const result = await supabaseAdmin
-    .from('listings')
-    .insert(listingData)
-    .select()
-
-  const { data, error } = result
-
-  if (error) {
-    throw new Error(error.message)
-  }
+  const data = await listingRepository.insertNewListing(listingData)
 
   return data
 }
 
 // Get all Listings
 export const getAllListings = async (queryData: listingFilters = {}) => {
-  console.log(1,'Service active')
     const { keyword, status, minPrice, maxPrice, property_type, features, bedrooms } = queryData
 
-        let query = supabaseAdmin.from('listings').select('*')
+    const filters: cleanListingFilters = {}
 
         /* -------------------------------- */
         /* Query Parameters */
@@ -31,48 +22,39 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
         
          // Keyword filters
         if(keyword && keyword.trim().length > 0){
-          const searchTerm = `%${keyword}%`
-
-          query = query.or(`title.ilike.${searchTerm},city.ilike.${searchTerm},state.ilike.${searchTerm},location.ilike.${searchTerm}`)
+          filters.keyword = keyword.trim();
         }
 
         // Price filters
         if(minPrice){
-          const min = parsePrice(minPrice as string)
+          const min = parsePrice(minPrice as string);
+            if (!isNaN(min as number)) filters.minPrice = min as number;
+          }
 
-          if (!isNaN(min as number)) query = query.gte('price', min)
-        }
-        if(maxPrice){
-          const max = parsePrice(maxPrice as string)
-          
-          if (!isNaN(max as number)) query = query.lte('price', max)
+         if (maxPrice) {
+          const max = parsePrice(maxPrice as string);
+          if (!isNaN(max as number)) filters.maxPrice = max as number;
         }
 
         // Status filters
-        if (status) query = query.ilike('status', `%${status}%`)
+        if (status) filters.status = status;
         
         //Property Type filter 
-        if (property_type) query = query.ilike('property_type', `%${property_type}%`)
+        if (property_type) filters.propertyType = property_type;
 
         //Features filter
         // Use query.contains for an array of texts
-        if (features) query = query.contains('features', [features])
+        if (features) filters.features = features;
 
         //Bedrooms filter
-        if (bedrooms) query = query.eq('bedrooms', Number(bedrooms))
+        if (bedrooms) filters.bedrooms = Number(bedrooms);
 
-        const { data, error } = await query
-
-        if (error) throw error
-        
-        return data || []
+        return listingRepository.findAllListings(filters);
 }
 
 // Get one listing
 export const getOneListing = async (id: string) => {
-  const { data, error } = await supabaseAdmin.from('listings').select('*').eq('id', id).single()
-
-  if(error) throw new Error(error.message)
+  const { data, error } = await listingRepository.findOne(id)
 
   return data
 }
@@ -86,34 +68,36 @@ export const updateListing = async (id: string, updatedListingData: Partial<Omit
     )
   ) // Ensure updatedListingData doesn't have undefined fields
 
-  const { data, error } = await supabaseAdmin.from('listings').update(cleanData).eq('id', id).select().single()
-
-  if(error) throw new Error(error.message)
+  const data = await listingRepository.updateListing(id, cleanData)
 
   return data
 }
 
 // Delete Listing
 export const deleteListing = async (id: string) => {
-  const { data, error } = await supabaseAdmin.from('listings').delete().eq('id', id).select()
-
-  if(error) {
-    throw new Error(error.message)
-  }
-
-  if(!data || data.length === 0) {
-    throw new Error('Listing not found')
-  }
-
-  return true
-}
-
-export const getTopLocations = async () => {
-  const { data, error } = await supabaseAdmin.from('top_locations').select('*').limit(10)
-
-  if(error) {
-    throw new Error(error.message)
-  }
+  const data = await listingRepository.deleteListing(id)
 
   return data
+}
+
+// Get top locations
+export const getTopLocations = async () => {
+  const data = await listingRepository.findTopLocations()
+
+  return data
+}
+
+// Set listing availability
+export const changeListingAvailability = async(id: string) => {
+
+}
+
+// Get admin/agent stats
+export const getAdminStats = async(id: string) => {
+  // Get all listings if user is admin
+  // Get total listings for a specific agent if user is agent
+  
+  // filter the available ones and calculte them
+  // Calculate total revenue
+  // Calculate total listings
 }

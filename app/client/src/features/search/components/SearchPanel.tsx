@@ -2,7 +2,7 @@ import { MapPin, BedDouble, Home } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { setFilter } from '@/store/slices/filters/filterSlice'
 import PriceFilter from './priceFilter'
-import { listingFeatures, property_types } from '@/data/ListingData'
+import { listingFeatures, property_types } from '@/data/listingData'
 
 const SearchPanel = () => {
   const dispatch = useDispatch()

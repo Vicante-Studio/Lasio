@@ -37,3 +37,13 @@ export interface listingFilters {
     features?: string
     bedrooms?: string
 }
+
+export interface cleanListingFilters {
+    keyword?: string;
+    status?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    propertyType?: string;
+    features?: string;
+    bedrooms?: number;
+}
