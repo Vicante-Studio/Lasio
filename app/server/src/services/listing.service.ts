@@ -1,4 +1,3 @@
-import supabaseAdmin from '../config/supabaseAdmin.js';
 import { cleanListingFilters, Listing, listingFilters } from '../types/listing.types.js';
 import parsePrice from '../utils/parsePriceFilter.js';
 import { listingRepository } from '../repositories/listing.repository.js'
@@ -89,15 +88,5 @@ export const getTopLocations = async () => {
 
 // Set listing availability
 export const changeListingAvailability = async(id: string) => {
-
-}
-
-// Get admin/agent stats
-export const getAdminStats = async(id: string) => {
-  // Get all listings if user is admin
-  // Get total listings for a specific agent if user is agent
-  
-  // filter the available ones and calculte them
-  // Calculate total revenue
-  // Calculate total listings
+  // TODO
 }
