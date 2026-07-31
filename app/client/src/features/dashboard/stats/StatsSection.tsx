@@ -50,7 +50,7 @@ const StatsSection = () => {
         <>
             {
                 dashboardStats ? (
-                    <section className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8'>
+                    <section className='grid mb-8 gap-6' style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
                         {
                             dashboardStats && dashboardStatCards.map((stat,key) => (
                                 <StatsCard key={key} title={stat.title as string} value={stat.value as string} icon={stat.icon as ReactNode}/>
@@ -69,4 +69,4 @@ const StatsSection = () => {
     )
 }
 
-export default StatsSection
+export default StatsSection 
