@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 export interface SideBarProps {
     title: string;
@@ -9,6 +10,11 @@ export interface SideBarProps {
 export interface StatsCardType {
     title: string;
     value: string;
-    Icon: LucideIcon;
-    additionalInfo: string;
+    icon: ReactNode;
+}
+
+export interface DashboardStatsDataType {
+    total_revenue: number
+    available_listings: number
+    total_listings: number
 }
