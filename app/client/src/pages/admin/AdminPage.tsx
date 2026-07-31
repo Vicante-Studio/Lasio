@@ -21,8 +21,8 @@ const AdminPage = () => {
                 </div>
                 <nav className="space-y-2">
                     {
-                        sideBarContent.map(content => (
-                            <SideBar title={content.title} description={content.description} Icon={content.Icon}/>
+                        sideBarContent.map((content, index) => (
+                            <SideBar key={index} title={content.title} description={content.description} Icon={content.Icon}/>
                         ))
                     }
                 </nav>
