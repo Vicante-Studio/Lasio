@@ -33,7 +33,7 @@ const DashboardTable = ({ staffListings }: DashboardTableProps) => {
                                 {listing.location}
                             </td>
                             <td className='py-4 text-gray-900'>
-                                ₦{formatPrice(listing.price)}
+                                {formatPrice(listing.price)}
                             </td>
                             <td className='py-4'>
                                 <span
