@@ -9,7 +9,7 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
 
     const user = await authService.registerUser(userData)
 
-    return res.status(201).json({ message: 'User registered successfully' })
+    return res.status(201).json({ success: true, message: 'User registered successfully', user })
 
   } catch (error) {
     
@@ -59,7 +59,10 @@ export const handleGetProfile = async (req: Request, res: Response) => {
 
     if (error) throw new Error(error.message)
 
-    return res.status(200).json(user)
+    return res.status(200).json({
+      success: true,
+      user
+    })
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message })

@@ -16,7 +16,7 @@ export const handleUploadImageFiles = async (req: Request, res: Response) => {
             console.log(error)
         }
 
-        return res.status(200).json({ message: 'Image upload successful', data, url: data.publicUrl})
+        return res.status(200).json({ success: true, message: 'Image upload successful', data, url: data.publicUrl})
   } catch (error) {
         return res.status(404).json({ message: 'Image upload failed', error })
   }
