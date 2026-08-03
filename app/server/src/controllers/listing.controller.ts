@@ -19,7 +19,10 @@ export const handleGetAllListings = async ( req: Request, res: Response ) => {
 
     const data = await getAllListings(queryData)
 
-    return res.status(200).json(data)
+    return res.status(200).json({
+      success: true,
+      data
+    })
   } catch (error) {
 
     if(error instanceof Error){
@@ -40,7 +43,10 @@ export const handleGetOneListing = async ( req: Request, res: Response ) => {
 
     const data = await getOneListing(id as string)
 
-    return res.status(200).json(data)
+    return res.status(200).json({
+      success: true,
+      data
+    })
   } catch (error) {
     return res.status(500).json({
       error: 'Failed to fetch listing'
@@ -61,7 +67,10 @@ export const handleCreateListing = async ( req: Request, res: Response ) => {
 
     const data = await createListing(listingData)
 
-    return res.status(201).json(data)
+    return res.status(201).json({
+      success: true,
+      data
+    })
 
   } catch (error) {
     return res.status(500).json({
@@ -86,7 +95,10 @@ export const handleUpdateListing = async ( req: Request, res: Response ) => {
 
     const data = await updateListing(id as string, updates)
 
-    return res.status(200).json(data)
+    return res.status(200).json({
+      success: true,
+      data
+    })
   } catch (error) {
     return res.status(500).json({
       error:
@@ -107,6 +119,7 @@ export const handleDeleteListing = async ( req: Request, res: Response ) => {
     await deleteListing(id as string)
 
     return res.status(200).json({
+      success: true,
       message: 'Listing deleted successfully'
     })
   } catch (error) {
@@ -128,7 +141,10 @@ export const handleGetTopLocations = async (req:Request, res: Response) => {
   try {
     const data = await getTopLocations()
 
-    return res.status(200).json(data)
+    return res.status(200).json({
+      success: true,
+      data
+    })
   } catch (error) {
     if(error instanceof Error){
       return res.status(500).json({
