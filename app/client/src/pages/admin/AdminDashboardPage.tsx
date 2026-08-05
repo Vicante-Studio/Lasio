@@ -1,10 +1,11 @@
-import { selectCurrentUser } from '@/selectors/authSelectors'
+
 import { useSelector } from 'react-redux'
 import SideBar from '@/features/dashboard/Sidebar'
 import { sideBarContent } from '@/data/sideBarData'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 import StatsSection from '@/features/dashboard/stats/StatsSection'
 import TableSection from '@/features/dashboard/table/TableSection'
+import { selectCurrentUser } from '@/store/selectors/authSelectors'
 
 const AdminDashboardPage = () => {
     const user = useSelector(selectCurrentUser)
