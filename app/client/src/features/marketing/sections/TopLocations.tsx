@@ -17,8 +17,8 @@ const TopLocations = () => {
         const { data } = await api.get(
           `/api/listings/topLocations`
         )
-        console.log(`TopLocations Data`, data)
-        setTopLocations(data)
+        console.log(`TopLocations Data`, data.data)
+        setTopLocations(data.data)
       } catch (error) {
         console.log(error)
       } finally {
