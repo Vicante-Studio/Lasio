@@ -19,7 +19,7 @@ const getListingsByRole = async (role: 'admin' | 'agent', id?: string) => {
 
 // Get admin/agent stats
 export const getDashboardStats = async(id: string, role: 'admin' | 'agent') => {
-  const listings: Listing[] = await getListingsByRole(role)
+  const listings: Listing[] = role === 'admin' ? await getListingsByRole(role) : await getListingsByRole(role, id)  
 
   const total_listings: number = listings.length  // Calculate total listings
   const total_revenue: number = listings.reduce((acc, listing) => acc + Number(listing.price), 0) // Calculate total revenue
