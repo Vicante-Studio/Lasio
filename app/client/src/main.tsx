@@ -17,7 +17,7 @@ import EditListing from '@/features/listings/components/EditListing'
 import App from '@/app/App'
 import SignUpPage from '@/pages/auth/signUpPage'
 import LoginPage from '@/pages/auth/LoginPage'
-import AdminPage from './pages/admin/AdminPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 
 const router = createBrowserRouter([
   {
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
     path: 'listings/:listingId/edit', element: <EditListing />
   },
 
-  // Admin Page
-  { path: '/admin', element: <AdminPage />},
+  // Admin Pages
+  { path: '/admin', element: <AdminDashboardPage />},
 
 ])
 
