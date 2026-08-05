@@ -5,7 +5,8 @@ import type { Listing } from './Listing';
 export interface SideBarProps {
     title: string;
     description: string;
-    Icon: LucideIcon
+    Icon: LucideIcon;
+    link: string;
 }
 
 export interface StatsCardType {
