@@ -22,7 +22,7 @@ export function MoreActions({ onView, onDelete }: MoreActionsProps) {
           <span className="sr-only">More actions</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className='bg-[rgba(20,15,10,0.9)] *:text-white p-4 min-h-fit min-w-fit flex flex-col justify-between'>
         <DropdownMenuItem onClick={onView}>
           <Pencil className="mr-2 h-4 w-4" />
           View
