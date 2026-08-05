@@ -11,11 +11,13 @@ import {
 import axios from 'axios'
 import api from '@/config/api/axiosInstance'
 import type { DeleteListingsModalProps } from '@/types/Listing'
+import { useToast } from '@/hooks/useToast'
 
 
-const DeleteListingsModal = ({ listingId, showToast, open, onOpenChange, onDeleted }: DeleteListingsModalProps) => {
+const DeleteListingsModal = ({ listingId, open, onOpenChange, onDeleted }: DeleteListingsModalProps) => {
+     const { showToast } = useToast()
 
-    const handleDelete = async (id: string) => {
+    const handleDeleteListing = async (id: string) => {
         const token = localStorage.getItem('token')
         if (!token) {
             showToast('Session expired. Please log in again.', 'error')
@@ -47,7 +49,7 @@ const DeleteListingsModal = ({ listingId, showToast, open, onOpenChange, onDelet
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => handleDelete(listingId)}>
+                    <AlertDialogAction onClick={() => handleDeleteListing(listingId)}>
                         Yes, Delete this listing
                     </AlertDialogAction>
                 </AlertDialogFooter>
