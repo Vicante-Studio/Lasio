@@ -1,5 +1,5 @@
 import express from 'express';
-import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations } from '../controllers/listing.controller.js';
+import { handleCreateListing, handleGetOneListing, handleGetAllListings, handleUpdateListing, handleDeleteListing, handleGetTopLocations, handleVerifyOwnership } from '../controllers/listing.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 import { requireAdminOrAgent, requireOwnershipOrAdmin } from '../middleware/authz.middleware.js';
 
@@ -26,6 +26,9 @@ router.get('/:id', handleGetOneListing)
 
 // Create listings
 router.post('/', verifyToken, requireAdminOrAgent, handleCreateListing)
+
+// Verify if listing belongs to agent
+router.get('/verifyOwnership/:id', verifyToken, requireAdminOrAgent, requireOwnershipOrAdmin, handleVerifyOwnership)
 
 // Update listing
 router.put('/:id', verifyToken, requireAdminOrAgent, requireOwnershipOrAdmin, handleUpdateListing)
