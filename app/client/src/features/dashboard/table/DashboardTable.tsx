@@ -1,13 +1,9 @@
-import { useState } from 'react'
-import { MoreActions } from "@/components/features/actions/MoreActions"
-import DeleteListingsModal from '@/features/listings/components/DeleteListingsModal'
 import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
 import type { DashboardTableProps } from '@/types/DashboardElements'
 
-const DashboardTable = ({ staffListings, onListingDeleted }: DashboardTableProps) => {
+const DashboardTable = ({ staffListings }: DashboardTableProps) => {
     const navigate = useNavigate()
-    const [listingToDeleteId, setListingToDeleteId] = useState<string | null>(null)
 
     const handleView = (listingId: string) => {
         navigate(`/listings/${listingId}`) 
@@ -31,11 +27,11 @@ const DashboardTable = ({ staffListings, onListingDeleted }: DashboardTableProps
                         </tr>
                     ) : (
                         staffListings.map((listing) => (
-                            <tr key={listing.id} onClick={() => handleView(listing.id)} className='border-b border-gray-100 hover:bg-yellow-100'>
-                                <td className='py-4 font-medium text-gray-900 ml-2'>{listing.title}</td>
-                                <td className='py-4 text-gray-600'>{listing.location}</td>
-                                <td className='py-4 text-gray-900'>{formatPrice(listing.price)}</td>
-                                <td className='py-4'>
+                            <tr key={listing.id} onClick={() => handleView(listing.id)} className='border-b border-gray-100 hover:bg-yellow-100 hover:cursor-pointer'>
+                                <td className='py-4 font-medium text-gray-900 px-2'>{listing.title}</td>
+                                <td className='py-4 text-gray-600 px-2'>{listing.location}</td>
+                                <td className='py-4 text-gray-900 px-2'>{formatPrice(listing.price)}</td>
+                                <td className='py-4 px-2'>
                                     <span
                                         className={`rounded-full px-3 py-1 text-xs font-medium ${
                                             listing.is_available === true
@@ -46,29 +42,11 @@ const DashboardTable = ({ staffListings, onListingDeleted }: DashboardTableProps
                                         {listing.is_available ? 'Available' : 'Not Available'}
                                     </span>
                                 </td>
-                                <td className='py-4'>
-                                    <MoreActions
-                                        onView={() => handleView(listing.id)}
-                                        onDelete={() => setListingToDeleteId(listing.id)}
-                                    />
-                                </td>
                             </tr>
                         ))
                     )
                 }
             </tbody>
-
-            {listingToDeleteId && (
-                <DeleteListingsModal
-                    listingId={listingToDeleteId}
-                    open={listingToDeleteId !== null}
-                    onOpenChange={(open) => { if (!open) setListingToDeleteId(null) }}
-                    onDeleted={(deletedId) => {
-                        setListingToDeleteId(null)
-                        onListingDeleted?.(deletedId)
-                    }}
-                />
-            )}
         </>
     )
 }
