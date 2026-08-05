@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/buttons/button'
 import DeleteListingsModal from '@/features/listings/components/DeleteListingsModal'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { selectIsAdmin } from '@/store/selectors/authSelectors'
+import { selectIsAdmin, selectIsAgent } from '@/store/selectors/authSelectors'
 import { useToast } from '@/hooks/useToast'
 import CrossfadeImage from '@/features/listings/components/CrossfadeImage'
 import ListingDetailsLoadingState from '@/components/ui/loading-states/ListingDetailsLoadingState'
@@ -15,6 +15,9 @@ import api from '@/config/api/axiosInstance'
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
+    const userIsAgent = useSelector(selectIsAgent)
+
+    const [listingIsOwned, setListingIsOwned] = useState<boolean>(false)
 
     const navigate = useNavigate();
     const { listingId } = useParams(); //unique Id for listing
@@ -42,6 +45,22 @@ const ListingDetails = () => {
 
         fetchListing();
     }, [listingId, navigate])
+
+    useEffect(() => {
+        const checkOwnership = async () => {
+            const token = localStorage.getItem('token')
+            try {
+                const { data } = await api.get(`/api/listings/verifyOwnership/${listingId}`, { headers: { Authorization: `Bearer ${token}` } });
+
+                setListingIsOwned(data.ownershipVerified)
+            } catch (error) {
+                console.log(error)
+                return null
+            }
+        }
+
+        checkOwnership()
+    }, [])
 
     // Ensure page is at top on mount to avoid showing footer-only state
     useEffect(() => {
@@ -204,7 +223,7 @@ const ListingDetails = () => {
                                         ))}
                                     </div>
 
-                                    {userIsAdmin ? (
+                                    {userIsAdmin || ( userIsAgent && listingIsOwned ) ? (
                                         <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                                             <Button className='w-full sm:w-auto' variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}>
                                                 Edit
