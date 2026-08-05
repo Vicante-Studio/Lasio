@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { Listing } from '@/types/Listing'
 import { formatPrice } from '@/utils/formatPrice'
-import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
+import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil, Trash2Icon } from 'lucide-react'
 import IconSet from '@/components/ui/IconSet'
 import { Button } from '@/components/ui/buttons/button'
 import DeleteListingsModal from '@/features/listings/components/DeleteListingsModal'
@@ -22,6 +22,7 @@ const ListingDetails = () => {
     const [listing, setListing] = useState<Listing>()
     const [loading, setLoading] = useState<boolean>(true)
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
     const { showToast, ToastComponent } = useToast()
 
@@ -31,10 +32,8 @@ const ListingDetails = () => {
             try {
                 const { data } = await api.get(`/api/listings/${listingId}`);
 
-                setListing(data)
-            
+                setListing(data.data)
             } catch (error) {
-                console.log(error)
                 navigate('/listings') // redirect if listing not found
             } finally {
                 setLoading(false)
@@ -212,7 +211,19 @@ const ListingDetails = () => {
                                                 <Pencil color='black' size={18} />
                                             </Button>
 
-                                            {listingId && <DeleteListingsModal listingId={listingId} showToast={showToast} />}
+                                            <Button className='w-full sm:w-auto' variant='destructive' type='button' onClick={() => setDeleteModalOpen(true)}>
+                                                Delete
+                                                <Trash2Icon size={18} color='rgba(255,0,0,0.6)' />
+                                            </Button>
+
+                                            {listingId && (
+                                                <DeleteListingsModal
+                                                    listingId={listingId}
+                                                    showToast={showToast}
+                                                    open={deleteModalOpen}
+                                                    onOpenChange={setDeleteModalOpen}
+                                                />
+                                            )}
                                         </div>
                                     ) : null}
                                 </div>
