@@ -153,3 +153,31 @@ export const handleGetTopLocations = async (req:Request, res: Response) => {
     }
   }
 }
+
+export const handleVerifyOwnership = async (req:Request, res: Response) => {
+   const { id } = req.params
+    try {
+        const listing = await getOneListing(id as string)
+
+        if(!listing) {
+            return res.status(404).json({ error: 'Listing not found' })
+        }
+
+        const isOwner = listing.agent_id === req.user.id
+
+        if( !isOwner ) {
+            return res.status(403).json({ error: 'You can only edit your own listings'})
+        }
+
+        return res.status(200).json({
+          succes: true,
+          ownershipVerified: isOwner
+        })
+    } catch (error) {
+        if(error instanceof Error){
+          return res.status(500).json({
+            error: `Error: ${error.message}`
+          })
+        }
+    }
+}
