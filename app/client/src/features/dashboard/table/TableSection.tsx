@@ -42,12 +42,11 @@ const TableSection = () => {
                 <table className='w-full text-sm'>
                 {/* Table Headers */}
                 <thead>
-                    <tr className='border-b border-gray-200 text-left text-gray-500'>
-                    <th className='pb-3 font-medium'>Property</th>
-                    <th className='pb-3 font-medium'>Location</th>
-                    <th className='pb-3 font-medium'>Price</th>
-                    <th className='pb-3 font-medium'>Status</th>
-                    <th className='pb-3 font-medium'>Actions</th>
+                    <tr className='border-b border-gray-200 text-left text-gray-500 px-2'>
+                    <th className='pb-3 font-medium px-2'>Property</th>
+                    <th className='pb-3 font-medium px-2'>Location</th>
+                    <th className='pb-3 font-medium px-2'>Price</th>
+                    <th className='pb-3 font-medium px-2'>Status</th>
                     </tr>
                 </thead>
 
