@@ -35,7 +35,7 @@ const HomePage = () => {
                         params: filters
                     })
 
-                    setListings(Array.isArray(data) ? data : [])
+                    setListings(Array.isArray(data.data) ? data.data : [])
                     setHasSearched(true)
                 } catch (error) {
                     console.log(`Error fetching listings: ${error}`)
