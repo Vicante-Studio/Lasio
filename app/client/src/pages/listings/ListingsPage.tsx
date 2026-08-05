@@ -20,7 +20,7 @@ const ListingsPage = () => {
             const { data } = await api.get(`/api/listings`, {
                 params: filters
             });
-            setListings(data)
+            setListings(data.data)
             setIsLoading(false)
         }
 
