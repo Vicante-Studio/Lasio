@@ -5,7 +5,7 @@ import { formatPrice } from "@/utils/formatPrice"
 import { useNavigate } from "react-router-dom"
 import type { DashboardTableProps } from '@/types/DashboardElements'
 
-const DashboardTable = ({ staffListings, showToast, onListingDeleted }: DashboardTableProps) => {
+const DashboardTable = ({ staffListings, onListingDeleted }: DashboardTableProps) => {
     const navigate = useNavigate()
     const [listingToDeleteId, setListingToDeleteId] = useState<string | null>(null)
 
@@ -61,7 +61,6 @@ const DashboardTable = ({ staffListings, showToast, onListingDeleted }: Dashboar
             {listingToDeleteId && (
                 <DeleteListingsModal
                     listingId={listingToDeleteId}
-                    showToast={showToast}
                     open={listingToDeleteId !== null}
                     onOpenChange={(open) => { if (!open) setListingToDeleteId(null) }}
                     onDeleted={(deletedId) => {

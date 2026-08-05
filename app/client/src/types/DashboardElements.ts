@@ -22,6 +22,5 @@ export interface DashboardStatsDataType {
 
 export interface DashboardTableProps {
     staffListings: Listing[]
-    showToast: (message: string, type: 'success' | 'error') => void
     onListingDeleted?: (listingId: string) => void
 }
