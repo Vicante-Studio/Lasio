@@ -122,23 +122,23 @@ const CreateListingForm = ({ listingId }: CreateListingFormProps) => {
 
         const fetchExistingListing = async (id: string) => {
             const { data } = await api.get(`/api/listings/${id}`)
-
-            setExistingListing(data)
-            setExistingUrls(data.images ?? [])  // Store existing image URLs
+            console.log(data)
+            setExistingListing(data.data)
+            setExistingUrls(data.data.images ?? [])  // Store existing image URLs
 
             reset({
-                title: data.title ?? '',
-                description: data.description ?? '',
-                location: data.location ?? '',
-                city: data.city ?? '',
-                state: data.state ?? '',
-                property_type: data.property_type ?? '',
-                bedrooms: data.bedrooms ?? 0,
-                bathrooms: data.bathrooms ?? 0,
-                sizeSqft: data.sizeSqft ?? 0,
-                price: data.price ?? 0,
-                status: data.status ?? 'For Sale',
-                features: data.features ?? [],
+                title: data.data.title ?? '',
+                description: data.data.description ?? '',
+                location: data.data.location ?? '',
+                city: data.data.city ?? '',
+                state: data.data.state ?? '',
+                property_type: data.data.property_type ?? '',
+                bedrooms: data.data.bedrooms ?? 0,
+                bathrooms: data.data.bathrooms ?? 0,
+                sizeSqft: data.data.sizeSqft ?? 0,
+                price: data.data.price ?? 0,
+                status: data.data.status ?? 'For Sale',
+                features: data.data.features ?? [],
             })
         }
 
