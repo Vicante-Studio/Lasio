@@ -53,9 +53,9 @@ export const getAllListings = async (queryData: listingFilters = {}) => {
 
 // Get one listing
 export const getOneListing = async (id: string) => {
-  const { data, error } = await listingRepository.findOne(id)
+  const listing = await listingRepository.findOne(id)
 
-  return data
+  return listing
 }
 
 // Update Listing
