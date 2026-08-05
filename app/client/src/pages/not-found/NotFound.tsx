@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/buttons/button'
 const NotFound = () => {
   return (
     <section className='min-h-screen flex items-center justify-center px-6'>
-        <section className='flex flex-col gap-12 items-center max-w-6xl mx-auto text-center'>
+        <section className='flex flex-col gap-12 items-center max-w-7xl mx-auto text-center'>
             <h1 className='text-5xl text-center text-primary'>
                 <span className=''>Oops...</span> looks like you've taken a wrong turn. 
             </h1>
