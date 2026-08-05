@@ -31,8 +31,8 @@ const DashboardTable = ({ staffListings, showToast, onListingDeleted }: Dashboar
                         </tr>
                     ) : (
                         staffListings.map((listing) => (
-                            <tr key={listing.id} className='border-b border-gray-100'>
-                                <td className='py-4 font-medium text-gray-900'>{listing.title}</td>
+                            <tr key={listing.id} onClick={() => handleView(listing.id)} className='border-b border-gray-100 hover:bg-yellow-100'>
+                                <td className='py-4 font-medium text-gray-900 ml-2'>{listing.title}</td>
                                 <td className='py-4 text-gray-600'>{listing.location}</td>
                                 <td className='py-4 text-gray-900'>{formatPrice(listing.price)}</td>
                                 <td className='py-4'>
