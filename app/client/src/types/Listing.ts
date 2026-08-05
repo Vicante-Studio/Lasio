@@ -26,9 +26,12 @@ export interface ListingContextType{
 
 export type ListingCardProps = Partial<Listing>
 
-export interface DeleteListingModalProps {
+export interface DeleteListingsModalProps {
     listingId: string
-    showToast: (msg: string, state: "error" | "success") => void
+    showToast: (message: string, type: 'success' | 'error') => void
+    open: boolean
+    onOpenChange: (open: boolean) => void
+    onDeleted?: (listingId: string) => void
 }
 
 export interface TopLocationsType {
