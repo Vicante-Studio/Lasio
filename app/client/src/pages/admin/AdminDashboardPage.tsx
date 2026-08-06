@@ -1,11 +1,13 @@
-import { selectCurrentUser } from '@/selectors/authSelectors'
+
 import { useSelector } from 'react-redux'
 import SideBar from '@/features/dashboard/Sidebar'
 import { sideBarContent } from '@/data/sideBarData'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 import StatsSection from '@/features/dashboard/stats/StatsSection'
+import TableSection from '@/features/dashboard/table/TableSection'
+import { selectCurrentUser } from '@/store/selectors/authSelectors'
 
-const AdminPage = () => {
+const AdminDashboardPage = () => {
     const user = useSelector(selectCurrentUser)
     const firstName: string = user?.full_name.split(' ')[0] ?? 'User'
 
@@ -21,8 +23,8 @@ const AdminPage = () => {
                 </div>
                 <nav className="space-y-2">
                     {
-                        sideBarContent.map(content => (
-                            <SideBar title={content.title} description={content.description} Icon={content.Icon}/>
+                        sideBarContent.map((content, index) => (
+                            <SideBar key={index} title={content.title} description={content.description} Icon={content.Icon} link={content.link}/>
                         ))
                     }
                 </nav>
@@ -70,62 +72,11 @@ const AdminPage = () => {
                 <StatsSection />
 
                 {/* Listings Table */}
-                <section className='rounded-xl border border-gray-200 bg-white p-6'>
-                <div className='flex items-center justify-between mb-6'>
-                    <h3 className='text-lg font-semibold text-gray-900'>
-                    Recent Property Listings
-                    </h3>
-
-                    <button className='text-sm font-medium text-blue-600 hover:text-blue-700'>
-                    View all
-                    </button>
-                </div>
-
-                <div className='overflow-x-auto'>
-                    <table className='w-full text-sm'>
-                    <thead>
-                        <tr className='border-b border-gray-200 text-left text-gray-500'>
-                        <th className='pb-3 font-medium'>Property</th>
-                        <th className='pb-3 font-medium'>Location</th>
-                        <th className='pb-3 font-medium'>Price</th>
-                        <th className='pb-3 font-medium'>Status</th>
-                        <th className='pb-3 font-medium'>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr className='border-b border-gray-100'>
-                        <td className='py-4 font-medium text-gray-900'>
-                            Luxury Apartment
-                        </td>
-                        <td className='py-4 text-gray-600'>
-                            Port Harcourt
-                        </td>
-                        <td className='py-4 text-gray-900'>
-                            ₦120,000,000
-                        </td>
-                        <td className='py-4'>
-                            <span className='rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700'>
-                            Available
-                            </span>
-                        </td>
-                        <td className='py-4'>
-                            <button className='text-blue-600 hover:text-blue-700 mr-3'>
-                            Edit
-                            </button>
-                            <button className='text-red-600 hover:text-red-700'>
-                            Delete
-                            </button>
-                        </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-                </section>
+                <TableSection />
 
             </section>
         </main>
     )
 }
 
-export default AdminPage
+export default AdminDashboardPage

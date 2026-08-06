@@ -6,24 +6,17 @@ export interface Listing{
     location: string;
     city: string;
     state: string;
-
     property_type: string;
-
     bedrooms: number;
     bathrooms: number;
     sizeSqft: number;
-
     images: string[];
-
     description: string;
-    
     features: string[];
-    
-    
-    
     status: "For Sale" | "For Rent";
-    
+    agent_id: string;
     createdAt: string;
+    is_available: boolean
 }
 
 export interface ListingContextType{
@@ -33,9 +26,12 @@ export interface ListingContextType{
 
 export type ListingCardProps = Partial<Listing>
 
-export interface DeleteListingModalProps {
+export interface DeleteListingsModalProps {
     listingId: string
-    showToast: (msg: string, state: "error" | "success") => void
+    showToast: (message: string, type: 'success' | 'error') => void
+    open: boolean
+    onOpenChange: (open: boolean) => void
+    onDeleted?: (listingId: string) => void
 }
 
 export interface TopLocationsType {

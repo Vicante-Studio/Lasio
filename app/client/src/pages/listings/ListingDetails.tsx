@@ -1,13 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { Listing } from '@/types/Listing'
 import { formatPrice } from '@/utils/formatPrice'
-import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
+import { MapPin, Bed, Bath, Maximize, Home, ArrowLeft, ArrowRight, Pencil, Trash2Icon } from 'lucide-react'
 import IconSet from '@/components/ui/IconSet'
 import { Button } from '@/components/ui/buttons/button'
 import DeleteListingsModal from '@/features/listings/components/DeleteListingsModal'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { selectIsAdmin } from '@/store/selectors/authSelectors'
+import { selectIsAdmin, selectIsAgent } from '@/store/selectors/authSelectors'
 import { useToast } from '@/hooks/useToast'
 import CrossfadeImage from '@/features/listings/components/CrossfadeImage'
 import ListingDetailsLoadingState from '@/components/ui/loading-states/ListingDetailsLoadingState'
@@ -15,6 +15,9 @@ import api from '@/config/api/axiosInstance'
 
 const ListingDetails = () => {
     const userIsAdmin = useSelector(selectIsAdmin)
+    const userIsAgent = useSelector(selectIsAgent)
+
+    const [listingIsOwned, setListingIsOwned] = useState<boolean>(false)
 
     const navigate = useNavigate();
     const { listingId } = useParams(); //unique Id for listing
@@ -22,6 +25,7 @@ const ListingDetails = () => {
     const [listing, setListing] = useState<Listing>()
     const [loading, setLoading] = useState<boolean>(true)
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
     const { showToast, ToastComponent } = useToast()
 
@@ -31,10 +35,8 @@ const ListingDetails = () => {
             try {
                 const { data } = await api.get(`/api/listings/${listingId}`);
 
-                setListing(data)
-            
+                setListing(data.data)
             } catch (error) {
-                console.log(error)
                 navigate('/listings') // redirect if listing not found
             } finally {
                 setLoading(false)
@@ -43,6 +45,22 @@ const ListingDetails = () => {
 
         fetchListing();
     }, [listingId, navigate])
+
+    useEffect(() => {
+        const checkOwnership = async () => {
+            const token = localStorage.getItem('token')
+            try {
+                const { data } = await api.get(`/api/listings/verifyOwnership/${listingId}`, { headers: { Authorization: `Bearer ${token}` } });
+
+                setListingIsOwned(data.ownershipVerified)
+            } catch (error) {
+                console.log(error)
+                return null
+            }
+        }
+
+        checkOwnership()
+    }, [])
 
     // Ensure page is at top on mount to avoid showing footer-only state
     useEffect(() => {
@@ -205,14 +223,26 @@ const ListingDetails = () => {
                                         ))}
                                     </div>
 
-                                    {userIsAdmin ? (
+                                    {userIsAdmin || ( userIsAgent && listingIsOwned ) ? (
                                         <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                                             <Button className='w-full sm:w-auto' variant='secondary' type='button' onClick={() => navigate(`/listings/${listingId}/edit`)}>
                                                 Edit
                                                 <Pencil color='black' size={18} />
                                             </Button>
 
-                                            {listingId && <DeleteListingsModal listingId={listingId} showToast={showToast} />}
+                                            <Button className='w-full sm:w-auto' variant='destructive' type='button' onClick={() => setDeleteModalOpen(true)}>
+                                                Delete
+                                                <Trash2Icon size={18} color='rgba(255,0,0,0.6)' />
+                                            </Button>
+
+                                            {listingId && (
+                                                <DeleteListingsModal
+                                                    listingId={listingId}
+                                                    showToast={showToast}
+                                                    open={deleteModalOpen}
+                                                    onOpenChange={setDeleteModalOpen}
+                                                />
+                                            )}
                                         </div>
                                     ) : null}
                                 </div>

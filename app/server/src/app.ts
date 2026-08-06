@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import listingRoutes from './routes/listing.routes.js'
+import listingRoutes from './routes/listing.route.js'
 import authRoutes from './routes/auth.route.js'
 import uploadRoutes from './routes/upload.route.js'
+import dashboardRoutes from './routes/dashboard.route.js'
 import { errorHandler } from './middleware/error.middleware.js'
 
 const app = express()
@@ -39,6 +40,7 @@ app.use(express.json())
 app.use('/api/listings', listingRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/dashboard', dashboardRoutes)
 app.use(errorHandler)
 
 export default app;

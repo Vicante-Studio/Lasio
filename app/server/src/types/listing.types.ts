@@ -6,26 +6,17 @@ export interface Listing{
     location: string;
     city: string;
     state: string;
-
     property_type: string;
-
     bedrooms: number;
     bathrooms: number;
     sizeSqft: number;
-
     images: string[];
-
     description: string;
-    
-    features: string[];
-    
-    
-    
+    features: string[];  
     status: "For Sale" | "For Rent";
-    
     createdAt: string;
-
-    agent_id: string
+    agent_id: string;
+    is_available: boolean
 }
 
 export interface listingFilters {

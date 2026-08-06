@@ -17,7 +17,7 @@ import EditListing from '@/features/listings/components/EditListing'
 import App from '@/app/App'
 import SignUpPage from '@/pages/auth/signUpPage'
 import LoginPage from '@/pages/auth/LoginPage'
-import AdminPage from './pages/admin/AdminPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 
 const router = createBrowserRouter([
   {
@@ -29,11 +29,11 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <App />},
-      { index: false, path: '/listings', element: <ListingsPage />},
-      { index: false, path: '/home', element: <HomePage />},
-      { index: false, path: '/about', element: <AboutPage />},
-      { index: false, path: '/contact', element: <ContactPage />},
-      { index: false, path: '/createListing', element: <CreateListingPage />},
+      { path: '/listings', element: <ListingsPage />},
+      { path: '/home', element: <HomePage />},
+      { path: '/about', element: <AboutPage />},
+      { path: '/contact', element: <ContactPage />},
+      { path: '/createListing', element: <CreateListingPage />},
     ],
     errorElement: <NotFound />
   },
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
     path: 'listings/:listingId/edit', element: <EditListing />
   },
 
-  // Admin Page
-  { index: false, path: '/admin', element: <AdminPage />},
+  // Admin Pages
+  { path: '/admin', element: <AdminDashboardPage />},
 
 ])
 
