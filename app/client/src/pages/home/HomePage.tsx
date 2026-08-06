@@ -87,7 +87,7 @@ const HomePage = () => {
 
                         6. After the grid: If there are listings available → show a link to view all listings
                     */}
-                    <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full max-w-7xl mx-auto px-6 place-items-center py-16'>
+                    <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full max-w-7xl mx-auto px-6 place-items-start py-16'>
                     {isLoading ? (
                         <ListingLoadingState />
                     ) : error ? (
