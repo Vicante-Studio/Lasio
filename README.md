@@ -17,34 +17,34 @@ The goal is to simplify property management for agencies while making it easier 
 
 ### Homepage
 
-![Lasio Homepage](docs/HomePageHero.png)
+![Lasio Homepage](docs/images/HomePageHero.png)
 
 ### Property Listings
 
-![Property Listings](docs/Listings.png)
+![Property Listings](docs/images/Listings.png)
 
 ### Property Details
 
-![Property Details](docs/ListingDetails2.png)
-![Property Details](docs/ListingDetails1.png)
-![Property Details](docs/ListingDetails3.png)
+![Property Details](docs/images/ListingDetails2.png)
+![Property Details](docs/images/ListingDetails1.png)
+![Property Details](docs/images/ListingDetails3.png)
 
 ### Top Locations
 
-![Top Locations](docs/TopLocations.png)
+![Top Locations](docs/images/TopLocations.png)
 
 ### Agent Card
 
-![Agent Card](docs/AgentCard.png)
+![Agent Card](docs/images/AgentCard.png)
 
 ### Authentication
 
-![Agent Sign Up](docs/SignUp.png)
-![Agent Log In](docs/LogIn.png)
+![Agent Sign Up](docs/images/SignUp.png)
+![Agent Log In](docs/images/LogIn.png)
 
 ### Search & Filter
 
-![Search & Filter](docs/SearchFilter.png)
+![Search & Filter](docs/images/SearchFilter.png)
 
 ---
 
