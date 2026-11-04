@@ -5,7 +5,6 @@ export const handleRegisterUser = async (req: Request, res: Response) => {
   try {
     
     const userData = req.body
-    console.log(userData)
 
     const user = await authService.registerUser(userData)
 
