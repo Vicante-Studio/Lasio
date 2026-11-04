@@ -16,7 +16,9 @@ export const registerUser = async (userData: UserType) => {
 
     if(error) throw new Error(error.message)
 
-    return data
+    const { password_hash, ...safeUserData } = user
+
+    return safeUserData
 }
 
 export const loginUser = async (loginData: LoginType) => {
@@ -36,10 +38,12 @@ export const loginUser = async (loginData: LoginType) => {
   const token = jwt.sign(
     {id: user.id, email: user.email, role: user.role},
     JWT_SECRET,
-    {'expiresIn': '7d'}
+    {'expiresIn': '1d'}
   )
 
-  return { user, token }
+  const { password_hash, ...safeUserData } = user
+
+  return { safeUserData, token }
 }
 
 export const getProfile = async (requestedId: string, userId: string) => {
