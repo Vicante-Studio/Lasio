@@ -161,22 +161,35 @@ Protected backend operations use middleware to enforce these checks.
 The project contains separate frontend and backend applications.
 
 ```text
+## Project Structure
 Lasio/
 ├── app/
-│   └── server/
-│       ├── routes/
-│       ├── controllers/
-│       ├── services/
-│       ├── middleware/
-│       └── ...
+│   ├── client/                  # React frontend
+│   │   └── src/
+│   │       ├── components/      # Reusable UI components
+│   │       ├── config/          # Frontend configuration
+│   │       ├── hooks/           # Custom React hooks
+│   │       ├── layouts/         # Application layouts
+│   │       ├── pages/           # Application pages
+│   │       ├── sections/        # Homepage sections
+│   │       ├── selectors/       # Redux selectors
+│   │       ├── state/           # Redux store and slices
+│   │       ├── types/           # TypeScript types
+│   │       └── utils/           # Utility functions
+│   │
+│   └── server/                  # Node.js / Express backend
+│       └── src/
+│           ├── config/          # Supabase configuration
+│           ├── controllers/     # Request handlers
+│           ├── middleware/      # Authentication and authorization
+│           ├── routes/          # API routes
+│           ├── services/        # Business logic and database operations
+│           ├── types/           # Backend TypeScript types
+│           ├── utils/           # Helper functions
+│           └── __tests__/       # Backend tests
 │
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── ...
-│   └── ...
-│
-├── package.json
+├── docs/                        # Project documentation
+├── package.json                 # Root project configuration
 └── README.md
 ```
 
