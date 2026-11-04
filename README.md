@@ -17,23 +17,34 @@ The goal is to simplify property management for agencies while making it easier 
 
 ### Homepage
 
-[INSERT HOMEPAGE SCREENSHOT HERE]
+![Lasio Homepage](docs/HomePageHero.png)
 
 ### Property Listings
 
-[INSERT PROPERTY LISTINGS SCREENSHOT HERE]
+![Property Listings](docs/Listings.png)
 
 ### Property Details
 
-[INSERT PROPERTY DETAILS SCREENSHOT HERE]
+![Property Details](docs/ListingDetails2.png)
+![Property Details](docs/ListingDetails1.png)
+![Property Details](docs/ListingDetails3.png)
 
-### Agent Dashboard
+### Top Locations
 
-[INSERT AGENT DASHBOARD SCREENSHOT HERE]
+![Top Locations](docs/TopLocations.png)
 
-### Listing Management
+### Agent Card
 
-[INSERT CREATE / EDIT LISTING SCREENSHOTS HERE]
+![Agent Card](docs/AgentCard.png)
+
+### Authentication
+
+![Agent Sign Up](docs/SignUp.png)
+![Agent Log In](docs/LogIn.png)
+
+### Search & Filter
+
+![Search & Filter](docs/SearchFilter.png)
 
 ---
 
