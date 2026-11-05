@@ -9,7 +9,7 @@ The goal is to simplify property management for agencies while making it easier 
 **Live Application:** [https://lasio.vercel.app/](https://lasio.vercel.app/)
 
 **Demo Video:**  
-[INSERT DEMO VIDEO LINK HERE]
+[![Watch the demo](https://img.youtube.com/vi/uly0jAzp8SI/maxresdefault.jpg)](https://www.youtube.com/watch?v=uly0jAzp8SI)
 
 ## Screenshots
 
